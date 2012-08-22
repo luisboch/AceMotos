@@ -1,0 +1,124 @@
+/*center page*/
+body{width: 1024px;margin:auto;}
+
+/* AJAX STATUS */
+#ajax-status{position:absolute;padding:15px;border:1px solid #FDA;background: #FEB;bottom: 0px;left:0px;display: none;}
+
+/*first login box*/
+#loginBox {border: 1px solid #AAA;padding: 10px;display: block;width: 300px;margin: 150px auto;border-radius: 10px;box-shadow: 5px 5px 5px #666;color: #555;}
+#loginBox table tr:last-child td:last-child{text-align: right;}
+#loginBox table input {width: 200px;}
+/*changin size of items of primefaces*/
+.ui-widget,.ui-widget .ui-widget {
+    font-size: 11px !important;
+
+} 
+.labelForm{
+    font-weight: bold;
+    font-size: 11px ;
+    text-align:right;
+    width: 40%;
+    vertical-align:top;
+}
+.itemForm{
+    text-align: left;
+    width: 60%;
+    
+}
+.formG{ width: 200px; }
+.formP{ width: 40px; }
+.formM{ width: 80px; }
+.alingRight{
+    text-align: right;
+}
+ul#menu{
+    list-style: none;
+    margin:0px;
+    text-align: center;
+    padding: 0px;
+    color: #FFF;
+    font-size: 14px;
+    border:2px solid #1482B4;
+}
+
+ul#menu li{
+    position: relative;
+    background:#1482B4;
+    padding: 3px;
+    cursor: default;
+}
+
+ul#menu li:hover{
+    background: #91D2EF;
+    color:#1482B4;
+}
+ul#menu li:hover ul{
+    display: block;
+    opacity: .6;
+}
+
+ul#menu li ul:hover{
+    opacity: 1;
+}
+ul#menu ul{
+    display: none;
+    list-style: none;
+    position: absolute;
+    width: 150px;
+    padding: 0px;
+    margin: 0px;
+    left:150px;
+    text-align: left;
+    top:0px;
+    border:2px solid #1482B4;
+    z-index: 99;
+}
+ul#menu ul li{
+    padding-left: 10px;
+}
+
+ul#menu a{
+    color: #fff;
+    text-decoration: none;
+}
+ul#menu a:hover{
+    color: #1482B4;
+}
+.ui-confirm-dialog.ui-dialog .ui-dialog-buttonpane{
+    text-align:center;
+}
+.error-helper{
+    color: #CD0A0A;
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+#footer {
+    text-align: center;
+    height: 20px;
+}
+#top-bar{
+    padding: 3px;
+}
+
+#nav-bar{
+    width: 81%;
+    float:right;
+    padding: 2px 10px;
+    margin: 3px 0px;
+}
+
+#nav-bar .nav-link:hover{
+    cursor: default;
+}
+#nav-bar .nav-linkge a:hover{
+    color:#49c;
+    text-decoration:underline;
+}
+#nav-bar .nav-link, #nav-bar a.nav-link   {
+    font-weight: normal;
+}
+#modal{
+    position: fixed;
+    visibility:hidden;
+}

@@ -1,0 +1,1 @@
+create table fotos_noticia(id integer auto_increment primary key, link varchar(255), tamanho integer(2), noticia_id integer (15), constraint fk_noticia_id foreign key(noticia_id) references notices(id));

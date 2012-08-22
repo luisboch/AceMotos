@@ -1,0 +1,232 @@
+form {
+    width: 100%;
+    padding-bottom: 10px;
+}
+form table {
+    width:100%;
+}
+.txt_form{
+    float:right;
+}
+form .linhaform-right, form .txt_form {
+    color: #333333;
+    text-align: right;
+}
+form input:focus, form textarea:focus, form select:focus {
+    border: 1px solid #FFD700;
+
+}
+form input, form textarea, form select {
+    border: 1px solid #999999;
+    color: #111;
+}
+form .textareaG {
+    width: 400px;
+    height: 250px;
+}
+form .textareaM {
+    width: 250px;
+    height: 120px;
+}
+form .textareaP {
+    width: 120px;
+    height: 50px;
+}
+form tr td {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+form tr.linha_result td{
+
+    border:2px solid #FFF;
+    text-align: center;
+}
+
+form .desc_items td{
+    border:2px solid #FFF;
+    padding:5px;
+    background: #999;
+    font-weight: bold;
+    text-align: center;
+}
+form .titulo div,form .desc{
+    padding: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: left;
+    background: #ddd;
+    border: 1px solid #ccc;
+    margin:auto;
+
+    width:90%;
+}
+form .titulo td {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-transform: uppercase;
+    color: #333;
+    text-shadow:  0.1em 0.1em #CCC;
+}
+form .desc td{
+    padding:15px !important;
+}
+.titulo div li{
+    padding:10px;
+    margin-left:20px;
+}
+form .inputG {
+    width: 300px;
+}
+form .inputM {
+    width: 150px;
+}
+form .inputP {
+    width: 50px;
+}
+.button{
+    margin: 3px;
+    color:#333333;
+    padding: 5px 15px;
+    font-size: 14px;
+    background-color: #FFF;
+    background: #FFF;
+    /* Mozilla: */
+    background: -moz-linear-gradient(top, #FFF, #DDD);
+    /* Chrome, Safari:*/
+    background: -webkit-gradient(linear,
+        left top, left bottom, from(#FFF), to(#DDD));
+    /* MSIE */
+    filter: progid:DXImageTransform.Microsoft.Gradient(
+        StartColorStr='#FFF', EndColorStr='#DDD', GradientType=0);
+    border-radius:3px;
+    cursor: pointer;
+}
+.button:focus {
+    border: 1px solid #999999;
+}
+.button:hover {
+    box-shadow: 0px 0px 5px #BBB;
+    border: 1px solid #999999;
+}
+.button:active {
+    background: #EEE;
+    /* Mozilla: */
+    background: -moz-linear-gradient(top, #DDD, #FFF);
+    /* Chrome, Safari:*/
+    background: -webkit-gradient(linear,
+        left top, left bottom, from(#DDD), to(#FFF));
+    /* MSIE */
+    filter: progid:DXImageTransform.Microsoft.Gradient(
+        StartColorStr='#DDD', EndColorStr='#FFF', GradientType=0);
+
+}
+a.button {
+    padding: 5px 15px;
+    font-size: 14px;
+    font-weight: normal;
+    margin: 3px;
+    display: inline-block;
+    border: 1px solid #999999;
+    text-decoration: none;
+}
+
+
+.dataTable{
+    width: 98%;
+    margin: 1%;
+
+}
+.ui-panel{
+    margin: 5px;
+    padding-top: 5px;
+}
+.row_data{
+    text-align: center;
+    cursor: default;
+}
+.row_data:hover{
+    background: #F4F7F9;
+}
+.row_data.row_data-hover{
+    background: #ffc;
+}
+.row_data td:last-child{
+    text-align: right;
+}
+
+.formTable{
+    border-collapse: collapse;
+    width: 90%;
+    margin:10px 4%;
+}
+.formTable td{
+    padding: 5px;
+}
+.formTable tbody td:first-child{
+    text-align: right;
+    vertical-align: top;
+}
+.formTable tbody td:last-child{
+    text-align: left;
+}
+
+.ui-widget-header{
+    padding: 7px 10px;
+}
+tr.ui-widget-content{
+    border-bottom: none;
+    border-top: none;
+
+}
+
+tr.ui-widget-content:last-child{
+    border-bottom:1px solid #DDD;
+}
+
+.ui-inputfield {
+    font-weight: normal;
+    margin: 0;
+    outline: medium none;
+    padding: 4px;
+}
+
+.ui-image-admin{
+    position: relative;
+    float: left;
+}
+.ui-image-admin a{
+    width: 22px;
+    height: 22px;
+    top:0px;
+    right: 0px;
+    display: none;
+    background: url(images/icons/expand.png);
+    position: absolute;
+}
+
+.ui-image-admin:hover a{display: block}
+.close-reveal-modal{
+    background: no-repeat url(images/icons/close.png)  center center;
+    width:22px;
+    height: 22px;
+    padding: 2px;
+    top: 2px;
+    right: 2px;
+    position: absolute;
+    cursor: pointer;
+    opacity: .5;
+}
+.close-reveal-modal:hover{
+    opacity: 1;
+    background:no-repeat url(images/icons/close.png) center center;
+}
+
+.pagination{
+    padding: 5px;
+    margin:0px;
+    text-align: left;
+}
+.pagination span.desc{
+    float: right;
+}
