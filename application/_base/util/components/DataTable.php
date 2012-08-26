@@ -347,10 +347,22 @@ class DataTable {
             return '<a href="' . $path . '/' . $value . '"><img src="' . URL_IMAGES . $img->getImage(0)->getLink() . '" /></a>';
         }
         if ($forceShowLink) {
-            return '<a href="' . $path . '/' . $value . '"><img src="' . URL_IMAGES . 'withoutimage50.png" /></a>';
+            return '<a href="' . $path . '/' . $value . '"><img src="' . URL_IMAGES . 'withoutimage0.png" /></a>';
         }
         return '';
     }
+    
+    public function linkedFirstImage($img = array(), $path = NULL, $value = NULL, $forceShowLink = TRUE) {
+        if ($img != null && count($img) != 0) {
+            $img = $img[0];
+            return '<a href="' . $path . '/' . $value . '"><img src="' . URL_IMAGES . $img->getImage(0)->getLink() . '" /></a>';
+        }
+        if ($forceShowLink) {
+            return '<a href="' . $path . '/' . $value . '"><img src="' . URL_IMAGES . 'withoutimage0.png" /></a>';
+        }
+        return '';
+    }
+    
 
 }
 

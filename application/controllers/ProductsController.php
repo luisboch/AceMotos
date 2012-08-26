@@ -55,6 +55,7 @@ class ProductsController extends LC_Controller {
         $dat->addDisplayField('Código', 'id', DataTable::STRING, NULL, '5%');
         $dat->addDisplayField('Nome', 'name', DataTable::STRING, NULL, '80%');
         $dat->addDisplayField('Valor Venda', 'sellValue', DataTable::CURRENCY, NULL, '5%');
+        $dat->addDisplayField('Imagem', 'linkedFirstImage(images,\\' . site_url(__CLASS__.'/images/') . '\, id, true)', DataTable::FN);
         $this->adminView('products_results.php', $a);
     }
 
@@ -109,6 +110,46 @@ class ProductsController extends LC_Controller {
             $arr['error'] = &$error;
             $this->adminView('products_edit.php', $arr);
         }
+    }
+    
+    public function images() {
+        $this->load->helper('simpleupload');
+        $this->load->helper('adminimage');
+        $this->addWay(__CLASS__.'/images', 'imagens');
+
+        $arr['product'] = $this->service->getById($this->uri->segment(3));
+        $arr['librarie'] = 'products';
+        $arr['targetupload'] = site_url(__CLASS__.'/upload');
+        $arr['targetsave'] = site_url(__CLASS__.'/saveUpload/' . $arr['product']->getId());
+        $this->adminView('multiple_image_upload.php', $arr);
+    }
+
+    public function saveUpload() {
+        $this->load->helper('simpleupload');
+        $this->load->helper('adminimage');
+
+        $notice = $this->service->getById($this->uri->segment(3));
+        if ($_POST['n_image'] != '') {
+            $image = $_POST['n_image'];
+            $webImage = new WebImage($image);
+            $oldImage = $notice->getWebImage();
+            $notice->setWebImage($webImage);
+
+            try {
+                $this->service->update($notice);
+                if ($oldImage != null) {
+                    $oldImage->delete();
+                }
+            } catch (Exception $e) {
+                die('Erro ao salvar a imagem');
+            }
+        }
+        $arr['librarie'] = 'notices';
+        $arr['targetupload'] = site_url('Notices/upload');
+        $arr['notice'] = &$notice;
+
+        $arr['targetsave'] = site_url('Notices/saveUpload/' . $arr['notice']->getId());
+        $this->adminView('single_image_upload.php', $arr);
     }
 
 }

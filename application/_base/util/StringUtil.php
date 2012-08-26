@@ -25,6 +25,10 @@ class StringUtil {
     public static function toFloat($value){
         return str_replace(',', '.',str_replace('.', '', $value));
     }
+    
+    public static function currency($value){
+        return number_format($value, 2, ',', '.');
+    }
 
 }
 

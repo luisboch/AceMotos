@@ -12,7 +12,7 @@ if (!function_exists('adminimage')) {
             return '<div><div class="ui-image-admin"><a href="#" rel="'.URL_IMAGES.$img->getImage(5)->getLink().'" ></a><img src="'.URL_IMAGES.$img->getImage($size)->getLink().'" /><span style="clear:both;"></span></div></div>';
         }
         else{
-            return '<div><div class="ui-image-admin"><img src="'.URL_IMAGES.'withoutimage250.png" /><span style="clear:both;"></span></div></div>';
+            return '<div><div class="ui-image-admin"><img src="'.URL_IMAGES.'withoutimage'.$size.'.png" /><span style="clear:both;"></span></div></div>';
         }
     }
 

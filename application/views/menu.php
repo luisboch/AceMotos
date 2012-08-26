@@ -17,13 +17,6 @@
                 </li>
             </ul>
         </li>
-        <li>Conteúdo
-            <ul>
-                <li>
-                    <a href="<?= site_url('Notices'); ?>">Noticias</a>
-                </li>
-            </ul>
-        </li>
     </ul>
 </div>
 <div id="nav-bar" class="ui-state-default"><?=$way?></div>

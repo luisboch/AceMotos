@@ -33,6 +33,12 @@ class Product implements Entity {
     
     private $sellValue;
     
+    /**
+     *
+     * @var List<WebImage>
+     */
+    private $images;
+    
     
     public function getSellValue() {
         return $this->sellValue;
@@ -42,10 +48,8 @@ class Product implements Entity {
         $this->sellValue = $sellValue;
     }
 
-        private $images = array();
-
     function __construct() {
-        
+        $this->images = array();
     }
 
     /**
@@ -95,29 +99,30 @@ class Product implements Entity {
     public function setDescription($description) {
         $this->description = $description;
     }
-
+    
     /**
      * 
-     * @return array<ProductImage>
+     * @return List<WebImage>
      */
-    public function &getImages() {
+    public function getImages() {
         return $this->images;
     }
 
     /**
      * 
-     * @param array<ProductImage> $images
+     * @param List<WebImage> $images
      */
-    public function setImages(&$images) {
+    public function setImages($images) {
         $this->images = $images;
     }
-
-    public function addImage(Image $img) {
-        if ($img->getProduct() == null ||
-                $img->getProduct()->getId() != $this->getId()) {
-            $img->setProduct($prduct);
+    public function addImage(WebImage $img, $order = NULL){
+        if($order != NULL){
+            $this->images[$order] = $img;
+        } else {
+            $this->images[] = $img;
         }
     }
+
 
 }
 

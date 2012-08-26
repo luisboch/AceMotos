@@ -80,7 +80,7 @@ $(document).ready(function(){
 //        container: 'container',
 //        max_file_size : '10mb',
 //        url : '',
-//        flash_swf_url : '/PHPFarm/resources/lib/plupload/js/plupload.flash.swf',
+//        flash_swf_url : '/acemotos/resources/lib/plupload/js/plupload.flash.swf',
 //        filters : [
 //        {
 //            title : "Image files", 
