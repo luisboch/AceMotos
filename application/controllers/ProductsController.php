@@ -6,6 +6,7 @@
  * @since Aug 4, 2012
  */
 class ProductsController extends LC_Controller {
+    
 
     
     function __construct() {
