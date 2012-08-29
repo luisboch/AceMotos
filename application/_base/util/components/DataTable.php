@@ -352,9 +352,14 @@ class DataTable {
         return '';
     }
     
-    public function linkedFirstImage($img = array(), $path = NULL, $value = NULL, $forceShowLink = TRUE) {
-        if ($img != null && count($img) != 0) {
-            $img = $img[0];
+    public function linkedFirstImage($images = array(), $path = NULL, $value = NULL, $forceShowLink = TRUE) {
+        if ($images != null && count($images) != 0) {
+            
+            foreach ($images as $image){
+                if($image != ''){
+                    $img = $image;
+                }
+            }
             return '<a href="' . $path . '/' . $value . '"><img src="' . URL_IMAGES . $img->getImage(0)->getLink() . '" /></a>';
         }
         if ($forceShowLink) {

@@ -39,6 +39,53 @@ class ProductService extends BasicService {
         return $this->dao->getImages($product, $limit, $size);
     }
 
+    /**
+     * 
+     * @param Product $product
+     * @param type $images
+     * @return Product
+     */
+    public function &saveImages(Product &$product, &$images) {
+        $this->dao->begin();
+
+        foreach ($product->getImages() as $k => $image) {
+            if (array_key_exists($k, $images)) {
+                $image->delete();
+            } else {
+                $images[$k] = $image;
+            }
+        }
+
+        $this->dao->deleteAllImages($product, false);
+
+        $product->setImages($images);
+
+        $this->dao->update($product);
+
+        $this->dao->commit();
+        return $product;
+    }
+
+    /**
+     * 
+     * @param Product $product
+     * @param integer $index
+     * @return Product
+     */
+    public function &removeImage(Product &$product, $index) {
+        $images = &$product->getImages();
+
+        $webImage = &$images[$index];
+
+        $webImage->delete();
+
+        unset($images[$index]);
+        $this->dao->deleteAllImages($product, false);
+        $product->setImages($images);
+        $this->update($product);
+        return $product;
+    }
+
 }
 
 ?>

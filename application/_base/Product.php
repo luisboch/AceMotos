@@ -1,5 +1,5 @@
 <?php
-
+import('WebImage.php');
 /**
  * Description of Product
  *

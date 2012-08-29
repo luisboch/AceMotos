@@ -13,6 +13,7 @@ class WebImage {
 
     private $id;
     private $imgs = array();
+    private $legend;
     
     function __construct($param = array()) {
         foreach($param as $k => $v){
@@ -59,24 +60,15 @@ class WebImage {
         }
     }
 
-//    /**
-//     * 
-//     * @return Product
-//     */
-//    public function getProduct() {
-//        return $this->product;
-//    }
-//
-//    /**
-//     * @param Product $prduct
-//     */
-//    public function setProduct(Product &$product) {
-//        if (array_search($this, $product->getImages()) === FALSE) {
-//            $arr = $product->getImages();
-//            $arr[] = $this;
-//        }
-//        $this->product = $product;
-//    }
+
+    public function getLegend() {
+        return $this->legend;
+    }
+
+    public function setLegend($legend) {
+        $this->legend = $legend;
+    }
+
 
 }
 

@@ -39,7 +39,7 @@ class Upload {
      * @return File the uploaded file
      */
     public function upload($str = NULL) {
-        if($str === NULL){
+        if ($str === NULL) {
             $str = 'qqfile';
         }
         if ($str == 'qqfile') {
@@ -48,31 +48,49 @@ class Upload {
             }
             $uploader = new qqFileUploader(array(), 10 * 1024 * 1024);
             $ob = $uploader->handleUpload($this->path);
-            
+
             exit;
             return $ob;
         } else {
             $file = $_FILES[$str];
-            if ($file == null || $file['error'] != '') {
-                throw new FileUploadException("Houve um erro ao fazer o upload!");
+            if (!is_array($file['name'])) {
+                return array($this->_upload($file));
+            } else {
+                $files = array();
+                for ($i = 0; $i < count($file['name']); $i++) {
+                    if ($file['name'][$i] != '') {
+                        $f = array();
+                        foreach ($file as $k => $v) {
+                            $f[$k] = $file[$k][$i];
+                        }
+                        $files[$i] = $this->_upload($f);
+                    }
+                }
+                return $files;
             }
-            $time = time();
-            $i = 0;
-            $ext =$this->getExtension($file['name']);
-            $destination = $this->path . $file['name'] . $time . 't_' . $i . $ext;
-            while (file_exists($destination)) {
-                $i++;
-                $destination = $this->path . $file['name'] . $time . 't_' . $i . $ext;
-            }
-            move_uploaded_file($file['tmp_name'], $destination);
-
-            return new File($destination);
         }
     }
 
     private function getExtension($string) {
         $exp = explode('.', $string);
         return '.' . $exp[count($exp) - 1];
+    }
+
+    private function _upload($file) {
+        if ($file == null || $file['error'] != '') {
+            throw new FileUploadException("Houve um erro ao fazer o upload!");
+        }
+        $time = time();
+        $i = 0;
+        $ext = $this->getExtension($file['name']);
+        $destination = $this->path . $file['name'] . $time . 't_' . $i . $ext;
+        while (file_exists($destination)) {
+            $i++;
+            $destination = $this->path . $file['name'] . $time . 't_' . $i . $ext;
+        }
+        move_uploaded_file($file['tmp_name'], $destination);
+
+        return new File($destination);
     }
 
 }

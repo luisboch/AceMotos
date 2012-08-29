@@ -13,7 +13,7 @@ import('lib/image/ImageManipulation.php');
  * @author luis
  * @since Jul 28, 2012
  */
-class ImageUpload{
+class ImageUpload {
 
     private $path;
 
@@ -43,7 +43,9 @@ class ImageUpload{
 
         $this->imageManipulation = new ImageManipulation();
         $this->path = BASE_IMAGES . $librarie;
+        @mkdir($this->path);
     }
+
     /**
      * 
      * @param type $fileName
@@ -51,34 +53,40 @@ class ImageUpload{
      */
     public function upload($fileName = NULL) {
 
-        $file = $this->upload->upload($fileName);
-        if ($file->isImage()) {
-            $file->moveTo($this->path);
-            $img = new Image($file);
-            
-            $imgs[5]=$this->imageManipulation
-                    ->setImage($img)->resize(array('width' => 1024))
-                    ->save(array('copy' => true));
-            $imgs[4]=$this->imageManipulation->resize(array('width' => 800))
-                    ->save(array('copy' => true));
-            $imgs[3]=$this->imageManipulation->resize(array('width' => 500))
-                    ->save(array('copy' => true));
-            $imgs[2]=$this->imageManipulation->resize(array('width' => 250))
-                    ->save(array('copy' => true));
-            $imgs[1]=$this->imageManipulation->resize(array('width' => 100))
-                    ->save(array('copy' => true));
-            $imgs[0]=$this->imageManipulation->resize(array('width' => 50))
-                    ->save(array('copy' => true));
-            $webImage = new WebImage();
-            
-            foreach($imgs as $k => $i){
-                $webImage->setImage($i, $k);
-            }
-            
-            $file->delete();
-            return $webImage;
-
+        $files = $this->upload->upload($fileName);
+        if (!is_array($files)) {
+            $files[0] = $files;
         }
+        $images = array();
+        foreach ($files as $key => $file) {
+            if ($file->isImage()) {
+                $file->moveTo($this->path);
+                $img = new Image($file);
+
+                $imgs[5] = $this->imageManipulation
+                        ->setImage($img)->resize(array('width' => 1024))
+                        ->save(array('copy' => true));
+                $imgs[4] = $this->imageManipulation->resize(array('width' => 800))
+                        ->save(array('copy' => true));
+                $imgs[3] = $this->imageManipulation->resize(array('width' => 500))
+                        ->save(array('copy' => true));
+                $imgs[2] = $this->imageManipulation->resize(array('width' => 250))
+                        ->save(array('copy' => true));
+                $imgs[1] = $this->imageManipulation->resize(array('width' => 100))
+                        ->save(array('copy' => true));
+                $imgs[0] = $this->imageManipulation->resize(array('width' => 50))
+                        ->save(array('copy' => true));
+                $webImage = new WebImage();
+
+                foreach ($imgs as $k => $i) {
+                    $webImage->setImage($i, $k);
+                }
+
+                $file->delete();
+                $images[$key] = $webImage;
+            }
+        }
+        return $images;
     }
 
 }

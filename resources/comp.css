@@ -230,3 +230,50 @@ tr.ui-widget-content:last-child{
 .pagination span.desc{
     float: right;
 }
+.multiple-upload-header{
+    text-align: center; 
+}
+div.multiple-upload-header div.multiple-upload-header-column{
+    width: 50%;
+    padding: 5px 0px;
+    margin: 0px;
+    border:0px;
+    float: left;
+}
+.multiple-upload-rows div{
+    width: 33%;
+    border:0px;
+    padding:0px;
+    margin: 0px;
+    border:0px;
+    float: left;
+}
+.multiple-upload-rows div div{
+    padding: 2px 0px;
+    vertical-align: center;
+}
+.multiple-upload .multiple-upload-rows{
+    border:0px;
+    padding:0px;
+    margin: 0px;
+    border:0px;
+    
+}
+html body.ui-corner-all div#rootDocument.ui-panel form div.multiple-upload div.multiple-upload-rows div.new-image{
+    margin-top: 25px;
+}
+.old-image{
+    text-align: center;
+}
+.old-image div {
+    float: right;
+    width: auto;
+    
+}
+html body.ui-corner-all div#rootDocument.ui-panel form div.multiple-upload div.multiple-upload-rows div.image-remove{
+    width: 33%;
+    text-align: center;
+    height: 5px;
+    margin-top: 25px;
+
+}

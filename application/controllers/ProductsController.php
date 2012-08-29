@@ -6,9 +6,7 @@
  * @since Aug 4, 2012
  */
 class ProductsController extends LC_Controller {
-    
 
-    
     function __construct() {
         parent::__construct();
         import("util/components/DataTable.php");
@@ -24,7 +22,7 @@ class ProductsController extends LC_Controller {
     }
 
     public function search() {
-        $this->addWay(__CLASS__.'/search', 'pesquisa');
+        $this->addWay(__CLASS__ . '/search', 'pesquisa');
 
         $params = $this->getRequestParams(array('search' => '%', 'p' => 1));
 
@@ -33,15 +31,15 @@ class ProductsController extends LC_Controller {
         $start = Pagination::getOffset($currentPage, self::$NUMREGISTERS_PER_PAGE);
 
         $amout = $this->service->count(urldecode($params['search']));
-        
+
         $products = $this->service->search(urldecode($params['search']), $start, self::$NUMREGISTERS_PER_PAGE);
-        
+
         $dat = new DataTable(array(
                     'btSearch' => true,
                     'urlSearch' => site_url(__CLASS__),
                     'btCreate' => true,
-                    'urlCreate' => site_url(__CLASS__.'/edit'),
-                    'urlEdit' => site_url(__CLASS__.'/edit/'),
+                    'urlCreate' => site_url(__CLASS__ . '/edit'),
+                    'urlEdit' => site_url(__CLASS__ . '/edit/'),
                     'editable' => true,
                     'friendyUrlEdit' => true,
                     'list' => $products,
@@ -50,18 +48,18 @@ class ProductsController extends LC_Controller {
                     DataTable::OPTION_currentPage => $currentPage,
                     DataTable::OPTION_amountRegisters => $amout,
                     DataTable::OPTION_amountPerPage => self::$NUMREGISTERS_PER_PAGE,
-                    DataTable::OPTION_targetUrl => site_url(__CLASS__ . '/search?search='.$params['search'].'&p=')
+                    DataTable::OPTION_targetUrl => site_url(__CLASS__ . '/search?search=' . $params['search'] . '&p=')
                 ));
         $a['data'] = &$dat;
         $dat->addDisplayField('Código', 'id', DataTable::STRING, NULL, '5%');
         $dat->addDisplayField('Nome', 'name', DataTable::STRING, NULL, '80%');
         $dat->addDisplayField('Valor Venda', 'sellValue', DataTable::CURRENCY, NULL, '5%');
-        $dat->addDisplayField('Imagem', 'linkedFirstImage(images,\\' . site_url(__CLASS__.'/images/') . '\, id, true)', DataTable::FN);
+        $dat->addDisplayField('Imagem', 'linkedFirstImage(images,\\' . site_url(__CLASS__ . '/images/') . '\, id, true)', DataTable::FN);
         $this->adminView('products_results.php', $a);
     }
 
     public function edit() {
-        $this->addWay(__CLASS__.'/edit', 'edição');
+        $this->addWay(__CLASS__ . '/edit', 'edição');
         if ($this->uri->segment(3) != '') {
             $product = $this->service->getById($this->uri->segment(3));
         } else {
@@ -75,12 +73,12 @@ class ProductsController extends LC_Controller {
     }
 
     public function save() {
-        $this->addWay(__CLASS__.'/save', 'salvar');
+        $this->addWay(__CLASS__ . '/save', 'salvar');
         $id = $_POST['id'];
         $name = $_POST['name'];
         $decription = $_POST['description'];
         $sellValue = $_POST['sellValue'];
-        
+
         if ($id != '') {
             $prod = $this->service->getById($id);
         } else {
@@ -99,7 +97,7 @@ class ProductsController extends LC_Controller {
             } else {
                 $this->service->update($prod);
             }
-            redirect(__CLASS__.'/search?search=' . urlencode($prod->getId()), 'location', 301);
+            redirect(__CLASS__ . '/search?search=' . urlencode($prod->getId()), 'location', 301);
         } catch (ValidationException $v) {
 
             $error = array();
@@ -112,45 +110,63 @@ class ProductsController extends LC_Controller {
             $this->adminView('products_edit.php', $arr);
         }
     }
-    
-    public function images() {
-        $this->load->helper('simpleupload');
-        $this->load->helper('adminimage');
-        $this->addWay(__CLASS__.'/images', 'imagens');
 
-        $arr['product'] = $this->service->getById($this->uri->segment(3));
+    public function images($product = NULL) {
+        $this->load->helper('multipleupload');
+        $this->load->helper('adminimage');
+        $this->addWay(__CLASS__ . '/images', 'imagens');
+
+        $arr['product'] = $product === NULL || !is_object($product) ? $this->service->getById($this->uri->segment(3)) : $product;
         $arr['librarie'] = 'products';
-        $arr['targetupload'] = site_url(__CLASS__.'/upload');
-        $arr['targetsave'] = site_url(__CLASS__.'/saveUpload/' . $arr['product']->getId());
+        $arr['targetupload'] = site_url(__CLASS__ . '/upload');
+        $arr['targetremove'] = site_url(__CLASS__ . '/remove');
+
+        $arr['targetsave'] = site_url(__CLASS__ . '/saveUpload/' . $arr['product']->getId());
         $this->adminView('multiple_image_upload.php', $arr);
     }
 
     public function saveUpload() {
-        $this->load->helper('simpleupload');
-        $this->load->helper('adminimage');
 
-        $notice = $this->service->getById($this->uri->segment(3));
-        if ($_POST['n_image'] != '') {
-            $image = $_POST['n_image'];
-            $webImage = new WebImage($image);
-            $oldImage = $notice->getWebImage();
-            $notice->setWebImage($webImage);
+        import('lib/image/ImageUpload.php');
+        if ($_POST['id'] != '') {
+            import('lib/image/ImageUpload.php');
+
+            $img = new ImageUpload('products');
+
+            $product = $this->service->getById($_POST['id']);
 
             try {
-                $this->service->update($notice);
-                if ($oldImage != null) {
-                    $oldImage->delete();
-                }
-            } catch (Exception $e) {
-                die('Erro ao salvar a imagem');
+                $imgs = $img->upload('product');
+                $this->service->saveImages($product, $imgs);
+
+                $this->images($product);
+            } catch (Exception $exeption) {
+                $arr['product'] = $product;
+                $arr['error'] = $exeption->getMessage();
+                $arr['librarie'] = 'product';
+                $arr['targetsave'] = site_url(__CLASS__ . '/saveUpload/' . $product->getId());
+                $this->load->helper('multipleupload');
+                $this->load->helper('adminimage');
+                $this->adminView('multiple_image_upload.php', $arr);
+            }
+        } else {
+            $this->index();
+        }
+    }
+
+    public function remove() {
+        if ($_GET['i'] == '' || !is_numeric($_GET['i'])) {
+            $this->images();
+        } else {
+            $productId = $this->uri->segment(3);
+            if ($productId == '' || !is_numeric($productId)) {
+                $this->index();
+            } else {
+                $product = $this->service->getById($productId);
+                $this->service->removeImage($product, $_GET['i']);
+                $this->images($product);
             }
         }
-        $arr['librarie'] = 'notices';
-        $arr['targetupload'] = site_url('Notices/upload');
-        $arr['notice'] = &$notice;
-
-        $arr['targetsave'] = site_url('Notices/saveUpload/' . $arr['notice']->getId());
-        $this->adminView('single_image_upload.php', $arr);
     }
 
 }

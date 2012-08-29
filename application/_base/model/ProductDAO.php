@@ -49,6 +49,8 @@ class ProductDAO extends BasicDAO {
         $p->setParameter(3, $entity->getSellValue(), PreparedStatement::DOUBLE);
         $p->setParameter(4, $entity->getId(), PreparedStatement::INTEGER);
         $p->execute();
+        
+        $this->saveImages($entity, false);
     }
 
     public function getFields() {
@@ -68,7 +70,6 @@ class ProductDAO extends BasicDAO {
         $product->setName($arr['nome']);
         $product->setDescription($arr['descricao']);
         $product->setSellValue($arr['valor_venda']);
-
         return $product;
     }
 
@@ -124,31 +125,98 @@ class ProductDAO extends BasicDAO {
         return $arr;
     }
 
-    public function getImages(Product &$product, $limit = 10, $size = NULL) {
-        return;
+    public function getImages(Product &$product, $limit = NULL, $size = NULL) {
+        
         $sql = "select id, tamanho, caminho, ordem, legenda from produtos_fotos 
             where produto_id = ? " . ($size != NULL ? ' and tamanho = ?' : '') .
-                "order by ordem, tamanho";
-        
+                "order by ordem, tamanho ".($limit!==NULL?' LIMIT ? ':'');
+
         $p = $this->getConnection()->prepare($sql);
         $p->setParameter(1, $product->getId(), PreparedStatement::INTEGER);
+        
         if ($size != null) {
             $p->setParameter(2, $size, PreparedStatement::INTEGER);
         }
+        
+        if($limit !== NULL){
+            $p->setParameter(($size != null?3:2), $limit, PreparedStatement::INTEGER);
+        }
+        
         $rs = $p->execute();
         $lastOrder = NULL;
+        $images = array();
+        $i = 0 ;
         while ($rs->next()) {
             $arr = $rs->fetchArray();
 
-            if ($lastOrder == NULL) {
+            if ($lastOrder === NULL) {
+                $lastOrder = $arr['ordem'];
+                $webImage = new WebImage();
+            } else if ($lastOrder != $arr['ordem']) {
+                $images[$lastOrder] = $webImage;
+                $webImage = new WebImage();
                 $lastOrder = $arr['ordem'];
             }
-            if($lastOrder == $arr['ordem']){
-                $img = new Image($arr['caminho']);
+            
+            if ($lastOrder == $arr['ordem']) {
                 
-                //TODO
+                $img = new Image($arr['caminho']);
+                $img->setLink($arr['caminho']);
+                $webImage->setImage($img, $arr['tamanho']);
+                
             }
+            $i++;
         }
+        if($webImage!='' && $i >0){
+            $images[$lastOrder] = $webImage;
+        }
+        
+        $product->setImages($images);
+        
+    }
+
+    public function deleteAllImages(Product &$product, $autoCommit = true) {
+        if ($autoCommit) {
+            $this->begin();
+        }
+
+        $sql = "delete from produtos_fotos where produto_id = ? ";
+        $p = $this->getConn()->prepare($sql);
+        $p->setParameter(1, $product->getId(), PreparedStatement::INTEGER);
+        $p->execute();
+
+        if ($autoCommit) {
+            $this->commit();
+        }
+    }
+
+    public function saveImages(Product &$product) {
+        $i = 0;
+        foreach ($product->getImages() as $k => $webimg) {
+            foreach ($webimg->getImages() as $tamanho => $img) {
+                $sql = "INSERT INTO produtos_fotos(produto_id, ordem, tamanho, caminho, legenda)
+                        VALUES (?,?,?,?,?)";
+                $p = $this->getConn()->prepare($sql);
+                $p->setParameter(1, $product->getId(), PreparedStatement::INTEGER);
+                $p->setParameter(2, $k, PreparedStatement::INTEGER);
+                $p->setParameter(3, $tamanho, PreparedStatement::INTEGER);
+                $p->setParameter(4, $img->getLink(), PreparedStatement::STRING);
+                $p->setParameter(5, $webimg->getLegend(), PreparedStatement::STRING);
+                $p->execute();
+            }
+            $i++;
+        }
+    }
+
+    /**
+     * 
+     * @param integer $id
+     * @return Product
+     */
+    public function getById($id) {
+        $prd = parent::getById($id);
+        $this->getImages($prd);
+        return $prd;
     }
 
 }

@@ -73,6 +73,13 @@ $(document).ready(function(){
         })
     })
     
+    $('.multiple-upload-rows').each(function(i){
+        if(i % 2 == 0){
+            console.log(i)
+            $(this).css({'background':'#ddd'});
+        }
+    })
+    
 //    //file upload 
 //    var uploader = new plupload.Uploader({
 //        runtimes : 'gears,html5,flash,silverlight,browserplus',
