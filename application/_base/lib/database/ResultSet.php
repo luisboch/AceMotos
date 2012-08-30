@@ -57,13 +57,14 @@ class ResultSet {
             foreach($fields as $v){
                 $v = str_replace('`', '', $v);
                 $pointer = strpos($v, '.');
-                $as = strpos($v,' as ');
                 if($pointer!==false){
                     $v = substr($v, $pointer+1);
                 }
                 
+                $as = strpos($v,' as ');
+                
                 if($as !== false){
-                    $v = substr($v, $as);
+                    $v = substr($v, $as+4);
                 }
                 
                 $v = trim($v);

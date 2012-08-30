@@ -61,7 +61,7 @@ abstract class BasicService implements IBasicService{
         $this->dao->commit();
     }
     
-    public function search($string, $start = NULL, $limit = NULL) {
+    public function search($string= '%', $start = NULL, $limit = NULL) {
         if($limit ===NULL || $start ===NULL){
             return $this->dao->search($string);
         }

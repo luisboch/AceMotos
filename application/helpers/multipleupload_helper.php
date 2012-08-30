@@ -7,7 +7,7 @@ if (!function_exists('simpleUpload')) {
 
 
 
-    function multipleUpload($images, $name, $targetRemove, $entityId, $id = NULL, $options = array()) {
+    function multipleUpload($images, $name, $targetRemove, $entityId,  $id = NULL, $options = array()) {
         if ($id == NULL) {
             $id = 'multipleUpload_' . time();
         }

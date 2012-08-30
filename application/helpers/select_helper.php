@@ -17,30 +17,39 @@ if (!function_exists('select')) {
      * @param boolean $aceptNull
      * @return string select estilized with jQueryUi
      */
-    function select($values = array(),$name=NULL,$value = NULL, $options = array(), $id = NULL, $aceptNull = false) {
+    function select($values = array(), $name = NULL, $value = NULL, $options = array(), $id = NULL, $aceptNull = false) {
         global $_select_id;
         $_select_id++;
         $id = $id === NULL ? $id = 'select_' . $_inputtext_id : $id;
         $opts = '';
-        
-        $options['class'] = 'ui-select '.$options['class'];
-        
-        
-        foreach($options as $k => $v){
-            $opts .= $k.'="'.$v.'" ';
+
+        $options['class'] = 'ui-select ' . $options['class'];
+
+
+        foreach ($options as $k => $v) {
+            $opts .= $k . '="' . $v . '" ';
         }
-        $str =  '<select id="' . $id . '" '.$opts.' name="'.$name.'" >
+        $str = '<select id="' . $id . '" ' . $opts . ' name="' . $name . '" >
             ';
-        if($aceptNull){
+        if ($aceptNull) {
             $str.= '<option value="">  selecione  </option>';
         }
-        
-        foreach($values as $k => $v){
-            $str.= '<option '.($value == $k?'selected="selected" ':'').'value="'.$k.'">'.$v.'</option>';
-        }
-        
+        $str .= generateOptions($values, $value);
         $str .= '</select>';
         return $str;
+    }
+
+    function generateOptions($values = array(), $value = '') {
+        $opts = '';
+        foreach ($values as $k => $v) {
+            if (is_array($v)) {
+                $opts .= '<optgroup>' . $k . '</optgroup>';
+                $opts .= generateOptions($v, $value);
+            } else {
+                $opts.= '<option ' . ($value == $k ? 'selected="selected" ' : '') . 'value="' . $k . '">' . $v . '</option>';
+            }
+        }
+        return $opts;
     }
 
 }

@@ -1,5 +1,6 @@
 
 <form id="filters" name="filters" class="" method="get" action="<?= site_url('ProductsController/search/'); ?>" enctype="application/x-www-form-urlencoded">
+    <? include 'products_links.php';?>
 <table style="text-align: right;width: 100%">
     <tbody>
         <tr>

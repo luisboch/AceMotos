@@ -20,7 +20,7 @@ class ProductService extends BasicService {
     protected function validate(Entity &$entity) {
 
         $ve = new ValidationException();
-
+        
         if ($entity->getName() == '') {
             $ve->addError('Por Favor Preencha o nome corretamente', 'name');
         }
@@ -30,6 +30,10 @@ class ProductService extends BasicService {
             $ve->addError('Por Favor Preencha o valor de venda corretamente', 'sellValue');
         }
 
+        if ($entity->getCategory() == '') {
+            $ve->addError('Por Favor Selecione a categoria corretamente', 'category');
+        }
+        
         if (!$ve->isEmtpy()) {
             throw $ve;
         }

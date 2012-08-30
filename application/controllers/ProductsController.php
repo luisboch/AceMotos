@@ -7,13 +7,20 @@
  */
 class ProductsController extends LC_Controller {
 
+    /**
+     * @var CategoryService
+     */
+    protected $categoryService;
+
     function __construct() {
         parent::__construct();
         import("util/components/DataTable.php");
         import("util/StringUtil.php");
         import('services/ProductService.php');
+        import('services/CategoryService.php');
         $this->service = new ProductService();
         $this->addWay(__CLASS__, 'produtos');
+        $this->categoryService = new CategoryService();
     }
 
     public function index() {
@@ -35,9 +42,9 @@ class ProductsController extends LC_Controller {
         $products = $this->service->search(urldecode($params['search']), $start, self::$NUMREGISTERS_PER_PAGE);
 
         $dat = new DataTable(array(
-                    'btSearch' => true,
+                    'btSearch' => false,
                     'urlSearch' => site_url(__CLASS__),
-                    'btCreate' => true,
+                    'btCreate' => false,
                     'urlCreate' => site_url(__CLASS__ . '/edit'),
                     'urlEdit' => site_url(__CLASS__ . '/edit/'),
                     'editable' => true,
@@ -52,13 +59,15 @@ class ProductsController extends LC_Controller {
                 ));
         $a['data'] = &$dat;
         $dat->addDisplayField('Código', 'id', DataTable::STRING, NULL, '5%');
-        $dat->addDisplayField('Nome', 'name', DataTable::STRING, NULL, '80%');
-        $dat->addDisplayField('Valor Venda', 'sellValue', DataTable::CURRENCY, NULL, '5%');
+        $dat->addDisplayField('Nome', 'name', DataTable::STRING, NULL, '75%');
+        $dat->addDisplayField('Valor Venda', 'sellValue', DataTable::CURRENCY, NULL, '10%');
         $dat->addDisplayField('Imagem', 'linkedFirstImage(images,\\' . site_url(__CLASS__ . '/images/') . '\, id, true)', DataTable::FN);
         $this->adminView('products_results.php', $a);
     }
 
     public function edit() {
+        $this->load->helper('select');
+        $categories = $this->categoryService->search();
         $this->addWay(__CLASS__ . '/edit', 'edição');
         if ($this->uri->segment(3) != '') {
             $product = $this->service->getById($this->uri->segment(3));
@@ -69,6 +78,7 @@ class ProductsController extends LC_Controller {
         $arr = array();
 
         $arr['product'] = &$product;
+        $arr['categories'] = &$categories;
         $this->adminView('products_edit.php', $arr);
     }
 
@@ -78,13 +88,19 @@ class ProductsController extends LC_Controller {
         $name = $_POST['name'];
         $decription = $_POST['description'];
         $sellValue = $_POST['sellValue'];
+        $categoryId = $_POST['category'];
+
 
         if ($id != '') {
             $prod = $this->service->getById($id);
         } else {
             $prod = new Product();
         }
-
+        if ($categoryId != ''){
+            $prod->setCategory($this->categoryService->getById($categoryId));
+        } else {
+            $prod->setCategory(NULL);
+        }
         $prod->setName($name);
         $prod->setDescription($decription);
         $prod->setSellValue(StringUtil::toFloat($sellValue));
@@ -100,6 +116,8 @@ class ProductsController extends LC_Controller {
             redirect(__CLASS__ . '/search?search=' . urlencode($prod->getId()), 'location', 301);
         } catch (ValidationException $v) {
 
+            $this->load->helper('select');
+            $categories = $this->categoryService->search();
             $error = array();
 
             foreach ($v->getErrors() as $er) {
@@ -107,6 +125,8 @@ class ProductsController extends LC_Controller {
             }
 
             $arr['error'] = &$error;
+            $arr['categories'] = &$categories;
+
             $this->adminView('products_edit.php', $arr);
         }
     }
@@ -116,12 +136,18 @@ class ProductsController extends LC_Controller {
         $this->load->helper('adminimage');
         $this->addWay(__CLASS__ . '/images', 'imagens');
 
-        $arr['product'] = $product === NULL || !is_object($product) ? $this->service->getById($this->uri->segment(3)) : $product;
+        $arr['product'] = $product === NULL || !is_object($product) ?
+                $this->service->getById($this->uri->segment(3)) : $product;
         $arr['librarie'] = 'products';
         $arr['targetupload'] = site_url(__CLASS__ . '/upload');
         $arr['targetremove'] = site_url(__CLASS__ . '/remove');
+        $arr['targetback'] = site_url(__CLASS__ . '/search?search=' .
+                $arr['product']->getId());
+        $arr['targetedit'] = site_url(__CLASS__ . '/edit/' .
+                $arr['product']->getId());
 
-        $arr['targetsave'] = site_url(__CLASS__ . '/saveUpload/' . $arr['product']->getId());
+        $arr['targetsave'] = site_url(__CLASS__ . '/saveUpload/' .
+                $arr['product']->getId());
         $this->adminView('multiple_image_upload.php', $arr);
     }
 
@@ -144,7 +170,10 @@ class ProductsController extends LC_Controller {
                 $arr['product'] = $product;
                 $arr['error'] = $exeption->getMessage();
                 $arr['librarie'] = 'product';
-                $arr['targetsave'] = site_url(__CLASS__ . '/saveUpload/' . $product->getId());
+                $arr['targetupload'] = site_url(__CLASS__ . '/upload');
+                $arr['targetremove'] = site_url(__CLASS__ . '/remove');
+
+                $arr['targetsave'] = site_url(__CLASS__ . '/saveUpload/' . $arr['product']->getId());
                 $this->load->helper('multipleupload');
                 $this->load->helper('adminimage');
                 $this->adminView('multiple_image_upload.php', $arr);

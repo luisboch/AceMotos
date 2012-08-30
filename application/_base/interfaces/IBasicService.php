@@ -9,6 +9,6 @@ interface IBasicService {
     function update(Entity &$entity);
     function delete(Entity &$entity);
     function getById($id);
-    function search($string);
+    function search($string = '%');
 }
 ?>

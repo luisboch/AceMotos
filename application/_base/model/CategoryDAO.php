@@ -35,7 +35,7 @@ class CategoryDAO extends BasicDAO {
             values (?, ?)";
         $p = $this->getConnection()->prepare($sql);
         $p->setParameter(1, $entity->getDescription(), PreparedStatement::STRING);
-        $p->setParameter(2, $entity->getCategory() == null ? null : $entity->getCagetory()->getId(), PreparedStatement::INTEGER);
+        $p->setParameter(2, $entity->getCategory() == null ? null : $entity->getCategory()->getId(), PreparedStatement::INTEGER);
         $p->execute();
         $entity->setId($this->getConn()->lastId());
     }

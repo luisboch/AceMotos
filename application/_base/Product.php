@@ -1,5 +1,6 @@
 <?php
 import('WebImage.php');
+import('Category.php');
 /**
  * Description of Product
  *
@@ -38,6 +39,12 @@ class Product implements Entity {
      * @var List<WebImage>
      */
     private $images;
+    
+    /**
+     *
+     * @var Category
+     */
+    private $category;
     
     
     public function getSellValue() {
@@ -122,6 +129,23 @@ class Product implements Entity {
             $this->images[] = $img;
         }
     }
+    
+    /**
+     * 
+     * @return Category
+     */
+    public function getCategory() {
+        return $this->category;
+    }
+
+    /**
+     * 
+     * @param Category $category
+     */
+    public function setCategory(Category $category = null) {
+        $this->category = $category;
+    }
+
 
 
 }

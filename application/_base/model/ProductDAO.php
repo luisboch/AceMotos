@@ -5,6 +5,7 @@
  * @author felipe
  * @since Aug 4, 2012
  */
+import('Category.php');
 import('Product.php');
 import('model/BasicDAO.php');
 
@@ -26,12 +27,13 @@ class ProductDAO extends BasicDAO {
 
     protected function executeInsert(Entity &$entity) {
 
-        $sql = "insert into " . $this->getTableName() . "(" . $this->getFields() . ") values (?,?,?,?)";
+        $sql = "insert into " . $this->getTableName() . "(" . $this->getFields() . ", categoria_id) values (?,?,?,?,?)";
         $p = $this->getConn()->prepare($sql);
         $p->setParameter(1, $entity->getId(), PreparedStatement::INTEGER);
         $p->setParameter(2, $entity->getName(), PreparedStatement::STRING);
         $p->setParameter(3, $entity->getDescription(), PreparedStatement::STRING);
         $p->setParameter(4, $entity->getSellValue(), PreparedStatement::DOUBLE);
+        $p->setParameter(5, $entity->getCategory()->getId(), PreparedStatement::INTEGER);
         $p->execute();
         $entity->setId($this->getConn()->lastId());
     }
@@ -41,13 +43,15 @@ class ProductDAO extends BasicDAO {
         $sql = "UPDATE " . $this->getTableName() . " 
                     SET `nome`=?,
                         `descricao`=?,
-                        `valor_venda`=? 
+                        `valor_venda`=?, 
+                        `categoria_id`=?
                     WHERE id=?";
         $p = $this->getConn()->prepare($sql);
         $p->setParameter(1, $entity->getName(), PreparedStatement::STRING);
         $p->setParameter(2, $entity->getDescription(), PreparedStatement::STRING);
         $p->setParameter(3, $entity->getSellValue(), PreparedStatement::DOUBLE);
-        $p->setParameter(4, $entity->getId(), PreparedStatement::INTEGER);
+        $p->setParameter(4, $entity->getCategory()->getId(), PreparedStatement::INTEGER);
+        $p->setParameter(5, $entity->getId(), PreparedStatement::INTEGER);
         $p->execute();
         
         $this->saveImages($entity, false);
@@ -214,11 +218,42 @@ class ProductDAO extends BasicDAO {
      * @return Product
      */
     public function getById($id) {
-        $prd = parent::getById($id);
+        $sql = "
+            select p.`id`, p.`nome`, p.`descricao`, p.`valor_venda`, 
+                   p.`categoria_id`, c1.id as cat1id, c1.descricao as cat1desc, 
+                   c2.id as cat2id, c2.descricao as cat2desc
+              from produtos p
+              join categorias c1 on (c1.id = p.`categoria_id` )
+              join categorias c2 on (c2.id = c1.`categoria_id` )
+             where p.id=?";
+        $p = $this->getConn()->prepare($sql);
+        $p->setParameter(1, $id, PreparedStatement::INTEGER);
+        $rs = $p->execute();
+        if($rs->getNumRows() != 1){
+            throw new NoResultException('Product not found with id:'.$id);
+        }
+        
+        $rs->next();
+        
+        $arr= $rs->fetchArray();
+        $cat1 = new Category();
+        $cat1->setDescription($arr['cat1desc']);
+        $cat1->setId($arr['cat1id']);
+        
+        $cat2 = new Category();
+        $cat2->setDescription($arr['cat2desc']);
+        $cat2->setId($arr['cat2id']);
+        $cat1->setCategory($cat2);
+        
+        $prd = $this->getObject($rs);
+        $prd->setCategory($cat1);
+        
         $this->getImages($prd);
+        
         return $prd;
     }
 
 }
 
 ?>
+
