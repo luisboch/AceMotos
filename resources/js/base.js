@@ -63,11 +63,12 @@ $(document).ready(function(){
                 var winH = $(window).height();
                 var winW = $(window).width();
               
-                $('#modal').css('top',winH/2-$(this).height()/2)
-                $('#modal').css('left',winW/2-$(this).width()/2)
                 $('#modal').reveal({
                     animation:'fade'
                 });
+                  $('#modal').css('top',winH/2-$(this).height()/2)
+                $('#modal').css('left',winW/2-$(this).width()/2)
+              
                 $('body').css('cursor','default');
             })
         })
@@ -75,7 +76,6 @@ $(document).ready(function(){
     
     $('.multiple-upload-rows').each(function(i){
         if(i % 2 == 0){
-            console.log(i)
             $(this).css({'background':'#ddd'});
         }
     })

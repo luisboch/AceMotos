@@ -82,7 +82,7 @@ class ProductDAO extends BasicDAO {
                 . ' where id = ? or nome like ?';
         $p = $this->getConn()->prepare($sql);
         $p->setParameter(1, $string, PreparedStatement::INTEGER);
-        $p->setParameter(2, $string, PreparedStatement::STRING);
+        $p->setParameter(2, '%'.$string.'%', PreparedStatement::STRING);
 
         $rs = $p->execute();
         $arr = array();
@@ -117,7 +117,7 @@ class ProductDAO extends BasicDAO {
                 . ' where id = ? or nome like ? LIMIT ' . $start . ', ' . $limit;
         $p = $this->getConn()->prepare($sql);
         $p->setParameter(1, $string, PreparedStatement::INTEGER);
-        $p->setParameter(2, $string, PreparedStatement::STRING);
+        $p->setParameter(2, '%'.$string.'%', PreparedStatement::STRING);
         $rs = $p->execute();
         $arr = array();
 
