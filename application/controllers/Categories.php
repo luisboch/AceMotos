@@ -37,7 +37,7 @@ class Categories extends LC_Controller {
                     'editable' => true,
                     'friendyUrlEdit' => true,
                     'list' => $notices,
-                    'title' => 'Noticias'
+                    'title' => 'Categorias'
                 ));
         $a['data'] = &$dat;
         $dat->addDisplayField('Código', 'id', DataTable::STRING);

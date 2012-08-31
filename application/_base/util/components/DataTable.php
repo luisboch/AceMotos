@@ -33,6 +33,8 @@ class DataTable {
     const OPTION_title = 'title';
     const OPTION_list = 'list';
     const OPTION_fieldId = 'fieldId';
+    const OPTION_urlDelete = 'urlDelete';
+    const OPTION_canDelete = 'canDelete';
     /**
      * @deprecated 
      */
@@ -108,7 +110,8 @@ class DataTable {
             'fieldOptions' => NULL,
             'friendyUrlEdit' => false,
             'paginate' => false,
-            'amountPerPage' => 20
+            'amountPerPage' => 20,
+            'canDelete' => false
         );
 
         foreach ($default as $k => $v) {
@@ -178,7 +181,25 @@ class DataTable {
         $types = $this->option('fieldsType');
         $titleLabels = $this->option('titleLabels');
 
-        if (count($fields) != count($titleLabels)) {
+        $sizeFields = count($fields);
+        if ($this->option(self::OPTION_canDelete)) {
+            $sizeFields++;
+            $ttLabels = $titleLabels;
+            $titleLabels = array();
+            $titleLabels[] = 'Excluir';
+            foreach ($ttLabels as $v) {
+                $titleLabels[] = $v;
+            }
+            $columnsSizes = $this->options['columSize'];
+            $this->options['columSize'] = array();
+
+            $this->options['columSize'][] = '10%';
+            foreach ($columnsSizes as $v) {
+                $this->options['columSize'][] = $v;
+            }
+        }
+
+        if ($sizeFields != count($titleLabels)) {
             throw new ComponentException("Quantidade de labels
                 diverge da quantidade de items a exibir");
         }
@@ -201,7 +222,6 @@ class DataTable {
         $title = $this->option('title');
         $list = $this->option('list');
         $sizeList = count($list);
-        $sizeFields = count($fields);
         $itemsPage = $this->option('itemsPage');
 
         if ($this->option('editable')) {
@@ -216,7 +236,6 @@ class DataTable {
 
         $data = $this->option('data');
         if ($data === NULL) {
-
             $string .= "<thead>";
             if ($title != '') {
                 $string .= '<tr><th ' . (
@@ -250,7 +269,9 @@ class DataTable {
                     $arrObj = Utils::objectToArray($obj);
                     $aux = '';
                     $aux .= '<tr class="row_data ui-widget-content ui-datatable-odd">';
-
+                    if ($this->option(self::OPTION_canDelete)) {
+                        $aux.='<td><input type="checkbox" name="ids[]" id="ids" /></td>';
+                    }
                     foreach ($fields as $key => $v) {
                         $valueOf = $this->getValue($v, $types[$key], $obj);
                         $aux .= '<td>' . $valueOf . '</td>';
@@ -282,7 +303,7 @@ class DataTable {
             $string.=$data;
         }
 
-        if ($this->option('paginate') ) {
+        if ($this->option('paginate')) {
             $string .= '<tfoot>';
             $string.=$this->htmlPagination;
             $string .='</tfoot></table>';
@@ -351,12 +372,12 @@ class DataTable {
         }
         return '';
     }
-    
+
     public function linkedFirstImage($images = array(), $path = NULL, $value = NULL, $forceShowLink = TRUE) {
         if ($images != null && count($images) != 0) {
-            
-            foreach ($images as $image){
-                if($image != ''){
+
+            foreach ($images as $image) {
+                if ($image != '') {
                     $img = $image;
                 }
             }
@@ -367,7 +388,6 @@ class DataTable {
         }
         return '';
     }
-    
 
 }
 

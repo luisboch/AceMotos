@@ -43,8 +43,7 @@ if (!function_exists('select')) {
         $opts = '';
         foreach ($values as $k => $v) {
             if (is_array($v)) {
-                $opts .= '<optgroup>' . $k . '</optgroup>';
-                $opts .= generateOptions($v, $value);
+                $opts .= '<optgroup label="' . $k .'">'. generateOptions($v, $value) . '</optgroup>';;
             } else {
                 $opts.= '<option ' . ($value == $k ? 'selected="selected" ' : '') . 'value="' . $k . '">' . $v . '</option>';
             }
