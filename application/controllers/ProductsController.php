@@ -96,7 +96,7 @@ class ProductsController extends LC_Controller {
         } else {
             $prod = new Product();
         }
-        if ($categoryId != ''){
+        if ($categoryId != '') {
             $prod->setCategory($this->categoryService->getById($categoryId));
         } else {
             $prod->setCategory(NULL);
