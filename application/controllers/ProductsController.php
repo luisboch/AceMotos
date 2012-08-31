@@ -51,6 +51,7 @@ class ProductsController extends LC_Controller {
                     'friendyUrlEdit' => true,
                     'list' => $products,
                     'title' => 'Produtos',
+                    'canDelete' => true,
                     DataTable::OPTION_paginate => true,
                     DataTable::OPTION_currentPage => $currentPage,
                     DataTable::OPTION_amountRegisters => $amout,
@@ -58,8 +59,8 @@ class ProductsController extends LC_Controller {
                     DataTable::OPTION_targetUrl => site_url(__CLASS__ . '/search?search=' . $params['search'] . '&p=')
                 ));
         $a['data'] = &$dat;
-        $dat->addDisplayField('Código', 'id', DataTable::STRING, NULL, '5%');
-        $dat->addDisplayField('Nome', 'name', DataTable::STRING, NULL, '75%');
+        $dat->addDisplayField('Código', 'id', DataTable::STRING, NULL, '10%');
+        $dat->addDisplayField('Nome', 'name', DataTable::STRING, NULL, '60%');
         $dat->addDisplayField('Valor Venda', 'sellValue', DataTable::CURRENCY, NULL, '10%');
         $dat->addDisplayField('Imagem', 'linkedFirstImage(images,\\' . site_url(__CLASS__ . '/images/') . '\, id, true)', DataTable::FN);
         $this->adminView('products_results.php', $a);
