@@ -5,3 +5,4 @@
 /resources/images/news/
 /resources/images/products/
 /resources/uploads/
+/var/www/acemotos/application/_base/lib/database/ConfigConnection.php
