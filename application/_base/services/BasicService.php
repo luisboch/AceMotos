@@ -1,5 +1,6 @@
 <?php
 import('interfaces/IBasicService.php');
+import('interfaces/ILogicalDeletion.php');
 /**
  *
  * @author luis.boch
@@ -22,7 +23,12 @@ abstract class BasicService implements IBasicService{
      */
     public function delete(Entity &$entity) {
         $this->dao->begin();
-        $this->dao->delete($entity, false);
+        if($entity instanceof ILogicalDeletion){
+            $entity->setStatus(false);
+            $this->dao->update($entity);
+        } else {
+            $this->dao->delete($entity, false);
+        }
         $this->dao->commit();
     }
 

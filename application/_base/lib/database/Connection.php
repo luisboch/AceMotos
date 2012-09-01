@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Description of Connection
  *
  * @author luis
  */
 class Connection {
+
     /**
      *
      * @var mysqli 
@@ -18,12 +20,20 @@ class Connection {
 
     /**
      *
+     * @var Logger
+     */
+    private static $logger;
+
+    /**
+     *
      * @var mysqli 
      */
     private $db_conn;
 
     private function __construct() {
-        
+        if (self::$logger === NULL) {
+            self::$logger = Logger::getLogger(__CLASS__);
+        }
     }
 
     /**
@@ -40,14 +50,13 @@ class Connection {
      * @return Connection
      */
     private static function &makeConnection() {
-        
-        if(ENVIRONMENT == 'development'){
+
+        if (ENVIRONMENT == 'development') {
             self::forDevelopment();
-        }
-        else{
+        } else {
             self::forProduction();
         }
-        
+
         $config = new ConfigConnection(self::$type == 1 ? true : false);
         $c = new Connection();
         $c->db_conn = new mysqli($config->getHost(), $config->getUsername(),
@@ -66,8 +75,9 @@ class Connection {
      */
     public function query($sql) {
         $rs = new ResultSet($sql);
-        $result = $this->db_conn->query($sql.';');
+        $result = $this->db_conn->query($sql . ';');
         if ($result === false) {
+            self::$logger->error("QUERY ERROR [" . $sql . "]");
             throw new QueryException("ERRO AO PREPARAR QUERY " . $this->db_conn->error);
         }
         $rs->setMysqlResult($result);
@@ -80,12 +90,14 @@ class Connection {
      * @return PreparedStatement 
      */
     public function prepare($sql) {
-        $stmt = $this->db_conn->prepare($sql.';');
-        
+        $stmt = $this->db_conn->prepare($sql . ';');
+
         if ($stmt === false) {
+            
+            self::$logger->error("QUERY ERROR [" . $sql . "]");
             throw new QueryException("ERRO AO PREPARAR QUERY " . $this->db_conn->error);
         }
-        return new PreparedStatement($stmt,$sql);
+        return new PreparedStatement($stmt, $sql);
     }
 
     /**
@@ -121,14 +133,15 @@ class Connection {
     public function lastId() {
         return $this->db_conn->insert_id;
     }
-    
-    public function close(){
+
+    public function close() {
         $this->db_conn->close();
     }
-    
-    public static function throwException($exption, $message){
-        throw new $exption($message.self::$conn->error);
+
+    public static function throwException($exption, $message) {
+        throw new $exption($message . self::$conn->error);
     }
+
 }
 
 ?>

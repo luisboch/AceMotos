@@ -5,6 +5,11 @@ if (!defined('BASEPATH'))
 
 class LC_Controller extends CI_Controller {
 
+    /**
+     *
+     * @var User
+     */
+    private $user;
     protected static $NUMREGISTERS_PER_PAGE = 20;
 
     /**
@@ -42,9 +47,13 @@ class LC_Controller extends CI_Controller {
         //log support/
         $this->logger = Logger::getLogger(__CLASS__);
         import("lib/database.php");
+
+        $session = Session::getSession();
+
+        $this->user = $session->getUser();
+
         if ($this->checkLogin()) {
             $this->logger->info('Checking login...');
-            $session = Session::getSession();
             if ($session->getUser() == NULL) {
                 $this->logger->info('User not logged yet! redirecting to login page');
                 $this->loginPage(FALSE, $_SERVER['REQUEST_URI']);
@@ -221,6 +230,23 @@ class LC_Controller extends CI_Controller {
                 $domElement->appendChild($DOMDocument->createTextNode($mixed));
             }
         }
+    }
+
+    public function delete() {
+        $ids = $_POST['ids'];
+        foreach ($ids as $id) {
+            $ob = $this->service->getById($id);
+            $class = get_class($ob);
+            $this->logger->info('User [' . $this->user->getName() . ':' .
+                    $this->user->getId() . '] deleting instance of [' . $class .
+                    '] with id: ' . $id);
+            $this->service->delete($ob);
+        }
+        $this->search();
+    }
+
+    public function search() {
+        show_404();
     }
 
 }

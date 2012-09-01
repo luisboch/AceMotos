@@ -217,7 +217,8 @@ class DataTable {
             }
             $string .= "</div>";
         }
-        $string .= "<table id=\"" . $this->tableId . "\" class=\"dataTable\">";
+        $string .= "<form action=\"".$this->option(self::OPTION_urlDelete)."\" method=\"post\">
+            <table id=\"" . $this->tableId . "\" class=\"dataTable\">";
         $fieldId = $this->option('fieldId');
         $title = $this->option('title');
         $list = $this->option('list');
@@ -270,7 +271,7 @@ class DataTable {
                     $aux = '';
                     $aux .= '<tr class="row_data ui-widget-content ui-datatable-odd">';
                     if ($this->option(self::OPTION_canDelete)) {
-                        $aux.='<td><input type="checkbox" name="ids[]" id="ids" /></td>';
+                        $aux.='<td><input type="checkbox" name="ids[]" id="ids" value="'. $arrObj[$fieldId].'" /></td>';
                     }
                     foreach ($fields as $key => $v) {
                         $valueOf = $this->getValue($v, $types[$key], $obj);
@@ -310,6 +311,7 @@ class DataTable {
         } else {
             $string .='</table>';
         }
+        $string .='<div style="display:none"><input style="margin-left:10px" class="ui-button ui-button-delete" type="submit" value="Excluir selecionados" /></div></form>';
         if ($return) {
             return $string;
         } else {

@@ -52,6 +52,7 @@ class ProductsController extends LC_Controller {
                     'list' => $products,
                     'title' => 'Produtos',
                     'canDelete' => true,
+                    'urlDelete' => site_url(__CLASS__.'/delete'),
                     DataTable::OPTION_paginate => true,
                     DataTable::OPTION_currentPage => $currentPage,
                     DataTable::OPTION_amountRegisters => $amout,

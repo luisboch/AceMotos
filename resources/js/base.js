@@ -16,14 +16,17 @@ $(document).ready(function(){
         })
     });
     
+    // ui components
+    $('select').selectmenu();
+    
+    
+    
     $('.ui-button').button();
     $('.ui-button-force-disabled').button("option", "disabled", true);
     $('.row_data').click(function(){
         $('.row_data').removeClass('row_data-hover');
         $(this).addClass('row_data-hover');
     })
-    $('select').selectmenu();
-    
     $('.ui-input-pass').hover(function(){
         $(this).addClass('ui-state-hover')
     },function(){
@@ -77,6 +80,23 @@ $(document).ready(function(){
     $('.multiple-upload-rows').each(function(i){
         if(i % 2 == 0){
             $(this).css({'background':'#ddd'});
+        }
+    })
+    
+    $('.dataTable').find('input').click(function(){
+       
+        var containSelected = false;
+        $('.dataTable').find('input').each(function(){
+            if($(this).is(':checked')){
+                containSelected = true;
+            }
+        })
+        var el = $('.dataTable').next();
+        if(containSelected){
+            if(!el.is(':visible')){el.fadeIn()}
+        } else {
+            
+            if(el.is(':visible')){el.fadeOut()}
         }
     })
     

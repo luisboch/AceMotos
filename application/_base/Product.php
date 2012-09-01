@@ -1,13 +1,14 @@
 <?php
 import('WebImage.php');
 import('Category.php');
+import('interfaces/ILogicalDeletion.php');
 /**
  * Description of Product
  *
  * @author luis
  * @since Jul 26, 2012
  */
-class Product implements Entity {
+class Product implements ILogicalDeletion, Entity {
 
     /**
      *
@@ -46,6 +47,11 @@ class Product implements Entity {
      */
     private $category;
     
+    /**
+     *
+     * @var boolean
+     */
+    private $status;
     
     public function getSellValue() {
         return $this->sellValue;
@@ -146,7 +152,21 @@ class Product implements Entity {
         $this->category = $category;
     }
 
+    /**
+     * 
+     * @return boolean 
+     */
+    public function getStatus() {
+        return $this->status;
+    }
 
+    /**
+     * 
+     * @param boolean $status
+     */
+    public function setStatus($status) {
+        $this->status = $status;
+    }
 
 }
 

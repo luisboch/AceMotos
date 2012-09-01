@@ -23,11 +23,12 @@ class ProductDAO extends BasicDAO {
         $p = $this->getConn()->prepare($sql);
         $p->setParameter(1, $entity->getId(), PreparedStatement::INTEGER);
         $p->execute();
+        
     }
 
     protected function executeInsert(Entity &$entity) {
 
-        $sql = "insert into " . $this->getTableName() . "(" . $this->getFields() . ", categoria_id) values (?,?,?,?,?)";
+        $sql = "insert into " . $this->getTableName() . " (" . $this->getFields() . ", categoria_id ) values (?,?,?,?,true,?)";
         $p = $this->getConn()->prepare($sql);
         $p->setParameter(1, $entity->getId(), PreparedStatement::INTEGER);
         $p->setParameter(2, $entity->getName(), PreparedStatement::STRING);
@@ -44,21 +45,23 @@ class ProductDAO extends BasicDAO {
                     SET `nome`=?,
                         `descricao`=?,
                         `valor_venda`=?, 
-                        `categoria_id`=?
+                        `categoria_id`=?,
+                        `status`=?
                     WHERE id=?";
         $p = $this->getConn()->prepare($sql);
         $p->setParameter(1, $entity->getName(), PreparedStatement::STRING);
         $p->setParameter(2, $entity->getDescription(), PreparedStatement::STRING);
         $p->setParameter(3, $entity->getSellValue(), PreparedStatement::DOUBLE);
         $p->setParameter(4, $entity->getCategory()->getId(), PreparedStatement::INTEGER);
-        $p->setParameter(5, $entity->getId(), PreparedStatement::INTEGER);
+        $p->setParameter(5, $entity->getStatus(), PreparedStatement::BOOLEAN);
+        $p->setParameter(6, $entity->getId(), PreparedStatement::INTEGER);
         $p->execute();
         
         $this->saveImages($entity, false);
     }
 
     public function getFields() {
-        return ' `id`, `nome`, `descricao`, `valor_venda` ';
+        return ' `id`, `nome`, `descricao`, `valor_venda`, `status` ';
     }
 
     /**
@@ -74,6 +77,8 @@ class ProductDAO extends BasicDAO {
         $product->setName($arr['nome']);
         $product->setDescription($arr['descricao']);
         $product->setSellValue($arr['valor_venda']);
+        $product->setStatus($arr['status']);
+        
         return $product;
     }
 
@@ -96,7 +101,7 @@ class ProductDAO extends BasicDAO {
 
     public function count($string) {
         $sql = 'select count(*) as qtd from ' . $this->getTableName()
-                . ' where id = ? or nome like ?';
+                . ' where ( id = ? or nome like ? ) and status = true';
         $p = $this->getConn()->prepare($sql);
         $p->setParameter(1, $string, PreparedStatement::INTEGER);
         $p->setParameter(2, $string . '%', PreparedStatement::STRING);
@@ -114,7 +119,7 @@ class ProductDAO extends BasicDAO {
         }
 
         $sql = 'select ' . $this->getFields() . ' from ' . $this->getTableName()
-                . ' where id = ? or nome like ? LIMIT ' . $start . ', ' . $limit;
+                . ' where  ( id = ? or nome like ? ) and status = true LIMIT ' . $start . ', ' . $limit;
         $p = $this->getConn()->prepare($sql);
         $p->setParameter(1, $string, PreparedStatement::INTEGER);
         $p->setParameter(2, '%'.$string.'%', PreparedStatement::STRING);
@@ -221,11 +226,11 @@ class ProductDAO extends BasicDAO {
         $sql = "
             select p.`id`, p.`nome`, p.`descricao`, p.`valor_venda`, 
                    p.`categoria_id`, c1.id as cat1id, c1.descricao as cat1desc, 
-                   c2.id as cat2id, c2.descricao as cat2desc
+                   c2.id as cat2id, c2.descricao as cat2desc, p.`status`
               from produtos p
               join categorias c1 on (c1.id = p.`categoria_id` )
               join categorias c2 on (c2.id = c1.`categoria_id` )
-             where p.id=?";
+             where p.id=? and status = true";
         $p = $this->getConn()->prepare($sql);
         $p->setParameter(1, $id, PreparedStatement::INTEGER);
         $rs = $p->execute();
