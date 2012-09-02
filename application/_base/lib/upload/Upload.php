@@ -88,7 +88,10 @@ class Upload {
             $i++;
             $destination = $this->path . $file['name'] . $time . 't_' . $i . $ext;
         }
-        move_uploaded_file($file['tmp_name'], $destination);
+        if(!move_uploaded_file($file['tmp_name'], $destination)){
+            throw new FileUploadException(
+                    "Não foi possível realizar o upload [Mover para pasta específicada]");
+        };
 
         return new File($destination);
     }

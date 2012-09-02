@@ -60,7 +60,10 @@ class ImageUpload {
         $images = array();
         foreach ($files as $key => $file) {
             if ($file->isImage()) {
-                $file->moveTo($this->path);
+                if (!$file->moveTo($this->path)) {
+                    throw new FileUploadException(
+                            "Não foi possível realizar o upload [Mover para pasta específicada]");
+                };
                 $img = new Image($file);
 
                 $imgs[5] = $this->imageManipulation

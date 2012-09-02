@@ -1,0 +1,1 @@
+create table produtos(id integer auto_increment primary key, nome varchar(255), descricao text, valor_venda float, status boolean, categoria_id integer, constraint fk_prod_categoria foreign key (categoria_id) references categorias (id));
