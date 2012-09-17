@@ -107,14 +107,6 @@ class LC_Controller extends CI_Controller {
         $this->title = $title;
     }
 
-    public function base() {
-
-        // Set basic vars
-        $arr['title'] = $this->title;
-        $arr['url_home'] = $this->url_home;
-        $this->adminView('base.php', $arr);
-    }
-
     protected function checkLogin() {
         return true;
     }
