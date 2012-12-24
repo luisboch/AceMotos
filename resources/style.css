@@ -7,7 +7,7 @@ body{width: 1024px;margin:auto;}
 /*first login box*/
 #loginBox {border: 1px solid #AAA;padding: 10px;display: block;width: 300px;margin: 150px auto;border-radius: 10px;box-shadow: 5px 5px 5px #666;color: #555;}
 #loginBox table tr:last-child td:last-child{text-align: right;}
-#loginBox table input {width: 200px;}
+#loginBox table input {width: 180px;}
 /*changin size of items of primefaces*/
 .ui-widget,.ui-widget .ui-widget {
     font-size: 11px !important;

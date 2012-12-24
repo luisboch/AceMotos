@@ -13,10 +13,10 @@ class ConfigConnection {
 
     public function __construct($production = TRUE) {
         if ($production === TRUE) {
-            $this->host = "fdb2.runhosting.com";
-            $this->password = "1105746_farm";
-            $this->username = "1105746_farm";
-            $this->database = "1105746_farm";
+            $this->host = "localhost";
+            $this->password = "mysql@x9m013e8mi0";
+            $this->username = "root";
+            $this->database = "hardwarehouse";
         } else {
             $this->host = "localhost";
             $this->password = "mysql";

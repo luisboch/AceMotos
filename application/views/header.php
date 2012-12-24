@@ -28,5 +28,7 @@
             var URL_HOME= '<?=$url_home?>';
             var URL_IMAGES= '<?=URL_IMAGES?>';
         </script>
+        <link rel="icon" href="<?=$url_home?>resources/images/favicon.ico" type="image/x-icon" >
+        <link rel="shortcut icon" href="<?=$url_home?>resources/images/favicon.ico" type="image/x-icon" > 
     </head>
     <body  class="ui-corner-all">

@@ -29,7 +29,7 @@ class LC_Controller extends CI_Controller {
      *
      * @var string
      */
-    private $title = "Welcome to PHPFarm";
+    private $title = "HardwareHouse.com.br";
     private $url_home;
 
     function __construct() {
