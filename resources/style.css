@@ -122,3 +122,7 @@ ul#menu a:hover{
     position: fixed;
     visibility:hidden;
 }
+
+.formTable{
+    width: 100%;
+}

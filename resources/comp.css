@@ -157,8 +157,8 @@ a.button {
 
 .formTable{
     border-collapse: collapse;
-    width: 90%;
-    margin:10px 4%;
+    width: 100%;
+    margin:0px 0px;
 }
 .formTable td{
     padding: 5px;

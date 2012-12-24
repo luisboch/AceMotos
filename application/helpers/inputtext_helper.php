@@ -2,7 +2,7 @@
 
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
-
+$_inputtext_id;
 if (!function_exists('inputtext')) {
     $_inputtext_id = 0;
 

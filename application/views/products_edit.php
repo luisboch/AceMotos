@@ -14,7 +14,6 @@
                 <td style="width: 30%">Categoria:</td>
                 <td style="width: 70%">
                     <?
-                    
                     $arr = array();
                     foreach ($categories as $cat) {
                         if ($cat->getCategory() != null) {
@@ -22,32 +21,32 @@
                             $arr[$categoriaPai->getDescription()][$cat->getId()] = $cat->getDescription();
                         }
                     }
-                    
-                    $selectedCategory =  $product->getCategory();
-                    
-                    echo select($arr, 'category', ($selectedCategory!=null?$product->getCategory()->getId():''), NULL,NULL,TRUE);
+
+                    $selectedCategory = $product->getCategory();
+
+                    echo select($arr, 'category', ($selectedCategory != null ? $product->getCategory()->getId() : ''), NULL, NULL, TRUE);
                     ?>
-<?= $error['category'] != '' ? '<span class="error-helper">' . $error['category'] . '</span>' : ''; ?>
+                    <?= $error['category'] != '' ? '<span class="error-helper">' . $error['category'] . '</span>' : ''; ?>
                 </td>
             </tr>
             <tr class="ui-widget-content ui-datatable-even">
                 <td>Descrição:</td>
                 <td>
-                    <textarea name="description" class="formG"><?= $product->getDescription(); ?></textarea>
-<?= $error['description'] != '' ? '<span class="error-helper">' . $error['description'] . '</span>' : ''; ?>
+                    <?=textarea($product->getDescription(), 'description');?>
+                    <?= $error['description'] != '' ? '<span class="error-helper">' . $error['description'] . '</span>' : ''; ?>
                 </td>
             </tr>
             <tr class="ui-widget-content ui-datatable-even">
                 <td style="width: 30%">Valor Venda:</td>
                 <td style="width: 70%">
                     <?= inputtext(StringUtil::currency($product->getSellValue()), 'sellValue', array('class' => 'inputM')); ?>
-<?= $error['sellValue'] != '' ? '<span class="error-helper">' . $error['sellValue'] . '</span>' : ''; ?>
+                    <?= $error['sellValue'] != '' ? '<span class="error-helper">' . $error['sellValue'] . '</span>' : ''; ?>
                 </td>
             </tr>
             <tr class="ui-widget-content ui-datatable-even">
                 <td></td>
                 <td>
-<?= button('Salvar'); ?>
+                    <?= button('Salvar'); ?>
                 </td>
             </tr>
         </tbody>

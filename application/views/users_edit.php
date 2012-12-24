@@ -20,7 +20,7 @@
             <tr class="ui-widget-content ui-datatable-even">
                 <td>Grupo:</td>
                 <td>
-                    <?=select(array(1 => 'Admin',2 => 'Empresário'),'group', $user->getGroup(),array('style' => 'width:140px'));?>
+                    <?=select(array(1 => 'Admin',5000 => 'Usuário'),'group', $user->getGroup(),array('style' => 'width:140px'));?>
                     <?=$error['group']!=''?'<span class="error-helper">'.$error['group'].'</span>':'';?>
                 </td>
             </tr>

@@ -12,6 +12,11 @@ class PreparedStatement {
     const BOOLEAN = "i";
     /**
      *
+     * @var Logger
+     */
+    private static $logger ;
+    /**
+     *
      * @var string 
      */
     private $sql;
@@ -41,6 +46,7 @@ class PreparedStatement {
     public function __construct(mysqli_stmt $stmt,$sql) {
         $this->statement = $stmt;
         $this->sql = $sql;
+        self::$logger = Logger::getLogger(__CLASS__);
     }
 
     /**
@@ -75,9 +81,12 @@ class PreparedStatement {
         }
 //        Console::log($log);
         $eval = '$this->statement->bind_param(\'' . $types . '\',' . $parameters . ');';
+        
         if(count($this->parameters) > 0){
             eval($eval);
         }
+        self::$logger->debug("BIND: [".implode(', ', $this->parameters )."]");
+        
         $result = $this->statement->execute();
         if($result=== FALSE){
             throw new QueryException( "ERRO AO PREPARAR QUERY ".$this->statement->error);

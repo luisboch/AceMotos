@@ -19,7 +19,7 @@ class ConfigConnection {
             $this->database = "1105746_farm";
         } else {
             $this->host = "localhost";
-            $this->password = "";
+            $this->password = "mysql";
             $this->username = "root";
             $this->database = "acemotos";
         }

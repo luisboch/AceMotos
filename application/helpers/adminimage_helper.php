@@ -5,7 +5,6 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 if (!function_exists('adminimage')) {
-    import('util/PHPEL.php');
 
     function adminimage(WebImage $img = NULL, $size = 1) {
         if($img!= NULL){

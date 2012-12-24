@@ -69,6 +69,7 @@ class ProductsController extends LC_Controller {
 
     public function edit() {
         $this->load->helper('select');
+        $this->load->helper('textarea');
         $categories = $this->categoryService->search();
         $this->addWay(__CLASS__ . '/edit', 'edição');
         if ($this->uri->segment(3) != '') {

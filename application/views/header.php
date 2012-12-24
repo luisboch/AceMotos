@@ -21,6 +21,7 @@
         <script type="text/javascript" src="<?= $url_home ?>resources/lib/plupload/js/plupload.full.js"></script>
         <script type="text/javascript" src="<?= $url_home ?>resources/lib/plupload/js/jquery.plupload.queue/jquery.plupload.queue.js"></script>
         <script type="text/javascript" src="<?= $url_home ?>resources/js/jquery.reveal.js"></script>
+        <script type="text/javascript" src="<?= $url_home ?>resources/js/tiny_mce/jquery.tinymce.js"></script>
         <script type="text/javascript" src="<?= $url_home ?>resources/js/base.js"></script>
         <title><?= $title ?></title>
         <script type="text/javascript">

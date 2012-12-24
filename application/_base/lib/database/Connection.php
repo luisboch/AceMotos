@@ -75,11 +75,14 @@ class Connection {
      */
     public function query($sql) {
         $rs = new ResultSet($sql);
-        $result = $this->db_conn->query($sql . ';');
+        $result = $this->db_conn->query($sql);
         if ($result === false) {
             self::$logger->error("QUERY ERROR [" . $sql . "]");
             throw new QueryException("ERRO AO PREPARAR QUERY " . $this->db_conn->error);
         }
+        
+        self::$logger->debug("GOOD: '".$sql."'");
+        
         $rs->setMysqlResult($result);
         return $rs;
     }
@@ -97,6 +100,8 @@ class Connection {
             self::$logger->error("QUERY ERROR [" . $sql . "]");
             throw new QueryException("ERRO AO PREPARAR QUERY " . $this->db_conn->error);
         }
+        
+        self::$logger->debug("GOOD: '".$sql."'");
         return new PreparedStatement($stmt, $sql);
     }
 

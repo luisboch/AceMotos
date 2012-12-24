@@ -206,8 +206,7 @@ class DataTable {
         $string = "";
         //se é para exibir botão de pesquisa ou botão de criação 
         if ($this->option("btCreate") || $this->option("btSearch")) {
-            $string .= '<div style="text-align: right;width: 90%;
-                margin-left:5%;margin-rigth:5%;">';
+            $string .= '<div style="text-align: right;width: 100%;">';
             if ($this->option("btCreate")) {
                 $string .= button("Novo", $this->option('urlCreate'));
             }
