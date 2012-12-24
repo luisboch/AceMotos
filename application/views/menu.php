@@ -20,4 +20,4 @@
     </ul>
 </div>
 <div id="nav-bar" class="ui-state-default"><?=$way?></div>
-<div id="rootDocument" style ="width: 83%;float:right">
+<div id="rootDocument" style ="width: 83%;float:right;padding:5px 0px;margin-bottom: 5px;" class="ui-widget ui-widget-content">

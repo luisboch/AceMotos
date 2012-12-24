@@ -250,7 +250,7 @@ div.multiple-upload-header div.multiple-upload-header-column{
 }
 .multiple-upload-rows div div{
     padding: 2px 0px;
-    vertical-align: center;
+    vertical-align: middle;
 }
 .multiple-upload .multiple-upload-rows{
     border:0px;
@@ -268,10 +268,9 @@ html body.ui-corner-all div#rootDocument.ui-panel form div.multiple-upload div.m
 .old-image div {
     float: right;
     width: auto;
-    
 }
-html body.ui-corner-all div#rootDocument.ui-panel form div.multiple-upload div.multiple-upload-rows div.image-remove{
-    width: 33%;
+html body.ui-corner-all div#rootDocument.ui-widget form div.multiple-upload div.multiple-upload-rows div.image-remove{
+    width: 20%;
     text-align: center;
     height: 5px;
     margin-top: 25px;

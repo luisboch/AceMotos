@@ -120,6 +120,7 @@ class ProductsController extends LC_Controller {
         } catch (ValidationException $v) {
 
             $this->load->helper('select');
+            $this->load->helper('textarea');
             $categories = $this->categoryService->search();
             $error = array();
 
@@ -129,7 +130,7 @@ class ProductsController extends LC_Controller {
 
             $arr['error'] = &$error;
             $arr['categories'] = &$categories;
-
+            
             $this->adminView('products_edit.php', $arr);
         }
     }

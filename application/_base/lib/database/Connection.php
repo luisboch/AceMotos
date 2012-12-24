@@ -42,7 +42,9 @@ class Connection {
     public static function &getConnection() {
         if (self::$conn === NULL) {
             self::$conn = self::makeConnection();
+            self::$logger->info("Connecting...");
         }
+        self::$logger->info("...Connected");
         return self::$conn;
     }
 
@@ -59,6 +61,7 @@ class Connection {
 
         $config = new ConfigConnection(self::$type == 1 ? true : false);
         $c = new Connection();
+        self::$logger->info("Connecting to host [".$config->getHost()."] database [".$config->getDatabase()."] ");
         $c->db_conn = new mysqli($config->getHost(), $config->getUsername(),
                         $config->getPassword(), $config->getDatabase());
         if ($c->db_conn->connect_errno) {
@@ -80,9 +83,9 @@ class Connection {
             self::$logger->error("QUERY ERROR [" . $sql . "]");
             throw new QueryException("ERRO AO PREPARAR QUERY " . $this->db_conn->error);
         }
-        
-        self::$logger->debug("GOOD: '".$sql."'");
-        
+
+        self::$logger->debug("GOOD: '" . $sql . "'");
+
         $rs->setMysqlResult($result);
         return $rs;
     }
@@ -96,12 +99,12 @@ class Connection {
         $stmt = $this->db_conn->prepare($sql . ';');
 
         if ($stmt === false) {
-            
+
             self::$logger->error("QUERY ERROR [" . $sql . "]");
             throw new QueryException("ERRO AO PREPARAR QUERY " . $this->db_conn->error);
         }
-        
-        self::$logger->debug("GOOD: '".$sql."'");
+
+        self::$logger->debug("GOOD: '" . $sql . "'");
         return new PreparedStatement($stmt, $sql);
     }
 

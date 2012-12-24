@@ -21,7 +21,7 @@ class ConfigConnection {
             $this->host = "localhost";
             $this->password = "mysql";
             $this->username = "root";
-            $this->database = "acemotos";
+            $this->database = "hardwarehouse";
         }
     }
 
