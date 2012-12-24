@@ -1,7 +1,6 @@
 <?php
 import('Product.php');
 import('lib/image/Image.php');
-import('lib/image/Image.php');
 /**
  * Description of WebImage
  *
