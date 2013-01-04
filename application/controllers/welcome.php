@@ -1,23 +1,27 @@
 <?php
+
 /**
  * Description of Welcome
  *
  * @author luis
  */
 class Welcome extends LC_Controller{
+    
     function __construct() {
         parent::__construct();
-        $this->addWay(__CLASS__, 'Welcome');
+        import('services/ProductService.php');
+        $this->service = new ProductService();
     }
-
-    public function canvas(){
-        $this->addWay(__CLASS__.'/canvas/'.$this->uri->segment(3), 'Canvas');
-        $this->adminView('canvas_'.$this->uri->segment(3).'.html');
+    
+    public function index(){
+        $arr['products'] = $this->service->getIndexProducts();
+        $this->clientView('index.php', $arr);
     }
     
     protected function checkLogin() {
-        return true;   
+        return false;   
     }
+    
 }
 
 ?>

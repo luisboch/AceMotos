@@ -184,6 +184,13 @@ class LC_Controller extends CI_Controller {
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($arr, true);
     }
+    /**
+     * @param string $page
+     * @param array $params
+     */
+    protected function clientView($page, $params = array()){
+        $this->load->view('client/'.$page, $params);
+    }
 
     protected function loadXml($arr) {
         header('Content-Type: text/xml; charset=utf-8');

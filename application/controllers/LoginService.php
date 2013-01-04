@@ -37,7 +37,7 @@ class LoginService extends LC_Controller {
          $this->log->info("User {name:".$user->getName().' id: '.$user->getId().'} logged!');
         Session::getSession()->setUser($user);
         if($_POST['target'] == '' && $_POST['target'] != 'LoginService/logout'){
-            $target = site_url();
+            $target = site_url('Admin');
         }
         else{
             $target = $_POST['target'];
