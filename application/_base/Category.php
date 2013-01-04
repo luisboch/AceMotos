@@ -56,6 +56,7 @@ class Category implements Entity {
         return false;
         
     }
+
 }
 
 ?>

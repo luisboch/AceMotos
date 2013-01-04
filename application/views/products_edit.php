@@ -44,6 +44,12 @@
                 </td>
             </tr>
             <tr class="ui-widget-content ui-datatable-even">
+                <td>Exibir na index?:</td>
+                <td>
+                    <input type="checkbox" <?=$product->getShowIndex()==1?'checked="checked"':''?> name="showIndex" />
+                </td>
+            </tr>
+            <tr class="ui-widget-content ui-datatable-even">
                 <td></td>
                 <td>
                     <?= button('Salvar'); ?>

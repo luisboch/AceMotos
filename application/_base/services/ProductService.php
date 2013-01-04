@@ -95,7 +95,7 @@ class ProductService extends BasicService {
      * @return List<Product>
      */
     public function getIndexProducts(){
-        return $this->dao->paginationSearch("%", 0, 16);
+        return $this->dao->indexSearch();
     }
 }
 

@@ -53,6 +53,12 @@ class Product implements ILogicalDeletion, Entity {
      */
     private $status;
     
+    /**
+     *
+     * @var boolean
+     */
+    private $showIndex = false;
+    
     public function getSellValue() {
         return $this->sellValue;
     }
@@ -167,6 +173,23 @@ class Product implements ILogicalDeletion, Entity {
     public function setStatus($status) {
         $this->status = $status;
     }
+
+    /**
+     * 
+     * @return boolean
+     */
+    public function getShowIndex() {
+        return $this->showIndex;
+    }
+    /**
+     * 
+     * @param boolean $showIndex
+     */
+    public function setShowIndex($showIndex) {
+        $this->showIndex = $showIndex;
+    }
+
+
 
 }
 

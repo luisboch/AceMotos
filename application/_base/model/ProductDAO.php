@@ -28,13 +28,14 @@ class ProductDAO extends BasicDAO {
 
     protected function executeInsert(Entity &$entity) {
 
-        $sql = "insert into " . $this->getTableName() . " (" . $this->getFields() . ", categoria_id ) values (?,?,?,?,true,?)";
+        $sql = "insert into " . $this->getTableName() . " (" . $this->getFields() . ", categoria_id, exibir_index ) values (?,?,?,?,true,?,?)";
         $p = $this->getConn()->prepare($sql);
         $p->setParameter(1, $entity->getId(), PreparedStatement::INTEGER);
         $p->setParameter(2, $entity->getName(), PreparedStatement::STRING);
         $p->setParameter(3, $entity->getDescription(), PreparedStatement::STRING);
         $p->setParameter(4, $entity->getSellValue(), PreparedStatement::DOUBLE);
         $p->setParameter(5, $entity->getCategory()->getId(), PreparedStatement::INTEGER);
+        $p->setParameter(6, $entity->getShowIndex(), PreparedStatement::BOOLEAN);
         $p->execute();
         $entity->setId($this->getConn()->lastId());
     }
@@ -46,7 +47,8 @@ class ProductDAO extends BasicDAO {
                         `descricao`=?,
                         `valor_venda`=?, 
                         `categoria_id`=?,
-                        `status`=?
+                        `status`=?,
+                        `exibir_index`=?
                     WHERE id=?";
         $p = $this->getConn()->prepare($sql);
         $p->setParameter(1, $entity->getName(), PreparedStatement::STRING);
@@ -54,14 +56,15 @@ class ProductDAO extends BasicDAO {
         $p->setParameter(3, $entity->getSellValue(), PreparedStatement::DOUBLE);
         $p->setParameter(4, $entity->getCategory()->getId(), PreparedStatement::INTEGER);
         $p->setParameter(5, $entity->getStatus(), PreparedStatement::BOOLEAN);
-        $p->setParameter(6, $entity->getId(), PreparedStatement::INTEGER);
+        $p->setParameter(6, $entity->getShowIndex(), PreparedStatement::INTEGER);
+        $p->setParameter(7, $entity->getId(), PreparedStatement::INTEGER);
         $p->execute();
         
         $this->saveImages($entity, false);
     }
 
     public function getFields() {
-        return ' `id`, `nome`, `descricao`, `valor_venda`, `status` ';
+        return ' `id`, `nome`, `descricao`, `valor_venda`, `status`, `exibir_index` ';
     }
 
     /**
@@ -78,7 +81,8 @@ class ProductDAO extends BasicDAO {
         $product->setDescription($arr['descricao']);
         $product->setSellValue($arr['valor_venda']);
         $product->setStatus($arr['status']);
-        
+        $product->setShowIndex($arr['exibir_index']);
+
         return $product;
     }
 
@@ -133,6 +137,22 @@ class ProductDAO extends BasicDAO {
         }
         return $arr;
     }
+    
+    
+    public function indexSearch() {
+        $sql = 'select ' . $this->getFields() . ' from ' . $this->getTableName()
+                . ' where  status = true and exibir_index = true LIMIT 0, 16';
+        $p = $this->getConn()->prepare($sql);
+        $rs = $p->execute();
+        $arr = array();
+        while ($rs->next()) {
+            $ob = &$this->getObject($rs);
+            $this->getImages($ob, 1, 0);
+            $arr[] = $ob;
+        }
+        return $arr;
+    }
+
 
     public function getImages(Product &$product, $limit = NULL, $size = NULL) {
         
@@ -226,7 +246,7 @@ class ProductDAO extends BasicDAO {
         $sql = "
             select p.`id`, p.`nome`, p.`descricao`, p.`valor_venda`, 
                    p.`categoria_id`, c1.id as cat1id, c1.descricao as cat1desc, 
-                   c2.id as cat2id, c2.descricao as cat2desc, p.`status`
+                   c2.id as cat2id, c2.descricao as cat2desc, p.`status`, p.`exibir_index`
               from produtos p
               join categorias c1 on (c1.id = p.`categoria_id` )
               join categorias c2 on (c2.id = c1.`categoria_id` )

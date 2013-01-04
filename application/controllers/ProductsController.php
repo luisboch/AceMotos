@@ -89,6 +89,8 @@ class ProductsController extends LC_Controller {
         $this->addWay(__CLASS__ . '/save', 'salvar');
         $id = $_POST['id'];
         $name = $_POST['name'];
+        $showIndex = $_POST['showIndex'];
+        
         $decription = $_POST['description'];
         $sellValue = $_POST['sellValue'];
         $categoryId = $_POST['category'];
@@ -107,6 +109,7 @@ class ProductsController extends LC_Controller {
         $prod->setName($name);
         $prod->setDescription($decription);
         $prod->setSellValue(StringUtil::toFloat($sellValue));
+        $prod->setShowIndex($showIndex == 'on'?1:0);
 
         $arr = array();
         $arr['product'] = &$prod;
