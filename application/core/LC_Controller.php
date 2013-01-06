@@ -189,6 +189,10 @@ class LC_Controller extends CI_Controller {
      * @param array $params
      */
     protected function clientView($page, $params = array()){
+        // Set basic vars
+        $params['title'] = $this->title;
+        $params['url_home'] = $this->url_home;
+
         $this->load->view('client/'.$page, $params);
     }
 

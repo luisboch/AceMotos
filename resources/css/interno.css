@@ -4,28 +4,28 @@
 }
 
 #quemsomos {
-	background-image:url(imagens/somos.png);
+	background-image:url(../images/layout/somos.png);
 	width: 793px;
 	height: 570px;
 	float:right;
 }
 
 #produto_maior {
-	background-image:url(imagens/produto_maior.png);
+	background-image:url(../images/layout/produto_maior.png);
 	width: 793px;
 	height: 570px;
 	float:right;
 }
 
 #destaque {
-	background-image:url(imagens/destaque.png);
+	background-image:url(../images/layout/destaque.png);
 	width: 793px;
 	height: 618px;
 	float:right;
 }
 
 #descricao_ficha {
-	background-image:url(imagens/produto_descricao.png);
+	background-image:url(../images/layout/produto_descricao.png);
 	width: 680px;
 	height: 237px;
 	float:right;
@@ -170,14 +170,14 @@
 }
 
 #produto_maior1 {
-	background-image:url(imagens/total.png);
+	background-image:url(../images/layout/total.png);
 	width: 793px;
 	height: 1175px;
 	float:right;
 }
 
 #produto_contato {
-	background-image:url(imagens/total_contato.png);
+	background-image:url(../images/layout/total_contato.png);
 	width: 793px;
 	height: 1175px;
 	float:right;

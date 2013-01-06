@@ -5,14 +5,14 @@
 <meta name="keywords" content="informatica, curitiba, hardware, vendas" />
 <meta name="description" content="Venda de hardware em geral." />
 <title>Hardware House</title>
-<link href="resources/css/css.css" type="text/css" rel="stylesheet"/>
-<link href="resources/css/interno.css" type="text/css" rel="stylesheet"/>
-<script type="text/javascript" src="resources/js/jquery-1.8.3.min.js" ></script>
-<script type="text/javascript" src="resources/js/init.js" ></script>
+<link href="<?=$url_home?>resources/css/css.css" type="text/css" rel="stylesheet"/>
+<link href="<?=$url_home?>resources/css/interno.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="<?=$url_home?>resources/js/jquery-1.8.3.min.js" ></script>
+<script type="text/javascript" src="<?=$url_home?>resources/js/init.js" ></script>
 <style type="text/css">
 <!--
 body {
-	background-image: url(resources/images/layout/bg1.png);
+	background-image: url(<?=$url_home?>resources/images/layout/bg1.png);
 	background-repeat: repeat;
 }
 .cat {
