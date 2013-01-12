@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 
 if (!defined('BASEPATH'))
@@ -6,12 +6,12 @@ if (!defined('BASEPATH'))
 
 if (!function_exists('adminimage')) {
 
-    function adminimage(WebImage $img = NULL, $size = 1) {
-        if($img!= NULL){
-            return '<div><div class="ui-image-admin"><a href="#" rel="'.URL_IMAGES.$img->getImage(5)->getLink().'" ></a><img src="'.URL_IMAGES.$img->getImage($size)->getLink().'" /><span style="clear:both;"></span></div></div>';
-        }
-        else{
-            return '<div><div class="ui-image-admin"><img src="'.URL_IMAGES.'withoutimage'.$size.'.png" /><span style="clear:both;"></span></div></div>';
+    function adminimage(WebImage $img = NULL, $size = 1)
+    {
+        if ($img != NULL) {
+            return '<div><div class="ui-image-admin"><a href="#" rel="' . URL_IMAGES . $img->getImage(5)->getLink() . '" ></a><img src="' . URL_IMAGES . $img->getImage($size)->getLink() . '" /><span style="clear:both;"></span></div></div>';
+        } else {
+            return '<div><div class="ui-image-admin"><img src="' . URL_IMAGES . 'withoutimage' . $size . '.png" /><span style="clear:both;"></span></div></div>';
         }
     }
 

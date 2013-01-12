@@ -6,9 +6,11 @@
  * @author luis
  * @since Jul 25, 2012
  */
-class Categories extends LC_Controller {
+class Categories extends LC_Controller
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
 
         import("util/components/DataTable.php");
@@ -17,49 +19,52 @@ class Categories extends LC_Controller {
         $this->addWay(__CLASS__, "categorias");
     }
 
-    public function index() {
+    public function index()
+    {
         $this->addWay(__CLASS__ . '/index', 'home');
         $this->adminView("categories_index.php");
     }
 
-    public function search() {
+    public function search()
+    {
         $this->addWay(__CLASS__ . '/search', 'pesquisa');
         $params = $this->getRequestParams(array('search' => '%'));
         $notices = $this->service->search(urldecode($params['search']));
 
 
         $dat = new DataTable(array(
-                    'btSearch' => true,
-                    'urlSearch' => site_url(__CLASS__),
-                    'btCreate' => true,
-                    'urlCreate' => site_url(__CLASS__ . '/edit'),
-                    'urlEdit' => site_url(__CLASS__ . '/edit/'),
-                    'editable' => true,
-                    'friendyUrlEdit' => true,
-                    'list' => $notices,
-                    'title' => 'Categorias'
-                ));
-        $a['data'] = &$dat;
+            'btSearch' => true,
+            'urlSearch' => site_url(__CLASS__),
+            'btCreate' => true,
+            'urlCreate' => site_url(__CLASS__ . '/edit'),
+            'urlEdit' => site_url(__CLASS__ . '/edit/'),
+            'editable' => true,
+            'friendlyUrlEdit' => true,
+            'list' => $notices,
+            'title' => 'Categorias'
+        ));
+        $a['data'] = & $dat;
         $dat->addDisplayField('Código', 'id', DataTable::STRING);
         $dat->addDisplayField('Descrição', 'description', DataTable::STRING);
         $dat->addDisplayField('Pai', 'category == null', DataTable::BOOLEAN);
         $dat->addDisplayField('Categoria Pai', 'category == null ? \\\ : category.description', DataTable::STRING);
         $this->adminView('notices_results.php', $a);
-        
+
     }
 
-    public function edit() {
+    public function edit()
+    {
         $this->addWay(__CLASS__ . '/edit', 'edição');
         if ($this->uri->segment(3) != '') {
-            $cat = &$this->service->getById($this->uri->segment(3));
+            $cat = & $this->service->getById($this->uri->segment(3));
         } else {
             $cat = new Category();
         }
         $this->load->helper('select');
         $arr = array();
 
-        $arr['cat'] = &$cat;
-        $aux = &$this->service->getRootCategories();
+        $arr['cat'] = & $cat;
+        $aux = & $this->service->getRootCategories();
 
         $categories = array();
 
@@ -70,11 +75,12 @@ class Categories extends LC_Controller {
         }
 
 
-        $arr['categories'] = &$categories;
+        $arr['categories'] = & $categories;
         $this->adminView('categories_edit.php', $arr);
     }
 
-    public function save() {
+    public function save()
+    {
         $this->addWay(__CLASS__ . '/edit', 'salvar');
         $cat = new Category();
         $cat->setDescription($_POST['description']);
@@ -102,7 +108,7 @@ class Categories extends LC_Controller {
                 $error[$er->getField()] = $er->getMessage();
             }
 
-            $aux = &$this->service->getRootCategories();
+            $aux = & $this->service->getRootCategories();
 
             $categories = array();
 
@@ -114,9 +120,9 @@ class Categories extends LC_Controller {
 
             $this->load->helper('select');
 
-            $arr['categories'] = &$categories;
-            $arr['error'] = &$error;
-            $arr['cat'] = &$cat;
+            $arr['categories'] = & $categories;
+            $arr['error'] = & $error;
+            $arr['cat'] = & $cat;
             $this->adminView('categories_edit.php', $arr);
         }
     }

@@ -4,12 +4,12 @@ import('util/StringUtil.php');
 
 /**
  * PHPEL interpret an string like Expression language of java
- * @example PHPEL::read("product.id", new People()) 
- * 
+ * @example PHPEL::read("product.id", new People())
+ *
  * class People{
  *      $product;
  * }
- * 
+ *
  * class Product{
  *      $id;
  * }
@@ -17,46 +17,50 @@ import('util/StringUtil.php');
  * @author luis
  * @since Jul 29, 2012
  */
-class PHPEL {
+class PHPEL
+{
 
     private $object;
     private $str;
 
-    private function __construct(&$object, $str) {
-        $this->object = &$object;
+    private function __construct(&$object, $str)
+    {
+        $this->object = & $object;
         $this->str = $str;
     }
 
-    public static function read($str, &$object) {
+    public static function read($str, &$object)
+    {
         $ob = new PHPEL($object, $str);
         return $ob->interpret();
     }
 
-    private function interpret() {
+    private function interpret()
+    {
         $values = explode(' ', trim($this->str));
         $add = true;
-        $acum= '';
+        $acum = '';
         $arr = array();
-        foreach($values as $k => $v){
-            if( $add && StringUtil::startsWith($v, '\\') ){
+        foreach ($values as $k => $v) {
+            if ($add && StringUtil::startsWith($v, '\\')) {
                 $test = '\\\\';
-                if($v != $test && !StringUtil::endswith($v, '\\')){
+                if ($v != $test && !StringUtil::endswith($v, '\\')) {
                     $add = false;
                     $acum = '';
                 }
-            } else if(!$add && StringUtil::endswith($v, '\\') ){
+            } else if (!$add && StringUtil::endswith($v, '\\')) {
                 $add = true;
-                $v = trim($acum.' '.$v);
+                $v = trim($acum . ' ' . $v);
             }
-            if($add){
+            if ($add) {
                 $arr[] = $v;
-            }else{
-                $acum .= $v.' ';
+            } else {
+                $acum .= $v . ' ';
             }
         }
         $realValues = array();
         foreach ($arr as $v) {
-            if(!StringUtil::startsWith($v, '\\')){
+            if (!StringUtil::startsWith($v, '\\')) {
                 $v = trim($v);
             }
             if (!$this->isLogic($v)) {
@@ -76,27 +80,27 @@ class PHPEL {
         return $realValues[0];
     }
 
-    private function hasnext(&$arr, &$k) {
-        $arr = &array_values($arr);
+    private function hasnext(&$arr, &$k)
+    {
+        $arr = & array_values($arr);
         if (count($arr) > 1) {
             return array('val' => $arr[$k]);
         }
         return false;
     }
 
-    private function getValue($v, $object) {
-        
-        if($v === 'true'||$v === 'TRUE'){
+    private function getValue($v, $object)
+    {
+
+        if ($v === 'true' || $v === 'TRUE') {
             return TRUE;
-        }
-        else if($v === 'null' || $v === 'NULL'){
+        } else if ($v === 'null' || $v === 'NULL') {
             return NULL;
-        }
-        else if($v ==='false' || $v === 'FALSE'){
+        } else if ($v === 'false' || $v === 'FALSE') {
             return FALSE;
         }
-        
-        if ($v != ''  && !StringUtil::startsWith($v, '\\')) {
+
+        if ($v != '' && !StringUtil::startsWith($v, '\\')) {
             $pos = strpos($v, '.');
             $val = $pos !== false ? substr($v, 0, $pos) : $v;
             $class = new ReflectionClass($object);
@@ -118,12 +122,13 @@ class PHPEL {
             return $val;
         }
         if (StringUtil::startsWith($v, '\\')) {
-            $v = substr($v, 1, strlen($v)-2);
+            $v = substr($v, 1, strlen($v) - 2);
         }
         return $v;
     }
 
-    private function readValues(&$arr, $logical, &$k) {
+    private function readValues(&$arr, $logical, &$k)
+    {
         if ($logical == 'empty') {
             unset($arr[$k]);
             $arr[$k + 1] = empty($arr[$k + 1]);
@@ -177,11 +182,12 @@ class PHPEL {
     }
 
     /**
-     * 
+     *
      * @param string $str
      * @return boolean
      */
-    public function isLogic($str) {
+    public function isLogic($str)
+    {
         return $str === 'empty' || $str === '?' || $str === '!=' || $str === '==' || $str === ':';
     }
 

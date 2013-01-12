@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 
 if (!defined('BASEPATH'))
@@ -7,7 +7,8 @@ if (!defined('BASEPATH'))
 if (!function_exists('el')) {
     import('util/PHPEL.php');
 
-    function el($string,&$object) {
+    function el($string, &$object)
+    {
         return PHPEL::read($string, $object);
     }
 

@@ -9,18 +9,21 @@ import('exceptions/ValidationException.php');
  * @author felipe
  * @since Aug 4, 2012
  */
-class ProductService extends BasicService {
+class ProductService extends BasicService
+{
 
     //put your code here
-    function __construct() {
+    function __construct()
+    {
 
         parent:: __construct(new ProductDAO());
     }
 
-    protected function validate(Entity &$entity) {
+    protected function validate(Entity &$entity)
+    {
 
         $ve = new ValidationException();
-        
+
         if ($entity->getName() == '') {
             $ve->addError('Por Favor Preencha o nome corretamente', 'name');
         }
@@ -33,23 +36,25 @@ class ProductService extends BasicService {
         if ($entity->getCategory() == '') {
             $ve->addError('Por Favor Selecione a categoria corretamente', 'category');
         }
-        
+
         if (!$ve->isEmtpy()) {
             throw $ve;
         }
     }
 
-    public function getImages(Product &$product, $limit = 10, $size = NULL) {
+    public function getImages(Product &$product, $limit = 10, $size = NULL)
+    {
         return $this->dao->getImages($product, $limit, $size);
     }
 
     /**
-     * 
+     *
      * @param Product $product
      * @param type $images
      * @return Product
      */
-    public function &saveImages(Product &$product, &$images) {
+    public function &saveImages(Product &$product, &$images)
+    {
         $this->dao->begin();
 
         foreach ($product->getImages() as $k => $image) {
@@ -71,15 +76,16 @@ class ProductService extends BasicService {
     }
 
     /**
-     * 
+     *
      * @param Product $product
      * @param integer $index
      * @return Product
      */
-    public function &removeImage(Product &$product, $index) {
-        $images = &$product->getImages();
+    public function &removeImage(Product &$product, $index)
+    {
+        $images = & $product->getImages();
 
-        $webImage = &$images[$index];
+        $webImage = & $images[$index];
 
         $webImage->delete();
 
@@ -89,12 +95,13 @@ class ProductService extends BasicService {
         $this->update($product);
         return $product;
     }
-    
+
     /**
-     * 
+     *
      * @return List<Product>
      */
-    public function getIndexProducts(){
+    public function getIndexProducts()
+    {
         return $this->dao->indexSearch();
     }
 }

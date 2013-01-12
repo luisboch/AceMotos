@@ -4,14 +4,16 @@
  *
  * @author luis
  */
-class ConfigConnection {
+class ConfigConnection
+{
 
     private $host;
     private $username;
     private $password;
     private $database;
 
-    public function __construct($production = TRUE) {
+    public function __construct($production = TRUE)
+    {
         if ($production === TRUE) {
             $this->host = "localhost";
             $this->password = "mysql@x9m013e8mi0";
@@ -25,19 +27,23 @@ class ConfigConnection {
         }
     }
 
-    public function getHost() {
+    public function getHost()
+    {
         return $this->host;
     }
 
-    public function getUsername() {
+    public function getUsername()
+    {
         return $this->username;
     }
 
-    public function getPassword() {
+    public function getPassword()
+    {
         return $this->password;
     }
 
-    public function getDatabase() {
+    public function getDatabase()
+    {
         return $this->database;
     }
 

@@ -7,12 +7,12 @@ if (!defined('BASEPATH'))
  *
  * An open source application development framework for PHP 5.1.6 or newer
  *
- * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
- * @license		http://codeigniter.com/user_guide/license.html
- * @link		http://codeigniter.com
- * @since		Version 1.0
+ * @package        CodeIgniter
+ * @author        ExpressionEngine Dev Team
+ * @copyright    Copyright (c) 2008 - 2011, EllisLab, Inc.
+ * @license        http://codeigniter.com/user_guide/license.html
+ * @link        http://codeigniter.com
+ * @since        Version 1.0
  * @filesource
  */
 // ------------------------------------------------------------------------
@@ -22,11 +22,11 @@ if (!defined('BASEPATH'))
  *
  * Loads the base classes and executes the request.
  *
- * @package		CodeIgniter
- * @subpackage	codeigniter
- * @category	Front-controller
- * @author		ExpressionEngine Dev Team
- * @link		http://codeigniter.com/user_guide/
+ * @package        CodeIgniter
+ * @subpackage    codeigniter
+ * @category    Front-controller
+ * @author        ExpressionEngine Dev Team
+ * @link        http://codeigniter.com/user_guide/
  */
 /**
  * CodeIgniter Version
@@ -219,7 +219,8 @@ $LANG = & load_class('Lang', 'core');
 // Load the base controller class
 require BASEPATH . 'core/Controller.php';
 
-function &get_instance() {
+function &get_instance()
+{
     return CI_Controller::get_instance();
 }
 
@@ -252,8 +253,8 @@ $class = $RTR->fetch_class();
 $method = $RTR->fetch_method();
 
 if (!class_exists($class)
-        OR strncmp($method, '_', 1) == 0
-        OR in_array(strtolower($method), array_map('strtolower', get_class_methods('CI_Controller')))
+    OR strncmp($method, '_', 1) == 0
+    OR in_array(strtolower($method), array_map('strtolower', get_class_methods('CI_Controller')))
 ) {
     if (!empty($RTR->routes['404_override'])) {
         $x = explode('/', $RTR->routes['404_override']);

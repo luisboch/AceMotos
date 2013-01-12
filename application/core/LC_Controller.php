@@ -3,7 +3,8 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class LC_Controller extends CI_Controller {
+class LC_Controller extends CI_Controller
+{
 
     /**
      *
@@ -14,7 +15,7 @@ class LC_Controller extends CI_Controller {
 
     /**
      *
-     * @var BasicService 
+     * @var BasicService
      */
     protected $service;
 
@@ -32,7 +33,8 @@ class LC_Controller extends CI_Controller {
     private $title = "HardwareHouse.com.br";
     private $url_home;
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
         $this->setUrl_home(BASE_URL_HOME);
 
@@ -62,11 +64,13 @@ class LC_Controller extends CI_Controller {
         }
     }
 
-    public function index() {
+    public function index()
+    {
         $this->adminView("index_page.php");
     }
 
-    protected function adminView($view, $vars = array(), $return = FALSE) {
+    protected function adminView($view, $vars = array(), $return = FALSE)
+    {
         // Set basic vars
         $arr['title'] = $this->title;
         $arr['url_home'] = $this->url_home;
@@ -83,35 +87,41 @@ class LC_Controller extends CI_Controller {
         echo $html;
     }
 
-    public function getUrl_home() {
+    public function getUrl_home()
+    {
         return $this->url_home;
     }
 
     /**
      *
-     * @param string $url_home 
+     * @param string $url_home
      */
-    protected function setUrl_home($url_home) {
+    protected function setUrl_home($url_home)
+    {
         $this->url_home = $url_home;
     }
 
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->title;
     }
 
     /**
      * You can use to espcific page title
-     * @param type $title 
+     * @param type $title
      */
-    protected function setTitle($title) {
+    protected function setTitle($title)
+    {
         $this->title = $title;
     }
 
-    protected function checkLogin() {
+    protected function checkLogin()
+    {
         return true;
     }
 
-    function encryptmd5() {
+    function encryptmd5()
+    {
         echo md5($this->uri->segment(3));
     }
 
@@ -120,7 +130,8 @@ class LC_Controller extends CI_Controller {
      * @param array $default
      * @return array
      */
-    protected function getRequestParams($default = array()) {
+    protected function getRequestParams($default = array())
+    {
         if ($this->uri->segment(3) == '') {
             foreach ($default as $k => $v) {
                 if ($_REQUEST[$k] != '') {
@@ -129,7 +140,7 @@ class LC_Controller extends CI_Controller {
             }
             return $default;
         } else {
-            $arr = &$this->uri->uri_to_assoc(3, $default);
+            $arr = & $this->uri->uri_to_assoc(3, $default);
             foreach ($default as $k => $v) {
                 if ($arr[$k] == '') {
                     $arr[$k] = $v;
@@ -139,7 +150,8 @@ class LC_Controller extends CI_Controller {
         }
     }
 
-    private function getWays() {
+    private function getWays()
+    {
         $qtd = count($this->ways);
         if ($qtd == 1) {
             if ($this->uri->segment(3) != '' && $this->uri->segment(2) != '') {
@@ -152,21 +164,23 @@ class LC_Controller extends CI_Controller {
         foreach ($this->ways as $k => $v) {
             if ($i + 1 == $qtd) {
                 $str .= ($i != 0 ? ' > ' : '') . '<span class="nav-link">' .
-                        $v . '</span>';
+                    $v . '</span>';
             } else {
                 $str .= ($i != 0 ? ' > ' : '') . '<span class="nav-link"><a  href="' .
-                        site_url($k) . '">' . $v . '</a></span>';
+                    site_url($k) . '">' . $v . '</a></span>';
             }
             $i++;
         }
         return $str;
     }
 
-    protected function addWay($way, $value) {
+    protected function addWay($way, $value)
+    {
         $this->ways[$way] = $value;
     }
 
-    public function loginPage($error = FALSE, $target = "") {
+    public function loginPage($error = FALSE, $target = "")
+    {
         $this->addWay("home", "LoginService");
         $this->load->helper('inputpass');
         // Set basic vars
@@ -180,28 +194,33 @@ class LC_Controller extends CI_Controller {
         echo $html;
     }
 
-    protected function loadJson($arr) {
+    protected function loadJson($arr)
+    {
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($arr, true);
     }
+
     /**
      * @param string $page
      * @param array $params
      */
-    protected function clientView($page, $params = array()){
+    protected function clientView($page, $params = array())
+    {
         // Set basic vars
         $params['title'] = $this->title;
         $params['url_home'] = $this->url_home;
 
-        $this->load->view('client/'.$page, $params);
+        $this->load->view('client/' . $page, $params);
     }
 
-    protected function loadXml($arr) {
+    protected function loadXml($arr)
+    {
         header('Content-Type: text/xml; charset=utf-8');
         echo $this->xml_encode($arr);
     }
 
-    protected function xml_encode($mixed, $domElement = null, $DOMDocument = null) {
+    protected function xml_encode($mixed, $domElement = null, $DOMDocument = null)
+    {
         if (is_null($DOMDocument)) {
             $DOMDocument = new DOMDocument;
             $DOMDocument->formatOutput = true;
@@ -235,20 +254,22 @@ class LC_Controller extends CI_Controller {
         }
     }
 
-    public function delete() {
+    public function delete()
+    {
         $ids = $_POST['ids'];
         foreach ($ids as $id) {
             $ob = $this->service->getById($id);
             $class = get_class($ob);
             $this->logger->info('User [' . $this->user->getName() . ':' .
-                    $this->user->getId() . '] deleting instance of [' . $class .
-                    '] with id: ' . $id);
+                $this->user->getId() . '] deleting instance of [' . $class .
+                '] with id: ' . $id);
             $this->service->delete($ob);
         }
         $this->search();
     }
 
-    public function search() {
+    public function search()
+    {
         show_404();
     }
 

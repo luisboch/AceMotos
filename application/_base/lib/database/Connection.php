@@ -5,11 +5,12 @@
  *
  * @author luis
  */
-class Connection {
+class Connection
+{
 
     /**
      *
-     * @var mysqli 
+     * @var mysqli
      */
     private static $conn = NULL;
 
@@ -26,11 +27,12 @@ class Connection {
 
     /**
      *
-     * @var mysqli 
+     * @var mysqli
      */
     private $db_conn;
 
-    private function __construct() {
+    private function __construct()
+    {
         if (self::$logger === NULL) {
             self::$logger = Logger::getLogger(__CLASS__);
         }
@@ -39,7 +41,8 @@ class Connection {
     /**
      * @return Connection
      */
-    public static function &getConnection() {
+    public static function &getConnection()
+    {
         if (self::$conn === NULL) {
             self::$conn = self::makeConnection();
             self::$logger->info("Connecting...");
@@ -51,7 +54,8 @@ class Connection {
     /**
      * @return Connection
      */
-    private static function &makeConnection() {
+    private static function &makeConnection()
+    {
 
         if (ENVIRONMENT == 'development') {
             self::forDevelopment();
@@ -61,9 +65,9 @@ class Connection {
 
         $config = new ConfigConnection(self::$type == 1 ? true : false);
         $c = new Connection();
-        self::$logger->info("Connecting to host [".$config->getHost()."] database [".$config->getDatabase()."] ");
+        self::$logger->info("Connecting to host [" . $config->getHost() . "] database [" . $config->getDatabase() . "] ");
         $c->db_conn = new mysqli($config->getHost(), $config->getUsername(),
-                        $config->getPassword(), $config->getDatabase());
+            $config->getPassword(), $config->getDatabase());
         if ($c->db_conn->connect_errno) {
             throw new DatabaseException("FALHA NA CONEXÃO COM O BANCO DE DADOS");
         }
@@ -73,10 +77,11 @@ class Connection {
 
     /**
      *
-     * @param string $string 
-     * @return ResultSet 
+     * @param string $string
+     * @return ResultSet
      */
-    public function query($sql) {
+    public function query($sql)
+    {
         $rs = new ResultSet($sql);
         $result = $this->db_conn->query($sql);
         if ($result === false) {
@@ -93,9 +98,10 @@ class Connection {
     /**
      *
      * @param string $sql
-     * @return PreparedStatement 
+     * @return PreparedStatement
      */
-    public function prepare($sql) {
+    public function prepare($sql)
+    {
         $stmt = $this->db_conn->prepare($sql . ';');
 
         if ($stmt === false) {
@@ -110,43 +116,52 @@ class Connection {
 
     /**
      *
-     * @param boolean $commit 
+     * @param boolean $commit
      */
-    public function autoCommit($commit = true) {
+    public function autoCommit($commit = true)
+    {
         $this->db_conn->autocommit($commit);
     }
 
-    public function commit() {
+    public function commit()
+    {
         $this->db_conn->commit();
         $this->db_conn->autocommit(true);
     }
 
-    public function rollback() {
+    public function rollback()
+    {
         $this->db_conn->rollback();
         $this->db_conn->autocommit(true);
     }
 
-    public function begin() {
+    public function begin()
+    {
         $this->autoCommit(false);
     }
 
-    public static function forProduction() {
+    public static function forProduction()
+    {
         self::$type = self::PRODUCTION;
     }
 
-    public static function forDevelopment() {
+    public static function forDevelopment()
+    {
         self::$type = self::DEVELOPMENT;
     }
 
-    public function lastId() {
+    public function lastId()
+    {
         return $this->db_conn->insert_id;
     }
 
-    public function close() {
+    public function close()
+    {
         $this->db_conn->close();
     }
 
-    public static function throwException($exption, $message) {
+    public static function throwException($exption, $message)
+    {
         throw new $exption($message . self::$conn->error);
     }
 

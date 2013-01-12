@@ -1,5 +1,4 @@
-
-    <? include 'products_links.php'; 
-        $data->generate();
-    ?>
+<? include 'products_links.php';
+$data->generate();
+?>
 

@@ -1,5 +1,4 @@
-
-    <? 
-        $data->generate();
-    ?>
+<?
+$data->generate();
+?>
 

@@ -6,7 +6,7 @@ import('util/Utils.php');
 import('util/PHPEL.php');
 /**
  * @author luis.boch [luis.c.boch@gmail.com]
- * @since Jul 15, 2012 
+ * @since Jul 15, 2012
  */
 /*
  * To change this template, choose Tools | Templates
@@ -18,7 +18,8 @@ import('util/PHPEL.php');
  *
  * @author luis
  */
-class DataTable {
+class DataTable
+{
 
     const STRING = 'STR';
     const NUMERIC = 'INT';
@@ -36,7 +37,7 @@ class DataTable {
     const OPTION_urlDelete = 'urlDelete';
     const OPTION_canDelete = 'canDelete';
     /**
-     * @deprecated 
+     * @deprecated
      */
     const OPTION_objectId = 'objectId';
     const OPTION_editable = 'editable';
@@ -46,7 +47,7 @@ class DataTable {
     /* required if paginate is true */
     const OPTION_itemsPage = 'itemsPage';
     const OPTION_numLinksPagination = 'numLinksPagination';
-    const OPTION_friendyUrlEdit = 'friendyUrlEdit';
+    const OPTION_friendlyUrlEdit = 'friendlyUrlEdit';
     const OPTION_currentPage = 'currentPage';
     const OPTION_amountRegisters = 'amountRegisters';
     const OPTION_amountPerPage = 'amountPerPage';
@@ -55,31 +56,31 @@ class DataTable {
     private $htmlPagination = NULL;
 
     /**
-     * @var array objects 
+     * @var array objects
      */
     private $data;
 
     /**
      *
-     * @var array 
+     * @var array
      */
     private $options;
 
     /**
      *
-     * @var string 
+     * @var string
      */
     private $tableId;
 
     /**
      *
-     * @var integer 
+     * @var integer
      */
     private static $idCount;
 
     /**
      *
-     * @var Pagination 
+     * @var Pagination
      */
     private $pagination;
 
@@ -88,7 +89,8 @@ class DataTable {
      * @param array $options @see STATIC OPTION_*
      */
     function __construct($options = array(), $tableId = NULL
-    ) {
+    )
+    {
         //default option
         $default = array(
             'btSearch' => false,
@@ -108,7 +110,7 @@ class DataTable {
             'itemsPage' => 10,
             'numLinksPagination' => 5,
             'fieldOptions' => NULL,
-            'friendyUrlEdit' => false,
+            'friendlyUrlEdit' => false,
             'paginate' => false,
             'amountPerPage' => 20,
             'canDelete' => false
@@ -121,8 +123,7 @@ class DataTable {
         }
 
 
-
-        $this->options = &$options;
+        $this->options = & $options;
 
         if ($tableId !== NULL) {
             $this->tableId = $tableId;
@@ -143,11 +144,12 @@ class DataTable {
             $pag->setAmountPerPage($this->option(self::OPTION_amountPerPage));
             $pag->setCurrentPage($this->option(self::OPTION_currentPage));
 
-            $this->pagination = &$pag;
+            $this->pagination = & $pag;
         }
     }
 
-    public function addDisplayField($label, $field, $type, $option = NULL, $columSize = NULL) {
+    public function addDisplayField($label, $field, $type, $option = NULL, $columSize = NULL)
+    {
         $key = count($this->options['fields']);
         $this->options['fieldsType'][$key] = $type;
         $this->options['fields'][$key] = $field;
@@ -159,13 +161,15 @@ class DataTable {
     /**
      *
      * @param string $stringKey
-     * @return mixed 
+     * @return mixed
      */
-    public function option($stringKey) {
+    public function option($stringKey)
+    {
         return $this->options[$stringKey];
     }
 
-    private function generatePagination($sizeFields) {
+    private function generatePagination($sizeFields)
+    {
         $string = '<tr><th ' . ($sizeFields > 0 ? 'colspan="' . $sizeFields . '"' : '') . '>';
         $string .= $this->pagination->getHtml();
         $string .= '</th></tr>';
@@ -174,9 +178,10 @@ class DataTable {
 
     /**
      * @param type $return
-     * @return string 
+     * @return string
      */
-    public function generate($return = FALSE) {
+    public function generate($return = FALSE)
+    {
         $fields = $this->option('fields');
         $types = $this->option('fieldsType');
         $titleLabels = $this->option('titleLabels');
@@ -216,7 +221,7 @@ class DataTable {
             }
             $string .= "</div>";
         }
-        $string .= "<form action=\"".$this->option(self::OPTION_urlDelete)."\" method=\"post\">
+        $string .= "<form action=\"" . $this->option(self::OPTION_urlDelete) . "\" method=\"post\">
             <table id=\"" . $this->tableId . "\" class=\"dataTable\">";
         $fieldId = $this->option('fieldId');
         $title = $this->option('title');
@@ -239,14 +244,14 @@ class DataTable {
             $string .= "<thead>";
             if ($title != '') {
                 $string .= '<tr><th ' . (
-                        $sizeFields != 0 ? 'colspan="' . $sizeFields . '"' : ''
-                        ) . ' class="ui-state-default  ui-widget-header" >' . $title . '</th></tr>';
+                $sizeFields != 0 ? 'colspan="' . $sizeFields . '"' : ''
+                ) . ' class="ui-state-default  ui-widget-header" >' . $title . '</th></tr>';
             }
 
             if ($this->option('paginate')) {
                 $this->pagination->setShowing($sizeList);
                 $this->htmlPagination = $this->generatePagination($sizeFields);
-                $string.=$this->htmlPagination;
+                $string .= $this->htmlPagination;
             }
             if ($sizeFields != 0) {
                 $string .= '<tr>';
@@ -270,7 +275,7 @@ class DataTable {
                     $aux = '';
                     $aux .= '<tr class="row_data ui-widget-content ui-datatable-odd">';
                     if ($this->option(self::OPTION_canDelete)) {
-                        $aux.='<td><input type="checkbox" name="ids[]" id="ids" value="'. $arrObj[$fieldId].'" /></td>';
+                        $aux .= '<td><input type="checkbox" name="ids[]" id="ids" value="' . $arrObj[$fieldId] . '" /></td>';
                     }
                     foreach ($fields as $key => $v) {
                         $valueOf = $this->getValue($v, $types[$key], $obj);
@@ -283,12 +288,12 @@ class DataTable {
                         if ($this->option('friendyUrlEdit')) {
 
                             $aux .= '<td><a class="ui-button" href="'
-                                    . $this->option('urlEdit') . '/'
-                                    . $id . '"><span class=" ui-icon ui-icon-zoomin" /></a></td>';
+                                . $this->option('urlEdit') . '/'
+                                . $id . '"><span class=" ui-icon ui-icon-zoomin" /></a></td>';
                         } else {
                             $aux .= '<td><a class="ui-button"  href="'
-                                    . $this->option('urlEdit') . '?' . $fieldId . '='
-                                    . $id . '"><span class=" ui-icon ui-icon-zoomin" /></a></td>';
+                                . $this->option('urlEdit') . '?' . $fieldId . '='
+                                . $id . '"><span class=" ui-icon ui-icon-zoomin" /></a></td>';
                         }
                     }
 
@@ -300,17 +305,17 @@ class DataTable {
                 $string .= '</tbody>';
             }
         } else {
-            $string.=$data;
+            $string .= $data;
         }
 
         if ($this->option('paginate')) {
             $string .= '<tfoot>';
-            $string.=$this->htmlPagination;
-            $string .='</tfoot></table>';
+            $string .= $this->htmlPagination;
+            $string .= '</tfoot></table>';
         } else {
-            $string .='</table>';
+            $string .= '</table>';
         }
-        $string .='<div style="display:none"><input style="margin-left:10px" class="ui-button ui-button-delete" type="submit" value="Excluir selecionados" /></div></form>';
+        $string .= '<div style="display:none"><input style="margin-left:10px" class="ui-button ui-button-delete" type="submit" value="Excluir selecionados" /></div></form>';
         if ($return) {
             return $string;
         } else {
@@ -319,7 +324,8 @@ class DataTable {
         }
     }
 
-    private function getValue($value, $type, &$obj) {
+    private function getValue($value, $type, &$obj)
+    {
         if ($type == self::FN) {
             $pos1 = strpos($value, '(');
             $pos2 = strpos($value, ')');
@@ -351,20 +357,23 @@ class DataTable {
         return $value;
     }
 
-    private function callMethod($method, $args) {
+    private function callMethod($method, $args)
+    {
         $ref = new ReflectionClass($this);
         $method = $ref->getMethod($method);
         return $method->invokeArgs($this, $args);
     }
 
-    public function singleImage(WebImage $img = null) {
+    public function singleImage(WebImage $img = null)
+    {
         if ($img != null) {
             return '<img src="' . URL_IMAGES . $img->getImage(1)->getLink() . '" />';
         }
         return '';
     }
 
-    public function linkedImage(WebImage $img = null, $path = NULL, $value = NULL, $forceShowLink = TRUE) {
+    public function linkedImage(WebImage $img = null, $path = NULL, $value = NULL, $forceShowLink = TRUE)
+    {
         if ($img != null) {
             return '<a href="' . $path . '/' . $value . '"><img src="' . URL_IMAGES . $img->getImage(0)->getLink() . '" /></a>';
         }
@@ -374,7 +383,8 @@ class DataTable {
         return '';
     }
 
-    public function linkedFirstImage($images = array(), $path = NULL, $value = NULL, $forceShowLink = TRUE) {
+    public function linkedFirstImage($images = array(), $path = NULL, $value = NULL, $forceShowLink = TRUE)
+    {
         if ($images != null && count($images) != 0) {
 
             foreach ($images as $image) {

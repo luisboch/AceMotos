@@ -6,7 +6,8 @@
  * @since Jun 23, 2012
  */
 
-class Session {
+class Session
+{
 
     /**
      *
@@ -18,95 +19,106 @@ class Session {
      * @var boolean
      */
     private static $_initialized = false;
-    
+
     /**
-     * @var User 
+     * @var User
      */
     private $user;
-    
-    
+
+
     /**
      *
-     * @var array 
+     * @var array
      */
-    private $cellPhoneResult= array();
-    private function __construct() {//gera funcao construtora como private para bloquear outras instancias desta classe;
+    private $cellPhoneResult = array();
+
+    private function __construct()
+    { //gera funcao construtora como private para bloquear outras instancias desta classe;
     }
 
     /**
      * @return Session
      */
-    public function setUser(User &$user) {
-        $this->user = &$user;
+    public function setUser(User &$user)
+    {
+        $this->user = & $user;
         return $this;
     }
+
     /**
      *
      * @return User
      */
-    public function getUser() {
+    public function getUser()
+    {
         return $this->user;
     }
+
     /**
      *
-     * @return Session 
+     * @return Session
      */
-    public static function getSession() {
+    public static function getSession()
+    {
 
         self::initialize();
 
         return self::$session;
     }
 
-    public static function initialize() {
+    public static function initialize()
+    {
         if (!self::$_initialized) {
             @session_start();
 
 
             if (self::$session === NULL && $_SESSION['s'] == '') {
                 self::$session = new Session();
-                $_SESSION['s'] = &self::$session;
+                $_SESSION['s'] = & self::$session;
             } else if ($_SESSION['s'] != '' && self::$session === NULL) {
-                self::$session = &$_SESSION['s'];
+                self::$session = & $_SESSION['s'];
             }
 
             self::$_initialized = true;
         }
     }
 
-    public static function destroy() {
+    public static function destroy()
+    {
         self::initialize();
         self::$session = NULL;
         $_SESSION['s'] = NULL;
     }
-    
+
     /**
      *
      * @param string $token
      * @return CellPhoneResult
      */
-    public function getCellPhoneResult($token) {
-        if($this->cellPhoneResult[base64_decode($token)] == ''){
+    public function getCellPhoneResult($token)
+    {
+        if ($this->cellPhoneResult[base64_decode($token)] == '') {
             throw new NoResultException("No valid Value found in Session!");
         }
         return $this->cellPhoneResult[base64_decode($token)];
     }
 
     /**
-     *  
-     * @param CellPhoneResult $cellPhoneResult 
+     *
+     * @param CellPhoneResult $cellPhoneResult
      * @return string
      */
-    public function setCellPhoneResult(CellPhoneResult $cellPhoneResult) {
-        
+    public function setCellPhoneResult(CellPhoneResult $cellPhoneResult)
+    {
+
         $count = count($this->cellPhoneResult);
-        
+
         $count++;
-        
+
         $count = $count . self::$strToken;
-        
+
         $this->cellPhoneResult[$count] = $cellPhoneResult;
-        
+
         return base64_encode($count);
     }
 

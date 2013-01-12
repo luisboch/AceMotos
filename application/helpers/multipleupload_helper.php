@@ -6,8 +6,8 @@ if (!defined('BASEPATH'))
 if (!function_exists('simpleUpload')) {
 
 
-
-    function multipleUpload($images, $name, $targetRemove, $entityId,  $id = NULL, $options = array()) {
+    function multipleUpload($images, $name, $targetRemove, $entityId, $id = NULL, $options = array())
+    {
         if ($id == NULL) {
             $id = 'multipleUpload_' . time();
         }
@@ -37,8 +37,8 @@ if (!function_exists('simpleUpload')) {
             $image = $images[$i];
             $html .= '<div class="old-image">' . adminimage($image, 1) . '</div>
                     ';
-            if($image!=''){
-                $html.='<div class="image-remove"><a href="'.  $targetRemove.'/'.$entityId.'?i='. $i .'">excluir</a></div>';
+            if ($image != '') {
+                $html .= '<div class="image-remove"><a href="' . $targetRemove . '/' . $entityId . '?i=' . $i . '">excluir</a></div>';
             } else {
                 $html .= '<div class="image-remove"></div>';
             }

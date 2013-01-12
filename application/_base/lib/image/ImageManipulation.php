@@ -6,23 +6,25 @@
  * @author luis
  * @since Jul 28, 2012
  */
-class ImageManipulation {
+class ImageManipulation
+{
 
     /**
      *
-     * @var Image 
+     * @var Image
      */
     private $image;
     private $warns = array();
     private $types = array('jpg', 'jpeg', 'gif', 'png');
 
-    function __construct(&$image = NULL) {
+    function __construct(&$image = NULL)
+    {
         if ($image != null) {
             if ($image instanceof Image) {
                 if ($this->checkImage($image)) {
                     $this->image = $image;
                 }
-            } else{
+            } else {
                 $this->image = new Image($image);
             }
         }
@@ -33,12 +35,13 @@ class ImageManipulation {
      * @param Image $img
      * @return boolean return true if is allowed, false otherwise
      */
-    public function checkImage(Image $img) {
+    public function checkImage(Image $img)
+    {
         $mime = $img->getFile()->getMimeType();
         $mime = explode('/', $mime);
         if ($mime[0] != 'image' || !in_array($mime[1], $this->types)) {
             $this->warns[] = new ImageManipulationWarn($img,
-                            'This type(' . $mime[1] . ') is not allowed (alloweds:[' . implode(', ', $this->types) . '])');
+                'This type(' . $mime[1] . ') is not allowed (alloweds:[' . implode(', ', $this->types) . '])');
             return false;
         }
         return true;
@@ -48,7 +51,8 @@ class ImageManipulation {
      * @param Image $image
      * @return ImageManipulation
      */
-    public function setImage(Image &$image) {
+    public function setImage(Image &$image)
+    {
         if ($this->checkImage($image)) {
             $this->image = $image;
         }
@@ -59,8 +63,9 @@ class ImageManipulation {
      * @param array $options
      * @return ImageManipulation
      */
-    public function save( $options) {
-        $image = &$this->image;
+    public function save($options)
+    {
+        $image = & $this->image;
         $copy = $options['copy'];
         $override = $options['override'];
 
@@ -76,11 +81,11 @@ class ImageManipulation {
                 $time = time();
                 $type = strtolower($image->getSimpleType());
                 while (file_exists($local =
-                        $dir . '/' . $time  . '_im' . $i . '.' . $type)) {
+                    $dir . '/' . $time . '_im' . $i . '.' . $type)) {
                     $i++;
                 }
             }
-            
+
             imagejpeg($image->getImageSample(), $local);
         } else {
             if (!$override) {
@@ -89,7 +94,7 @@ class ImageManipulation {
                     $i = 0;
                     $type = strtolower($image->getSimpleType());
                     while (file_exists($local =
-                            $dir . '/' . time() . '_im' . $i . '.' . $type)) {
+                        $dir . '/' . time() . '_im' . $i . '.' . $type)) {
                         $i++;
                     }
                 }
@@ -100,8 +105,9 @@ class ImageManipulation {
     }
 
 
-    public function resize($options) {
-        $image = &$this->image;
+    public function resize($options)
+    {
+        $image = & $this->image;
         $new_height = $options['heigth'];
         $new_width = $options['width'];
         $scale = $options['scale'];
@@ -109,7 +115,7 @@ class ImageManipulation {
         if ($new_height != '' && $new_width != '') {
             $this->resizeToWidthAndHeight($new_width, $new_height);
         } else if ($scale != '') {
-            $this->scale( $scale);
+            $this->scale($scale);
         } else if ($new_height != '') {
             $ratio = $new_height / $image->getHeight();
             $width = $image->getWidth() * $ratio;
@@ -117,55 +123,63 @@ class ImageManipulation {
         } else if ($new_width != '') {
             $ratio = $new_width / $image->getWidth();
             $height = $image->getHeight() * $ratio;
-            $this->resizeToWidthAndHeight( $new_width, $height);
+            $this->resizeToWidthAndHeight($new_width, $height);
         }
         return $this;
     }
 
-    public function scale( $scale) {
-        $image = &$this->image;
+    public function scale($scale)
+    {
+        $image = & $this->image;
         $width = $image->getWidth() * $scale / 100;
         $height = $image->getHeight() * $scale / 100;
         $this->resizeToWidthAndHeight($image, $width, $height);
     }
 
-    private function resizeToWidthAndHeight( $width, $height) {
-        $image = &$this->image;
+    private function resizeToWidthAndHeight($width, $height)
+    {
+        $image = & $this->image;
         $new_image = imagecreatetruecolor($width, $height);
         imagecopyresampled($new_image, $image->getImageSample(), 0, 0, 0, 0, $width, $height, $image->getWidth(), $image->getHeight());
         $image->setImageSample($new_image);
     }
 
     /**
-     * 
+     *
      * @return List<ImageManipulationWarn>
      */
-    public function getWarns() {
+    public function getWarns()
+    {
         return $this->warns;
     }
-    
-    public function getImage() {
+
+    public function getImage()
+    {
         return $this->image;
     }
 
 
 }
 
-class ImageManipulationWarn {
+class ImageManipulationWarn
+{
 
     private $image;
     private $description;
 
-    function __construct(Image $image, $description) {
+    function __construct(Image $image, $description)
+    {
         $this->image = $image;
         $this->description = $description;
     }
 
-    public function getImage() {
+    public function getImage()
+    {
         return $this->image;
     }
 
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 

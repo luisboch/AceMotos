@@ -9,13 +9,16 @@ import('model/BasicDAO.php');
  * @author felipe
  * @since Jul 22, 2012
  */
-class NoticeDAO extends BasicDAO {
+class NoticeDAO extends BasicDAO
+{
 
-    function __construct() {
+    function __construct()
+    {
         $this->setTableName(" `notices` ");
     }
 
-    protected function executeDelete(Entity &$entity) {
+    protected function executeDelete(Entity &$entity)
+    {
 
         $sql = "delete from " . $this->getTableName() . " where id = ?";
         $p = $this->getConn()->prepare($sql);
@@ -23,7 +26,8 @@ class NoticeDAO extends BasicDAO {
         $p->execute();
     }
 
-    protected function executeInsert(Entity &$entity) {
+    protected function executeInsert(Entity &$entity)
+    {
 
         $sql = "insert into " . $this->getTableName() . "(" . $this->getFields() . ") values (?,?,?,?)";
         $p = $this->getConn()->prepare($sql);
@@ -36,7 +40,8 @@ class NoticeDAO extends BasicDAO {
         $this->saveImages($entity);
     }
 
-    private function saveImages(Notice &$entity) {
+    private function saveImages(Notice &$entity)
+    {
         $webImage = $entity->getWebImage();
         if ($webImage != '') {
             $images = $webImage->getImages();
@@ -53,7 +58,8 @@ class NoticeDAO extends BasicDAO {
         }
     }
 
-    protected function executeUpdate(Entity &$entity) {
+    protected function executeUpdate(Entity &$entity)
+    {
         $sql = "UPDATE " . $this->getTableName() . " 
                     SET `titulo`=?,
                         `resumo`=?,
@@ -74,25 +80,28 @@ class NoticeDAO extends BasicDAO {
         $this->saveImages($entity);
     }
 
-    public function getFields() {
+    public function getFields()
+    {
         return ' `id`, `titulo`, `resumo`, `noticia` ';
     }
 
     /**
      *
      * @param ResultSet $rs
-     * @return Notice 
+     * @return Notice
      */
-    public function getObject(ResultSet &$rs) {
+    public function getObject(ResultSet &$rs)
+    {
         return $this->getObjectWithOption($rs);
     }
 
     /**
      *
      * @param ResultSet $rs
-     * @return Notice 
+     * @return Notice
      */
-    public function getObjectWithOption(ResultSet &$rs, $fullObject = true) {
+    public function getObjectWithOption(ResultSet &$rs, $fullObject = true)
+    {
 
         $arr = $rs->fetchArray();
 
@@ -120,9 +129,10 @@ class NoticeDAO extends BasicDAO {
         return $notice;
     }
 
-    public function search($string) {
+    public function search($string)
+    {
         $sql = 'select ' . $this->getFields() . ' from ' . $this->getTableName()
-                . ' where id = ? or titulo like ? or resumo like ?';
+            . ' where id = ? or titulo like ? or resumo like ?';
         $p = $this->getConn()->prepare($sql);
         $p->setParameter(1, $string, PreparedStatement::INTEGER);
         $p->setParameter(2, $string, PreparedStatement::STRING);
@@ -131,15 +141,16 @@ class NoticeDAO extends BasicDAO {
         $arr = array();
 
         while ($rs->next()) {
-            $arr[] = &$this->getObjectWithOption($rs, true);
+            $arr[] = & $this->getObjectWithOption($rs, true);
         }
 
         return $arr;
     }
 
-    public function count($string) {
+    public function count($string)
+    {
         $sql = 'select count(*) as qtd from ' . $this->getTableName()
-                . ' where id = ? or titulo like ? or resumo like ?';
+            . ' where id = ? or titulo like ? or resumo like ?';
         $p = $this->getConn()->prepare($sql);
         $p->setParameter(1, $string, PreparedStatement::INTEGER);
         $p->setParameter(2, $string, PreparedStatement::STRING);
@@ -150,14 +161,15 @@ class NoticeDAO extends BasicDAO {
         return $arr[0];
     }
 
-    public function paginationSearch($string, $start = NULL, $limit = NULL) {
-        
+    public function paginationSearch($string, $start = NULL, $limit = NULL)
+    {
+
         if ($start === NULL || $limit === NULL) {
             return $this->search($string);
         }
-        
+
         $sql = 'select ' . $this->getFields() . ' from ' . $this->getTableName()
-                . ' where id = ? or titulo like ? or resumo like ? LIMIT ' . $start . ', ' . $limit;
+            . ' where id = ? or titulo like ? or resumo like ? LIMIT ' . $start . ', ' . $limit;
         $p = $this->getConn()->prepare($sql);
         $p->setParameter(1, $string, PreparedStatement::INTEGER);
         $p->setParameter(2, $string, PreparedStatement::STRING);
@@ -166,7 +178,7 @@ class NoticeDAO extends BasicDAO {
         $arr = array();
 
         while ($rs->next()) {
-            $arr[] = &$this->getObjectWithOption($rs, true);
+            $arr[] = & $this->getObjectWithOption($rs, true);
         }
         return $arr;
     }

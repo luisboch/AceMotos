@@ -7,7 +7,7 @@ if (!function_exists('select')) {
     $_select_id = 0;
 
     /**
-     * 
+     *
      * @global int $_select_id
      * @param array $values
      * @param string $name
@@ -17,7 +17,8 @@ if (!function_exists('select')) {
      * @param boolean $aceptNull
      * @return string select estilized with jQueryUi
      */
-    function select($values = array(), $name = NULL, $value = NULL, $options = array(), $id = NULL, $aceptNull = false) {
+    function select($values = array(), $name = NULL, $value = NULL, $options = array(), $id = NULL, $aceptNull = false)
+    {
         global $_select_id;
         $_select_id++;
         $id = $id === NULL ? $id = 'select_' . $_inputtext_id : $id;
@@ -32,20 +33,22 @@ if (!function_exists('select')) {
         $str = '<select id="' . $id . '" ' . $opts . ' name="' . $name . '" >
             ';
         if ($aceptNull) {
-            $str.= '<option value="">  selecione  </option>';
+            $str .= '<option value="">  selecione  </option>';
         }
         $str .= generateOptions($values, $value);
         $str .= '</select>';
         return $str;
     }
 
-    function generateOptions($values = array(), $value = '') {
+    function generateOptions($values = array(), $value = '')
+    {
         $opts = '';
         foreach ($values as $k => $v) {
             if (is_array($v)) {
-                $opts .= '<optgroup label="' . $k .'">'. generateOptions($v, $value) . '</optgroup>';;
+                $opts .= '<optgroup label="' . $k . '">' . generateOptions($v, $value) . '</optgroup>';
+                ;
             } else {
-                $opts.= '<option ' . ($value == $k ? 'selected="selected" ' : '') . 'value="' . $k . '">' . $v . '</option>';
+                $opts .= '<option ' . ($value == $k ? 'selected="selected" ' : '') . 'value="' . $k . '">' . $v . '</option>';
             }
         }
         return $opts;

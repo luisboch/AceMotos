@@ -9,12 +9,13 @@
  *
  * @author luis
  */
-interface ILogicalDeletion {
+interface ILogicalDeletion
+{
 
     public function setStatus($status);
 
     public function getStatus();
-    
+
 }
 
 ?>

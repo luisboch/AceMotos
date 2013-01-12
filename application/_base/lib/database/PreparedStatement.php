@@ -4,7 +4,8 @@
  *
  * @author luis
  */
-class PreparedStatement {
+class PreparedStatement
+{
     const STRING = "s";
     const DOUBLE = "d";
     const INTEGER = "i";
@@ -14,36 +15,37 @@ class PreparedStatement {
      *
      * @var Logger
      */
-    private static $logger ;
+    private static $logger;
     /**
      *
-     * @var string 
+     * @var string
      */
     private $sql;
     /**
      * have the type of parameters
-     * @var array 
+     * @var array
      */
     protected $types = array();
 
     /**
      * have the parameters for prepared statement
-     * @var array 
+     * @var array
      */
     protected $parameters = array();
 
     /**
      *
-     * @var mysqli_stmt 
+     * @var mysqli_stmt
      */
     protected $statement;
 
     /**
      *
-     * @param  mysqli_stmt $stmt 
+     * @param  mysqli_stmt $stmt
      * @param string $sql
      */
-    public function __construct(mysqli_stmt $stmt,$sql) {
+    public function __construct(mysqli_stmt $stmt, $sql)
+    {
         $this->statement = $stmt;
         $this->sql = $sql;
         self::$logger = Logger::getLogger(__CLASS__);
@@ -52,19 +54,21 @@ class PreparedStatement {
     /**
      *
      * @param integer $index
-     * @param object $parameter 
+     * @param object $parameter
      * @param string $type
      */
-    public function setParameter($index, $parameter, $type) {
+    public function setParameter($index, $parameter, $type)
+    {
         $this->parameters[$index] = $parameter;
         $this->types[$index] = $type;
     }
 
     /**
      *
-     * @return ResultSet 
+     * @return ResultSet
      */
-    public function execute() {
+    public function execute()
+    {
         $parameters = "";
         $types = "";
         $size = count($this->parameters);
@@ -73,23 +77,23 @@ class PreparedStatement {
         foreach ($this->parameters as $k => $v) {
             $parameters .= '$var_' . $k;
             if ($size > $k) {
-                $parameters .=", ";
+                $parameters .= ", ";
             }
             $types .= $this->types[$k];
             eval('$var_' . $k . ' = $v;');
-            $log .= "[".$k."]=>".$v."\t";
+            $log .= "[" . $k . "]=>" . $v . "\t";
         }
 //        Console::log($log);
         $eval = '$this->statement->bind_param(\'' . $types . '\',' . $parameters . ');';
-        
-        if(count($this->parameters) > 0){
+
+        if (count($this->parameters) > 0) {
             eval($eval);
         }
-        self::$logger->debug("BIND: [".implode(', ', $this->parameters )."]");
-        
+        self::$logger->debug("BIND: [" . implode(', ', $this->parameters) . "]");
+
         $result = $this->statement->execute();
-        if($result=== FALSE){
-            throw new QueryException( "ERRO AO PREPARAR QUERY ".$this->statement->error);
+        if ($result === FALSE) {
+            throw new QueryException("ERRO AO PREPARAR QUERY " . $this->statement->error);
         }
         $rs = new ResultSet($this->sql);
         $rs->setMysqlStmt($this->statement);

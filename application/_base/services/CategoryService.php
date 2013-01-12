@@ -8,36 +8,41 @@ import('exceptions/ValidationException.php');
  * @author felipe
  * @since Jul 22, 2012
  */
-class CategoryService extends BasicService{
+class CategoryService extends BasicService
+{
     //put your code here
-    
-    function __construct() {
-        
+
+    function __construct()
+    {
+
         parent:: __construct(new CategoryDAO());
-        
+
     }
 
-    protected function validate(Entity &$entity) {
-        
+    protected function validate(Entity &$entity)
+    {
+
         $ve = new ValidationException();
-        
-        if($entity->getDescription() == '' ){
+
+        if ($entity->getDescription() == '') {
             $ve->addError('Por Favor Preencha a descricao corretamente', 'description');
         }
-        
-        if(!$ve->isEmtpy()){
+
+        if (!$ve->isEmtpy()) {
             throw $ve;
         }
     }
-    
-    public function searchByParent(Category $parent){
+
+    public function searchByParent(Category $parent)
+    {
         return $this->dao->searchByParent($parent);
     }
-    
-    public function getRootCategories(){
+
+    public function getRootCategories()
+    {
         return $this->dao->getRootCategories();
     }
-    
+
 }
 
 ?>

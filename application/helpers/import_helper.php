@@ -5,7 +5,8 @@ if (!defined('BASEPATH'))
 
 if (!function_exists('import')) {
 
-    function import($canonicalName) {
+    function import($canonicalName)
+    {
         $i = APPPATH . '_base/' . $canonicalName;
         include_once $i;
     }

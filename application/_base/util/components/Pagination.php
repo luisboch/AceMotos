@@ -6,7 +6,8 @@
  * @author luis
  * @since Dec 17, 2011
  */
-class Pagination {
+class Pagination
+{
 
     private $amountRegisters = NULL;
     private $amountPerPage;
@@ -20,11 +21,14 @@ class Pagination {
     private $targetUrl;
     private $showing;
     private $html = NULL;
-    public function __construct() {
-        
+
+    public function __construct()
+    {
+
     }
 
-    public function calculate() {
+    public function calculate()
+    {
 
 
         if ($this->amountRegisters === NULL) {
@@ -79,10 +83,13 @@ class Pagination {
         }
     }
 
-    public function getHtml() {
-        return $this->html === NULL ? $this->html = $this->generate():$this->html;
+    public function getHtml()
+    {
+        return $this->html === NULL ? $this->html = $this->generate() : $this->html;
     }
-    private function generate(){
+
+    private function generate()
+    {
         if ($this->targetUrl == NULL) {
             throw new Exception("Url de destino não setado!");
         } else {
@@ -99,11 +106,11 @@ class Pagination {
                 if ($this->currentPage == 1) {
                     $extraClass = 'ui-button-force-disabled';
                 }
-                    $html .= '
-                                    <a class="ui-button '.$extraClass.'" href="' . $this->targetUrl . '1">primeira</a>';
-                    $html .= '
-                                    <a class="ui-button '.$extraClass.'" href="' . $this->targetUrl . $this->prev . '">anterior</a>';
-                
+                $html .= '
+                                    <a class="ui-button ' . $extraClass . '" href="' . $this->targetUrl . '1">primeira</a>';
+                $html .= '
+                                    <a class="ui-button ' . $extraClass . '" href="' . $this->targetUrl . $this->prev . '">anterior</a>';
+
                 for ($i = $this->first; $i <= $this->last; $i++) {
 
                     if ($i == $this->currentPage) {
@@ -116,11 +123,11 @@ class Pagination {
                 if ($this->currentPage >= $this->pageNumber) {
                     $extraClass = 'ui-button-force-disabled';
                 }
-                    $html .='
-                                    <a class="ui-button '.$extraClass.'" href="' . $this->targetUrl . $this->next . '">pr&oacute;xima</a>';
-                    $html .='
-                                    <a class="ui-button '.$extraClass.'" href="' . $this->targetUrl . $this->pageNumber . '">&uacute;ltima</a>';
-                
+                $html .= '
+                                    <a class="ui-button ' . $extraClass . '" href="' . $this->targetUrl . $this->next . '">pr&oacute;xima</a>';
+                $html .= '
+                                    <a class="ui-button ' . $extraClass . '" href="' . $this->targetUrl . $this->pageNumber . '">&uacute;ltima</a>';
+
                 $html .= '</div>';
                 return $html;
             }
@@ -128,95 +135,118 @@ class Pagination {
         }
     }
 
-    public function getAmountRegisters() {
+    public function getAmountRegisters()
+    {
         return $this->amountRegisters;
     }
 
-    public function setAmountRegisters($amountRegisters) {
+    public function setAmountRegisters($amountRegisters)
+    {
         $this->amountRegisters = $amountRegisters;
     }
 
-    public function getAmountPerPage() {
+    public function getAmountPerPage()
+    {
         return $this->amountPerPage;
     }
 
-    public function setAmountPerPage($amountPerPage) {
+    public function setAmountPerPage($amountPerPage)
+    {
         $this->amountPerPage = $amountPerPage;
     }
 
-    public function getCurrentPage() {
+    public function getCurrentPage()
+    {
         return $this->currentPage;
     }
 
-    public function setCurrentPage($currentPage) {
+    public function setCurrentPage($currentPage)
+    {
         $this->currentPage = $currentPage;
     }
 
-    public function getPageNumber() {
+    public function getPageNumber()
+    {
         return $this->pageNumber;
     }
 
-    public function setPageNumber($pageNumber) {
+    public function setPageNumber($pageNumber)
+    {
         $this->pageNumber = $pageNumber;
     }
 
-    public function getAmountLinkShow() {
+    public function getAmountLinkShow()
+    {
         return $this->amountLinkShow;
     }
 
-    public function setAmountLinkShow($amountLinkShow) {
+    public function setAmountLinkShow($amountLinkShow)
+    {
         $this->amountLinkShow = $amountLinkShow;
     }
 
-    public function getFirst() {
+    public function getFirst()
+    {
         return $this->first;
     }
 
-    public function setFirst($first) {
+    public function setFirst($first)
+    {
         $this->first = $first;
     }
 
-    public function getPrev() {
+    public function getPrev()
+    {
         return $this->prev;
     }
 
-    public function setPrev($prev) {
+    public function setPrev($prev)
+    {
         $this->prev = $prev;
     }
 
-    public function getNext() {
+    public function getNext()
+    {
         return $this->next;
     }
 
-    public function setNext($next) {
+    public function setNext($next)
+    {
         $this->next = $next;
     }
 
-    public function getLast() {
+    public function getLast()
+    {
         return $this->last;
     }
 
-    public function setLast($last) {
+    public function setLast($last)
+    {
         $this->last = $last;
     }
 
-    public function getTargetUrl() {
+    public function getTargetUrl()
+    {
         return $this->targetUrl;
     }
 
-    public function setTargetUrl($targetUrl) {
+    public function setTargetUrl($targetUrl)
+    {
         $this->targetUrl = $targetUrl;
     }
 
-    public static function getOffset($page, $amoutPerPage) {
+    public static function getOffset($page, $amoutPerPage)
+    {
         return ($page * $amoutPerPage) - $amoutPerPage;
     }
 
-    public function getShowing() {
+    public function getShowing()
+    {
         return $this->showing;
     }
 
-    public function setShowing($showing) {
+    public function setShowing($showing)
+    {
         $this->showing = $showing;
     }
 

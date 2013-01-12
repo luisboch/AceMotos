@@ -10,36 +10,39 @@ import('exceptions/ValidationException.php');
  * @author felipe
  * @since Jul 22, 2012
  */
-class NoticeService extends BasicService{
+class NoticeService extends BasicService
+{
     //put your code here
-    
-    function __construct() {
-        
+
+    function __construct()
+    {
+
         parent:: __construct(new NoticeDAO());
-        
+
     }
 
-    protected function validate(Entity &$entity) {
-        
+    protected function validate(Entity &$entity)
+    {
+
         $ve = new ValidationException();
-        
-        if($entity->getTitle() == '' ){
+
+        if ($entity->getTitle() == '') {
             $ve->addError('Por Favor Preencha o titulo corretamente', 'title');
         }
-        
-        if($entity->getResume() == ''){
+
+        if ($entity->getResume() == '') {
             $ve->addError('Por Favor Preencha o resumo corretamente', 'resume');
         }
-        
-        if($entity->getNotice() == ''){
+
+        if ($entity->getNotice() == '') {
             $ve->addError('Por Favor Preencha a noticia corretamente', 'notice');
         }
-        
-        if(!$ve->isEmtpy()){
+
+        if (!$ve->isEmtpy()) {
             throw $ve;
         }
     }
-    
+
 }
 
 ?>

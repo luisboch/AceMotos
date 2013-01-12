@@ -13,7 +13,8 @@ import('lib/image/ImageManipulation.php');
  * @author luis
  * @since Jul 28, 2012
  */
-class ImageUpload {
+class ImageUpload
+{
 
     private $path;
 
@@ -29,7 +30,8 @@ class ImageUpload {
      */
     private $imageManipulation;
 
-    function __construct($librarie) {
+    function __construct($librarie)
+    {
         $this->listeners = array();
         $this->upload = new Upload();
 
@@ -47,11 +49,12 @@ class ImageUpload {
     }
 
     /**
-     * 
+     *
      * @param type $fileName
      * @return WebImage ImageUploaded
      */
-    public function upload($fileName = NULL) {
+    public function upload($fileName = NULL)
+    {
 
         $files = $this->upload->upload($fileName);
         if (!is_array($files)) {
@@ -62,23 +65,24 @@ class ImageUpload {
             if ($file->isImage()) {
                 if (!$file->moveTo($this->path)) {
                     throw new FileUploadException(
-                            "Não foi possível realizar o upload [Mover para pasta específicada]");
-                };
+                        "Não foi possível realizar o upload [Mover para pasta específicada]");
+                }
+                ;
                 $img = new Image($file);
 
                 $imgs[5] = $this->imageManipulation
-                        ->setImage($img)->resize(array('width' => 1024))
-                        ->save(array('copy' => true));
+                    ->setImage($img)->resize(array('width' => 1024))
+                    ->save(array('copy' => true));
                 $imgs[4] = $this->imageManipulation->resize(array('width' => 800))
-                        ->save(array('copy' => true));
+                    ->save(array('copy' => true));
                 $imgs[3] = $this->imageManipulation->resize(array('width' => 500))
-                        ->save(array('copy' => true));
+                    ->save(array('copy' => true));
                 $imgs[2] = $this->imageManipulation->resize(array('width' => 250))
-                        ->save(array('copy' => true));
+                    ->save(array('copy' => true));
                 $imgs[1] = $this->imageManipulation->resize(array('width' => 100))
-                        ->save(array('copy' => true));
+                    ->save(array('copy' => true));
                 $imgs[0] = $this->imageManipulation->resize(array('width' => 50))
-                        ->save(array('copy' => true));
+                    ->save(array('copy' => true));
                 $webImage = new WebImage();
 
                 foreach ($imgs as $k => $i) {

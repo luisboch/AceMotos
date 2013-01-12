@@ -10,26 +10,29 @@ import('lib/upload/qqUpload/qqUpload.php');
  * @author luis
  * @since Jul 28, 2012
  */
-class Upload {
+class Upload
+{
 
     private $path;
 
     /**
      *
-     * @var File 
+     * @var File
      */
     private $file;
 
-    function __construct() {
+    function __construct()
+    {
         $this->path = BASE_APPLICATION . 'resources/uploads/';
         $this->listeners = array();
     }
 
     /**
-     * 
+     *
      * @return string path of uploads
      */
-    public function getPath() {
+    public function getPath()
+    {
         return $this->path;
     }
 
@@ -38,7 +41,8 @@ class Upload {
      * @param string $str is key of var $_FILES
      * @return File the uploaded file
      */
-    public function upload($str = NULL) {
+    public function upload($str = NULL)
+    {
         if ($str === NULL) {
             $str = 'qqfile';
         }
@@ -71,12 +75,14 @@ class Upload {
         }
     }
 
-    private function getExtension($string) {
+    private function getExtension($string)
+    {
         $exp = explode('.', $string);
         return '.' . $exp[count($exp) - 1];
     }
 
-    private function _upload($file) {
+    private function _upload($file)
+    {
         if ($file == null || $file['error'] != '') {
             throw new FileUploadException("Houve um erro ao fazer o upload!");
         }
@@ -88,10 +94,11 @@ class Upload {
             $i++;
             $destination = $this->path . $file['name'] . $time . 't_' . $i . $ext;
         }
-        if(!move_uploaded_file($file['tmp_name'], $destination)){
+        if (!move_uploaded_file($file['tmp_name'], $destination)) {
             throw new FileUploadException(
-                    "Não foi possível realizar o upload [Mover para pasta específicada]");
-        };
+                "Não foi possível realizar o upload [Mover para pasta específicada]");
+        }
+        ;
 
         return new File($destination);
     }

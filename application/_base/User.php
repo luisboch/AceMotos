@@ -1,11 +1,12 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 import('interfaces/Entity.php');
 /**
  * Description of User
  *
  * @author luis
  */
-class User implements Entity {
+class User implements Entity
+{
 
     /**
      *
@@ -31,14 +32,14 @@ class User implements Entity {
     private $password;
 
     /**
-     * este atributo é usado somente e unicamente para 
+     * este atributo é usado somente e unicamente para
      * confirmação da senha do usuário no cadastro.
      * @var string
      * @Transient
      */
     private $passwordConfirm;
     /**
-     * @var string 
+     * @var string
      */
     private $email;
 
@@ -57,15 +58,17 @@ class User implements Entity {
      *
      * @return int
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      *
-     * @param int $id 
+     * @param int $id
      */
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
     }
 
@@ -73,15 +76,17 @@ class User implements Entity {
      *
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
     /**
      *
-     * @param string $name 
+     * @param string $name
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
     }
 
@@ -89,15 +94,17 @@ class User implements Entity {
      *
      * @return string
      */
-    public function getPassword() {
+    public function getPassword()
+    {
         return $this->password;
     }
 
     /**
      *
-     * @param string $password 
+     * @param string $password
      */
-    public function setPassword($password) {
+    public function setPassword($password)
+    {
         $this->password = $password;
     }
 
@@ -105,30 +112,34 @@ class User implements Entity {
      *
      * @return string
      */
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
     /**
      *
-     * @param string $email 
+     * @param string $email
      */
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
         $this->email = $email;
     }
-    
+
     /**
      *
      * @return string
      */
-    public function getCpf() {
+    public function getCpf()
+    {
         return $this->cpf;
     }
 
     /**
-     * @param string $cpf 
+     * @param string $cpf
      */
-    public function setCpf($cpf) {
+    public function setCpf($cpf)
+    {
         $this->cpf = $cpf;
     }
 
@@ -136,15 +147,17 @@ class User implements Entity {
      *
      * @return string
      */
-    public function getUsername() {
+    public function getUsername()
+    {
         return $this->username;
     }
 
     /**
      *
-     * @param string $username 
+     * @param string $username
      */
-    public function setUsername($username) {
+    public function setUsername($username)
+    {
         $this->username = $username;
     }
 
@@ -152,31 +165,35 @@ class User implements Entity {
      *
      * @return integer
      */
-    public function getGroup() {
+    public function getGroup()
+    {
         return $this->group;
     }
 
     /**
      *
-     * @param integer $group 
+     * @param integer $group
      */
-    public function setGroup($group) {
+    public function setGroup($group)
+    {
         $this->group = $group;
     }
-    
+
     /**
      *
-     * @return string 
+     * @return string
      */
-    public function getPasswordConfirm() {
+    public function getPasswordConfirm()
+    {
         return $this->passwordConfirm;
     }
 
     /**
      *
-     * @param string $passwordConfirm 
+     * @param string $passwordConfirm
      */
-    public function setPasswordConfirm($passwordConfirm) {
+    public function setPasswordConfirm($passwordConfirm)
+    {
         $this->passwordConfirm = $passwordConfirm;
     }
 

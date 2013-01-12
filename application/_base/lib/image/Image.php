@@ -4,7 +4,8 @@ import('lib/upload/File.php');
  * @author luis
  * @since Jul 26, 2012
  */
-class Image {
+class Image
+{
 
 
     /**
@@ -16,7 +17,8 @@ class Image {
     private $simpleType;
     private $link;
 
-    function __construct($file = NULL) {
+    function __construct($file = NULL)
+    {
         if ($file !== NULL) {
             if ($file instanceof File) {
                 $this->setFile($file);
@@ -27,17 +29,19 @@ class Image {
     }
 
     /**
-     * 
+     *
      * @return File
      */
-    public function getFile() {
+    public function getFile()
+    {
         return $this->file;
     }
 
     /**
      * @param File $file
      */
-    public function setFile(File $file) {
+    public function setFile(File $file)
+    {
         $this->imageSample = '';
         $this->file = $file;
         $this->loadFile();
@@ -46,13 +50,16 @@ class Image {
     /**
      * @param File $file
      */
-    public function setLink($link) {
+    public function setLink($link)
+    {
         $this->imageSample = '';
         $link = str_replace(BASE_IMAGES, '', $link);
         $this->link = $link;
         $this->loadFile();
     }
-    public function createImageSample() {
+
+    public function createImageSample()
+    {
         if ($this->simpleType == '') {
             $this->loadFile();
         }
@@ -72,7 +79,8 @@ class Image {
         }
     }
 
-    public function loadFile() {
+    public function loadFile()
+    {
         if ($this->file != '') {
             $this->link = str_replace(BASE_IMAGES, '', $this->file->getCannonicalPatch());
         } else if ($this->link != '') {
@@ -91,33 +99,41 @@ class Image {
         }
     }
 
-    function getWidth() {
+    function getWidth()
+    {
         $this->createImageSample();
         return imagesx($this->imageSample);
     }
 
-    function getHeight() {
+    function getHeight()
+    {
         $this->createImageSample();
         return imagesy($this->imageSample);
     }
-    
-    public function getImageSample() {
+
+    public function getImageSample()
+    {
         $this->createImageSample();
         return $this->imageSample;
     }
 
-    public function getSimpleType() {
+    public function getSimpleType()
+    {
         return $this->simpleType;
     }
-    
-    public function setImageSample($imageSample) {
+
+    public function setImageSample($imageSample)
+    {
         $this->imageSample = $imageSample;
     }
-    public function getCannonicalPatch(){
+
+    public function getCannonicalPatch()
+    {
         return $this->file->getCannonicalPatch();
     }
 
-    public function getLink() {
+    public function getLink()
+    {
         return $this->link;
     }
 

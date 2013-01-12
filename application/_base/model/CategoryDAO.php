@@ -9,16 +9,19 @@ import('model/BasicDAO.php');
  * @author luis
  * @since Jul 25, 2012
  */
-class CategoryDAO extends BasicDAO {
+class CategoryDAO extends BasicDAO
+{
 
-    function __construct() {
+    function __construct()
+    {
         $this->setTableName("categorias");
     }
 
     /**
      * @param Category $entity
      */
-    protected function executeDelete(Entity &$entity) {
+    protected function executeDelete(Entity &$entity)
+    {
         $sql = "delete from " . $this->getTableName() . " where id = ?";
         $p = $this->getConnection()->prepare($sql);
         $p->setParameter(1, $entity->getId(), PreparedStatement::INTEGER);
@@ -26,10 +29,11 @@ class CategoryDAO extends BasicDAO {
     }
 
     /**
-     * 
+     *
      * @param Category $entity
      */
-    protected function executeInsert(Entity &$entity) {
+    protected function executeInsert(Entity &$entity)
+    {
         $sql = "
             insert into " . $this->getTableName() . " (`descricao`, `categoria_id`)
             values (?, ?)";
@@ -41,15 +45,16 @@ class CategoryDAO extends BasicDAO {
     }
 
     /**
-     * 
+     *
      * @param Category $entity
      */
-    protected function executeUpdate(Entity &$entity) {
+    protected function executeUpdate(Entity &$entity)
+    {
 
         $sql = "
             update " . $this->getTableName() . ' 
                set descricao = ?, categoria_id = ? ' .
-                'where id = ?';
+            'where id = ?';
 
         $p = $this->getConnection()->prepare($sql);
         $p->setParameter(1, $entity->getDescription(), PreparedStatement::STRING);
@@ -60,32 +65,35 @@ class CategoryDAO extends BasicDAO {
     }
 
     /**
-     * 
+     *
      * @return string
      */
-    public function getFields() {
+    public function getFields()
+    {
         return '`id`, `descricao`, `categoria_id`';
     }
 
     /**
-     * 
+     *
      * @param ResultSet $rs
-     * @return 
-      /**
-     * 
+     * @return
+    /**
+     *
      * @param Category $entity
      */
-    public function getObject(ResultSet &$rs) {
+    public function getObject(ResultSet &$rs)
+    {
         return $this->getObjectByOption($rs);
     }
 
     /**
-     * 
+     *
      * @param ResultSet $rs
      * @param boolean $forceLoadParent
      * @return Category
      */
-    public function getObjectByOption(ResultSet &$rs, $forceLoadParent = true) {
+    public function getObjectByOption(ResultSet &$rs, $forceLoadParent = true)
+    {
         $arr = $rs->fetchArray();
         $c = new Category();
         $c->setId($arr['id']);
@@ -97,11 +105,12 @@ class CategoryDAO extends BasicDAO {
     }
 
     /**
-     * 
+     *
      * @param string $string
      * @return List<Category>
      */
-    public function search($string) {
+    public function search($string)
+    {
         $sql = "
             select c.descricao, c.id, c.categoria_id, cb.id as parent_id, cb.descricao as parent_description
               from " . $this->getTableName() . ' c
@@ -111,8 +120,8 @@ class CategoryDAO extends BasicDAO {
                 or c.categoria_id = ?';
         $p = $this->getConn()->prepare($sql);
         $p->setParameter(1, $string, PreparedStatement::INTEGER);
-        $p->setParameter(2, '%'.$string.'%', PreparedStatement::STRING);
-        $p->setParameter(3, '%'.$string.'%', PreparedStatement::INTEGER);
+        $p->setParameter(2, '%' . $string . '%', PreparedStatement::STRING);
+        $p->setParameter(3, '%' . $string . '%', PreparedStatement::INTEGER);
 
         $rs = $p->execute();
 
@@ -123,13 +132,13 @@ class CategoryDAO extends BasicDAO {
             $c = new Category();
             $c->setId($arr['id']);
             $c->setDescription($arr['descricao']);
-            if($arr['parent_id'] != ''){ 
+            if ($arr['parent_id'] != '') {
                 $cat = new Category();
-                $cat->setId($arr['parent_id'] );
+                $cat->setId($arr['parent_id']);
                 $cat->setDescription($arr['parent_description']);
                 $c->setCategory($cat);
             }
-            
+
             $objs[] = $c;
         }
         return $objs;
@@ -139,7 +148,8 @@ class CategoryDAO extends BasicDAO {
      * @param Category $parent
      * @return List<Category>
      */
-    public function searchByParent(Category $parent = null) {
+    public function searchByParent(Category $parent = null)
+    {
         $sql = "
             select " . $this->getFields() . "
               from " . $this->getTableName() . '
@@ -167,7 +177,8 @@ class CategoryDAO extends BasicDAO {
      * @param Category $parent
      * @return List<Category>
      */
-    public function getRootCategories() {
+    public function getRootCategories()
+    {
         return $this->searchByParent();
     }
 

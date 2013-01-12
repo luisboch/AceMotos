@@ -2,9 +2,10 @@
 
 /**
  * @author luis.boch [luis.c.boch@gmail.com]
- * @since Jul 15, 2012 
+ * @since Jul 15, 2012
  */
-class GenericButton {
+class GenericButton
+{
 
     const ACTION_JAVASCRIPT = 1;
     const ACTION_FORMSUBMIT = 2;
@@ -17,7 +18,8 @@ class GenericButton {
     private $type;
 
     function __construct($href = 'javascript:void(0);',
-            $id = NULL, $type = self::ACTION_HREF) {
+                         $id = NULL, $type = self::ACTION_HREF)
+    {
         $this->href = $href;
         if (self::$_S == '') {
             self::$_S = 1;
@@ -32,16 +34,17 @@ class GenericButton {
     }
 
     /**
-* @param type $return boolean
-* @return string
-*/
-    public function generate($return = FALSE) {
+     * @param type $return boolean
+     * @return string
+     */
+    public function generate($return = FALSE)
+    {
         if ($this->type == self::ACTION_FORMSUBMIT) {
             $r = '<input type="submit" class="button" value="' . $this->value .
-                    '" id="' . $this->id . '">';
+                '" id="' . $this->id . '">';
         } else {
-            
-            $r = '<a href="'.$this->href.'" class="button" id="' . $this->id . '">'.$this->value.'</a>';
+
+            $r = '<a href="' . $this->href . '" class="button" id="' . $this->id . '">' . $this->value . '</a>';
         }
         if ($return) {
             return $r;
@@ -50,23 +53,28 @@ class GenericButton {
         }
     }
 
-    public function getHref() {
+    public function getHref()
+    {
         return $this->href;
     }
 
-    public function setHref($href) {
+    public function setHref($href)
+    {
         $this->href = $href;
     }
 
-    public function getValue() {
+    public function getValue()
+    {
         return $this->value;
     }
 
-    public function setValue($value) {
+    public function setValue($value)
+    {
         $this->value = $value;
     }
 
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
