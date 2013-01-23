@@ -1,7 +1,6 @@
 <?php
 
 import('User.php');
-import('lib/database.php');
 import('model/BasicDAO.php');
 
 /**

@@ -1,8 +1,7 @@
 <?php
-import("lib/database.php");
+require_once 'database-api/database/database.php';
 import("interfaces/EntityDAO.php");
 import('exceptions/NotImplementedException.php');
-import('exceptions/NoResultException.php');
 /**
  * @author luis.boch [luis.boch@gmail.com]
  */
@@ -28,7 +27,7 @@ abstract class BasicDAO implements EntityDAO
      */
     protected function getConnection()
     {
-        return $this->conn === NULL ? ($this->conn = & Connection::getConnection()) : $this->conn;
+        return $this->conn === NULL ? ($this->conn = & DatabaseManager::getConnection()) : $this->conn;
     }
 
     protected abstract function executeInsert(Entity &$entity);
@@ -115,7 +114,7 @@ abstract class BasicDAO implements EntityDAO
      */
     public function getConn()
     {
-        return $this->conn === NULL ? ($this->conn = & Connection::getConnection()) : $this->conn;
+        return $this->conn === NULL ? ($this->conn = & DatabaseManager::getConnection()) : $this->conn;
     }
 
     public function begin()

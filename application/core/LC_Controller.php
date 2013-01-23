@@ -48,7 +48,6 @@ class LC_Controller extends CI_Controller
 
         //log support/
         $this->logger = Logger::getLogger(__CLASS__);
-        import("lib/database.php");
 
         $session = Session::getSession();
 
