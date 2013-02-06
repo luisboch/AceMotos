@@ -24,6 +24,9 @@ class Upload
     function __construct()
     {
         $this->path = BASE_APPLICATION . 'resources/uploads/';
+        if(!file_exists($this->path) || !is_dir($this->path)){
+            mkdir($this->path, 0777, true);
+        }
         $this->listeners = array();
     }
 
