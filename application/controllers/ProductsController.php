@@ -77,8 +77,8 @@ class ProductsController extends LC_Controller
         $this->load->helper('textarea');
         $categories = $this->categoryService->search();
         $this->addWay(__CLASS__ . '/edit', 'edição');
-        if ($this->uri->segment(3) != '') {
-            $product = $this->service->getById($this->uri->segment(3));
+        if ($_GET['id'] != '') {
+            $product = $this->service->getById($_GET['id']);
         } else {
             $product = new Product();
         }

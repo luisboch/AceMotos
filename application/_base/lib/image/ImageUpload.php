@@ -65,9 +65,9 @@ class ImageUpload
             if ($file->isImage()) {
                 if (!$file->moveTo($this->path)) {
                     throw new FileUploadException(
-                        "Não foi possível realizar o upload [Mover para pasta específicada]");
+                        "Não foi possível realizar o upload [Mover para pasta especificada]");
                 }
-                ;
+                
                 $img = new Image($file);
 
                 $imgs[5] = $this->imageManipulation

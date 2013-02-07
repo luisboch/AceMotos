@@ -1,65 +1,31 @@
+<?
+import("services/CategoryService.php");
+/**
+ * Load all categories.
+ */
+$service = new CategoryService();
+$categories = $service->getRootCategories();
+?>
 <div id="conteudo_esq">
     <div id="categoria">
-        <div id="conteudo_categoria">
-            <p><a href="categoria_aces.html">&gt; <strong>Acessórios</strong></a></p>
-        </div>
-        <div id="conteudo_categoria1">
-            <p><a href="#">&gt; <strong>Calculadoras</strong></a></p>
-        </div>
-        <div id="conteudo_categoria1">
-            <p><a href="#">&gt; <strong>Consoles</strong></a></p>
-        </div>
-        <div id="conteudo_categoria1">
-            <p><a href="#">&gt; <span class="cat"><strong>Cooler</strong></span></a></p>
-        </div>
-        <div id="conteudo_categoria1">
-            <p><a href="#">&gt; <span class="cat"><strong>Drives</strong></span></a><strong></strong></p>
-        </div>
-        <div id="conteudo_categoria1">
-            <p><a href="#">&gt;<strong> Estabilizador / Nobreak</strong></a></p>
-        </div>
-        <div id="conteudo_categoria1">
-            <p><a href="#">&gt; <span class="cat"><strong>Fontes</strong></span></a><strong></strong></p>
-        </div>
-        <div id="conteudo_categoria1">
-            <p><a href="#">&gt; <span class="cat"><strong>Gabinetes</strong></span></a><strong></strong></p>
-        </div>
-        <div id="conteudo_categoria1">
-            <p><a href="#">&gt; <span class="cat"><strong>Processadores</strong></span></a><strong></strong></p>
-        </div>  
-        <div id="conteudo_categoria1">
-            <p><a href="#">&gt;<strong> Placa mãe</strong></a></p>
-        </div>   
-        <div id="conteudo_categoria1">
-            <p><a href="#">&gt;<strong> .</strong></a></p>
-        </div>   
-        <div id="conteudo_categoria1">
-            <p><a href="#">&gt;<strong> .</strong></a></p>
-        </div>   
-        <div id="conteudo_categoria1">
-            <p><a href="#">&gt;<strong> .</strong></a></p>
-        </div>   
-        <div id="conteudo_categoria1">
-            <p><a href="#">&gt;<strong> .</strong></a></p>
-        </div>   
-        <div id="conteudo_categoria1">
-            <p><a href="#">&gt;<strong> .</strong></a></p>
-        </div>   
-        <div id="conteudo_categoria1">
-            <p><a href="#">&gt;<strong> .</strong></a></p>
-        </div>
-        <div id="conteudo_categoria1">
-            <p><a href="#">&gt;<strong> .</strong></a></p>
-        </div>   
-        <div id="conteudo_categoria1">
-            <p><a href="#">&gt;<strong> .</strong></a></p>
-        </div>   
-        <div id="conteudo_categoria1">
-            <p><a href="#">&gt;<strong> .</strong></a></p>
-        </div>   
-        <div id="conteudo_categoria1">
-            <p><a href="#">&gt;<strong> .</strong></a></p>
-        </div>                
+        <?
+        $i = 0;
+        foreach ($categories as $cat) {
+            ?>
+            <div id="conteudo_categoria<?= $i === 0 ? '' : '1'; ?>">
+                <p><a href="<?= site_url("ViewCategory/" . $cat->getId()); ?>">&gt; <strong><?= $cat->getDescription(); ?></strong></a></p>
+                <? if ($cat->getChildren() !== null) {
+                    foreach ($cat->getChildren() as $child) {
+                        ?>
+                        <a style="margin-left: 10px;" href="<?= site_url("ViewCategory/" . $child->getId()); ?>">&gt; <strong><?= $child->getDescription(); ?></strong></a>
+                    <? }
+                }
+                ?>
+            </div>
+            <?
+            $i++;
+        }
+        ?>
     </div>
     <div id="letter">
         <div id="conteudo_formulario_contato">

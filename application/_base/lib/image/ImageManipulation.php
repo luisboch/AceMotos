@@ -73,7 +73,7 @@ class ImageManipulation
             $override = true;
         }
 
-        $local = $image->getFile()->getCannonicalPatch();
+        $local = $image->getFile()->getFullPath();
         if ($copy) {
             if (file_exists($local)) {
                 $dir = dirname($local);

@@ -67,13 +67,13 @@ class Image
 
             switch ($this->simpleType) {
                 case 'JPG':
-                    $this->imageSample = imagecreatefromjpeg($this->file->getCannonicalPatch());
+                    $this->imageSample = imagecreatefromjpeg($this->file->getFullPath());
                     break;
                 case 'PNG':
-                    $this->imageSample = imagecreatefrompng($this->file->getCannonicalPatch());
+                    $this->imageSample = imagecreatefrompng($this->file->getFullPath());
                     break;
                 case 'GIF':
-                    $this->imageSample = imagecreatefromgif($this->file->getCannonicalPatch());
+                    $this->imageSample = imagecreatefromgif($this->file->getFullPath());
                     break;
             }
         }
@@ -82,14 +82,14 @@ class Image
     public function loadFile()
     {
         if ($this->file != '') {
-            $this->link = str_replace(BASE_IMAGES, '', $this->file->getCannonicalPatch());
+            $this->link = str_replace(BASE_IMAGES, '', $this->file->getFullPath());
         } else if ($this->link != '') {
             $this->file = new File(BASE_IMAGES . $this->link);
         } else {
             throw new InvalidArgumentException("file or link need be defined!");
         }
 
-        $list = getimagesize($this->file->getCannonicalPatch());
+        $list = getimagesize($this->file->getFullPath());
         if ($list[2] == IMAGETYPE_JPEG) {
             $this->simpleType = 'JPG';
         } else if ($list[2] == IMAGETYPE_GIF) {
@@ -127,9 +127,9 @@ class Image
         $this->imageSample = $imageSample;
     }
 
-    public function getCannonicalPatch()
+    public function getFullPath()
     {
-        return $this->file->getCannonicalPatch();
+        return $this->file->getFullPath();
     }
 
     public function getLink()

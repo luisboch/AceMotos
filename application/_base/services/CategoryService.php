@@ -10,8 +10,7 @@ import('exceptions/ValidationException.php');
  */
 class CategoryService extends BasicService
 {
-    //put your code here
-
+    
     function __construct()
     {
 
@@ -40,7 +39,16 @@ class CategoryService extends BasicService
 
     public function getRootCategories()
     {
-        return $this->dao->getRootCategories();
+        $categories = $this->search();
+        $list = array();
+        foreach($categories as $cat){
+            if($cat->getCategory()!== null){
+                if(!in_array($cat->getCategory(), $list)){
+                    $list[] = $cat->getCategory();
+                }
+            }
+        }
+        return $list;
     }
 
 }

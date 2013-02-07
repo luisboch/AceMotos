@@ -14,6 +14,11 @@ class Category implements Entity {
      * @var Category parent;
      */
     private $category;
+    /**
+     *
+     * @var array
+     */
+    private $children = array();
     
     public function getId() {
         return $this->id;
@@ -41,8 +46,18 @@ class Category implements Entity {
 
     public function setCategory(Category $category) {
         $this->category = $category;
+        $category->children[] = $this;
     }
     
+    
+    public function getChildren() {
+        return $this->children;
+    }
+
+    public function setChildrens($childrens) {
+        $this->children = $children;
+    }
+
     public function equals($category){
         if($category == null){
             return false;
@@ -56,7 +71,7 @@ class Category implements Entity {
         return false;
         
     }
-
+    
 }
 
 ?>

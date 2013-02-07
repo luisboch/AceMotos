@@ -32,14 +32,14 @@ class ProductDAO extends BasicDAO
     protected function executeInsert(Entity &$entity)
     {
 
-        $sql = "insert into " . $this->getTableName() . " (" . $this->getFields() . ", categoria_id, exibir_index ) values (?,?,?,?,true,?,?)";
+        $sql = "insert into " . $this->getTableName() . " (" . $this->getFields() . ", categoria_id ) values (?,?,?,?,true,?,?)";
         $p = $this->getConn()->prepare($sql);
         $p->setParameter(1, $entity->getId(), PreparedStatement::INTEGER);
         $p->setParameter(2, $entity->getName(), PreparedStatement::STRING);
         $p->setParameter(3, $entity->getDescription(), PreparedStatement::STRING);
         $p->setParameter(4, $entity->getSellValue(), PreparedStatement::DOUBLE);
-        $p->setParameter(5, $entity->getCategory()->getId(), PreparedStatement::INTEGER);
-        $p->setParameter(6, $entity->getShowIndex(), PreparedStatement::BOOLEAN);
+        $p->setParameter(5, $entity->getShowIndex(), PreparedStatement::BOOLEAN);
+        $p->setParameter(6, $entity->getCategory()->getId(), PreparedStatement::INTEGER);
         $p->execute();
         $entity->setId($this->getConn()->lastId());
     }
@@ -180,7 +180,7 @@ class ProductDAO extends BasicDAO
         }
 
         if ($limit !== NULL) {
-            $p->setParameter(($size != null ? 3 : 2), $limit, PreparedStatement::INTEGER);
+            $p->setParameter(($size != null ? 3 : 2), ($limit * 6), PreparedStatement::INTEGER);
         }
 
         $rs = $p->execute();

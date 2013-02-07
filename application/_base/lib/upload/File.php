@@ -12,21 +12,21 @@ class File
 {
 
     private $size;
-    private $cannonicalPatch;
+    private $fullPath;
     private $mimeType;
     private $simpleName;
 
-    function __construct($cannonicalPatch)
+    function __construct($fullPath)
     {
-        $this->cannonicalPatch = $cannonicalPatch;
-        $this->size = filesize($cannonicalPatch);
+        $this->fullPath = $fullPath;
+        $this->size = filesize($fullPath);
         $this->simpleName = $this->getFileName();
-        $this->mimeType = mime_content_type($cannonicalPatch);
+        $this->mimeType = mime_content_type($fullPath);
     }
 
     function exists()
     {
-        return file_exists($this->cannonicalPatch);
+        return file_exists($this->fullPath);
     }
 
     /**
@@ -52,8 +52,8 @@ class File
                 $targetFile = $dir . time() . $this->simpleName;
             }
 
-            rename($this->cannonicalPatch, $targetFile);
-            $this->cannonicalPatch = $targetFile;
+            rename($this->fullPath, $targetFile);
+            $this->fullPath = $targetFile;
             $this->simpleName = $this->getFileName();
 
             return true;
@@ -61,8 +61,8 @@ class File
             if (!is_writable(dirname($dir))) {
                 return false;
             }
-            rename($this->cannonicalPatch, $dir);
-            $this->cannonicalPatch = $dir;
+            rename($this->fullPath, $dir);
+            $this->fullPath = $dir;
             $this->simpleName = $this->getFileName();
             return true;
         }
@@ -70,7 +70,7 @@ class File
 
     function getDir()
     {
-        return dirname($this->cannonicalPatch);
+        return dirname($this->fullPath);
     }
 
     public function getSize()
@@ -78,9 +78,9 @@ class File
         return $this->size;
     }
 
-    public function getCannonicalPatch()
+    public function getFullPath()
     {
-        return $this->cannonicalPatch;
+        return $this->fullPath;
     }
 
     public function getMimeType()
@@ -95,8 +95,8 @@ class File
 
     private function getFileName()
     {
-        $pos1 = strrpos($this->cannonicalPatch, '/');
-        return substr($this->cannonicalPatch, $pos1 + 1);
+        $pos1 = strrpos($this->fullPath, '/');
+        return substr($this->fullPath, $pos1 + 1);
     }
 
     /**
@@ -114,8 +114,8 @@ class File
      */
     public function delete()
     {
-        if (unlink($this->cannonicalPatch)) {
-            $this->cannonicalPatch = '';
+        if (unlink($this->fullPath)) {
+            $this->fullPath = '';
             $this->mimeType = '';
             $this->simpleName = '';
             $this->size = 0;

@@ -64,7 +64,7 @@ $autoload['libraries'] = array();
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'import', 'button', 'inputtext', 'getOptions', 'el');
+$autoload['helper'] = array('url', 'import', 'button', 'inputtext', 'getOptions', 'el', 'mimetype');
 
 
 /*
