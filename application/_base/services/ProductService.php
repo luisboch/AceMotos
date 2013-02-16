@@ -104,6 +104,18 @@ class ProductService extends BasicService
     {
         return $this->dao->indexSearch();
     }
+    
+    /**
+     * @param Category $category
+     * @return List<Product>
+     */
+    public function getProductsByCategory(Category $category){
+        return $this->dao->getProductsByCategory($category);
+    }
+    
+    public function viewSearch($string = ""){
+        return $this->dao->viewSearch($string);
+    }
 }
 
 ?>

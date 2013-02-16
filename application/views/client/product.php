@@ -53,7 +53,7 @@
                                 <div id="produto_ampli">
                                     <div id="gallery">
                                         <ul>
-                                            <li><a href="fotos/3547.jpg" title=""><img src="<?=URL_IMAGES.$product->getImages()[0]->getImage(3)->getLink(); ?>" alt="" width="200" height="210" border="0" align="middle" /></a>
+                                            <li><a href="<?=URL_IMAGES.$product->getImages()[0]->getImage(5)->getLink(); ?>" title=""><img src="<?=URL_IMAGES.$product->getImages()[0]->getImage(3)->getLink(); ?>" alt="" width="200" height="210" border="0" align="middle" /></a>
                                             </li>
                                         </ul>
                                     </div>

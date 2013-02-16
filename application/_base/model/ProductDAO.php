@@ -9,28 +9,23 @@ import('Category.php');
 import('Product.php');
 import('model/BasicDAO.php');
 
-class ProductDAO extends BasicDAO
-{
+class ProductDAO extends BasicDAO {
 
     //put your code here
 
-    function __construct()
-    {
+    function __construct() {
         $this->setTableName(" `produtos` ");
     }
 
-    protected function executeDelete(Entity &$entity)
-    {
+    protected function executeDelete(Entity &$entity) {
 
         $sql = "delete from " . $this->getTableName() . " where id = ?";
         $p = $this->getConn()->prepare($sql);
         $p->setParameter(1, $entity->getId(), PreparedStatement::INTEGER);
         $p->execute();
-
     }
 
-    protected function executeInsert(Entity &$entity)
-    {
+    protected function executeInsert(Entity &$entity) {
 
         $sql = "insert into " . $this->getTableName() . " (" . $this->getFields() . ", categoria_id ) values (?,?,?,?,true,?,?)";
         $p = $this->getConn()->prepare($sql);
@@ -44,8 +39,7 @@ class ProductDAO extends BasicDAO
         $entity->setId($this->getConn()->lastId());
     }
 
-    protected function executeUpdate(Entity &$entity)
-    {
+    protected function executeUpdate(Entity &$entity) {
 
         $sql = "UPDATE " . $this->getTableName() . " 
                     SET `nome`=?,
@@ -68,8 +62,7 @@ class ProductDAO extends BasicDAO
         $this->saveImages($entity, false);
     }
 
-    public function getFields()
-    {
+    public function getFields() {
         return ' `id`, `nome`, `descricao`, `valor_venda`, `status`, `exibir_index` ';
     }
 
@@ -78,8 +71,7 @@ class ProductDAO extends BasicDAO
      * @param ResultSet $rs
      * @return Product
      */
-    public function getObject(ResultSet &$rs)
-    {
+    public function getObject(ResultSet &$rs) {
         $arr = $rs->fetchArray();
 
         $product = new Product();
@@ -93,10 +85,9 @@ class ProductDAO extends BasicDAO
         return $product;
     }
 
-    public function search($string)
-    {
+    public function search($string) {
         $sql = 'select ' . $this->getFields() . ' from ' . $this->getTableName()
-            . ' where id = ? or nome like ?';
+                . ' where id = ? or nome like ?';
         $p = $this->getConn()->prepare($sql);
         $p->setParameter(1, $string, PreparedStatement::INTEGER);
         $p->setParameter(2, '%' . $string . '%', PreparedStatement::STRING);
@@ -111,10 +102,9 @@ class ProductDAO extends BasicDAO
         return $arr;
     }
 
-    public function count($string)
-    {
+    public function count($string) {
         $sql = 'select count(*) as qtd from ' . $this->getTableName()
-            . ' where ( id = ? or nome like ? ) and status = true';
+                . ' where ( id = ? or nome like ? ) and status = true';
         $p = $this->getConn()->prepare($sql);
         $p->setParameter(1, $string, PreparedStatement::INTEGER);
         $p->setParameter(2, $string . '%', PreparedStatement::STRING);
@@ -125,15 +115,14 @@ class ProductDAO extends BasicDAO
         return $arr[0];
     }
 
-    public function paginationSearch($string, $start = NULL, $limit = NULL)
-    {
+    public function paginationSearch($string, $start = NULL, $limit = NULL) {
 
         if ($start === NULL || $limit === NULL) {
             return $this->search($string);
         }
 
         $sql = 'select ' . $this->getFields() . ' from ' . $this->getTableName()
-            . ' where  ( id = ? or nome like ? ) and status = true LIMIT ' . $start . ', ' . $limit;
+                . ' where  ( id = ? or nome like ? ) and status = true LIMIT ' . $start . ', ' . $limit;
         $p = $this->getConn()->prepare($sql);
         $p->setParameter(1, $string, PreparedStatement::INTEGER);
         $p->setParameter(2, '%' . $string . '%', PreparedStatement::STRING);
@@ -148,11 +137,9 @@ class ProductDAO extends BasicDAO
         return $arr;
     }
 
-
-    public function indexSearch()
-    {
+    public function indexSearch() {
         $sql = 'select ' . $this->getFields() . ' from ' . $this->getTableName()
-            . ' where  status = true and exibir_index = true LIMIT 0, 16';
+                . ' where  status = true and exibir_index = true LIMIT 0, 16';
         $p = $this->getConn()->prepare($sql);
         $rs = $p->execute();
         $arr = array();
@@ -164,13 +151,18 @@ class ProductDAO extends BasicDAO
         return $arr;
     }
 
-
-    public function getImages(Product &$product, $limit = NULL, $size = NULL)
-    {
+    /**
+     * 
+     * @param Product $product
+     * @param type $limit
+     * @param type $size
+     * @return void 
+     */
+    public function getImages(Product &$product, $limit = NULL, $size = NULL) {
 
         $sql = "select id, tamanho, caminho, ordem, legenda from produtos_fotos 
             where produto_id = ? " . ($size != NULL ? ' and tamanho = ?' : '') .
-            "order by ordem, tamanho " . ($limit !== NULL ? ' LIMIT ? ' : '');
+                "order by ordem, tamanho " . ($limit !== NULL ? ' LIMIT ? ' : '');
 
         $p = $this->getConnection()->prepare($sql);
         $p->setParameter(1, $product->getId(), PreparedStatement::INTEGER);
@@ -204,7 +196,6 @@ class ProductDAO extends BasicDAO
                 $img = new Image($arr['caminho']);
                 $img->setLink($arr['caminho']);
                 $webImage->setImage($img, $arr['tamanho']);
-
             }
             $i++;
         }
@@ -213,11 +204,9 @@ class ProductDAO extends BasicDAO
         }
 
         $product->setImages($images);
-
     }
 
-    public function deleteAllImages(Product &$product, $autoCommit = true)
-    {
+    public function deleteAllImages(Product &$product, $autoCommit = true) {
         if ($autoCommit) {
             $this->begin();
         }
@@ -232,8 +221,7 @@ class ProductDAO extends BasicDAO
         }
     }
 
-    public function saveImages(Product &$product)
-    {
+    public function saveImages(Product &$product) {
         $i = 0;
         foreach ($product->getImages() as $k => $webimg) {
             foreach ($webimg->getImages() as $tamanho => $img) {
@@ -256,8 +244,7 @@ class ProductDAO extends BasicDAO
      * @param integer $id
      * @return Product
      */
-    public function getById($id)
-    {
+    public function getById($id) {
         $sql = "
             select p.`id`, p.`nome`, p.`descricao`, p.`valor_venda`, 
                    p.`categoria_id`, c1.id as cat1id, c1.descricao as cat1desc, 
@@ -293,6 +280,74 @@ class ProductDAO extends BasicDAO
         return $prd;
     }
 
-}
+    public function getProductsByCategory(Category $category) {
+        $sql = "
+            select p.`id`, p.`nome`, p.`descricao`, p.`valor_venda`, 
+                   p.`categoria_id`, c1.id as cat1id, c1.descricao as cat1desc, 
+                   c2.id as cat2id, c2.descricao as cat2desc, p.`status`, p.`exibir_index`
+              from produtos p
+              join categorias c1 on (c1.id = p.`categoria_id` )
+              join categorias c2 on (c2.id = c1.`categoria_id` )
+             where (c1.id = ? or c2.id = ?)
+             and p.status = true";
+        
+        $p = $this->getConn()->prepare($sql);
+        
+        $p->setParameter(1, $category->getId(), PreparedStatement::INTEGER);
+        $p->setParameter(2, $category->getId(), PreparedStatement::INTEGER);
+        
+        $result = $p->getResult();
+        
+        $arr = array();
+        
+        while ($result->next()) {
+            $ob = $this->getObject($result);   
+            $this->getImages($ob, 1, 0);
+            $arr[] = &$ob;
+        }
+        return $arr;
+    }
 
+    /**
+     * 
+     * @param type $string
+     * @return List<Product>
+     */
+    public function viewSearch($string) {
+        if($string == ""){
+            return array();
+        }
+        $sql = '
+            select p.`id`, p.`nome`, p.`descricao`, p.`valor_venda`, 
+                   p.`categoria_id`, c1.id as cat1id, c1.descricao as cat1desc, 
+                   c2.id as cat2id, c2.descricao as cat2desc, p.`status`, p.`exibir_index` 
+              from ' . $this->getTableName(). ' p
+              join categorias c1 on (c1.id = p.categoria_id)
+              join categorias c2 on (c2.id = c1.categoria_id)
+             where p.status = true and 
+                   (  p.id = ? 
+                      or lower(nome) like lower(?) 
+                      or lower(c1.descricao) like lower(?) 
+                      or lower(c2.descricao) like lower(?)
+                   )';
+        
+        
+        $p = $this->getConn()->prepare($sql);
+        $p->setParameter(1, $string, PreparedStatement::INTEGER);
+        $p->setParameter(2, '%' . $string . '%', PreparedStatement::STRING);
+        $p->setParameter(3, '%' . $string . '%', PreparedStatement::STRING);
+        $p->setParameter(4, '%' . $string . '%', PreparedStatement::STRING);
+
+        $rs = $p->execute();
+        $arr = array();
+
+        while ($rs->next()) {
+            $ob = $this->getObject($rs);
+            $this->getImages($ob, 1, 0);
+            $arr[] = $ob;
+        }
+
+        return $arr;
+    }
+}
 ?>

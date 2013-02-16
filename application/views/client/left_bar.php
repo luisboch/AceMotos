@@ -13,11 +13,11 @@ $categories = $service->getRootCategories();
         foreach ($categories as $cat) {
             ?>
             <div id="conteudo_categoria<?= $i === 0 ? '' : '1'; ?>">
-                <p><a href="<?= site_url("ViewCategory/" . $cat->getId()); ?>">&gt; <strong><?= $cat->getDescription(); ?></strong></a></p>
+                <p><a href="<?= site_url("Products/viewCategory/" . $cat->getId()); ?>">&gt; <strong><?= $cat->getDescription(); ?></strong></a></p>
                 <? if ($cat->getChildren() !== null) {
                     foreach ($cat->getChildren() as $child) {
                         ?>
-                        <a style="margin-left: 10px;display:block" href="<?= site_url("ViewCategory/" . $child->getId()); ?>">&gt; <strong><?= $child->getDescription(); ?></strong></a>
+                        <a style="margin-left: 10px;display:block" href="<?= site_url("Products/viewCategory/" . $child->getId()); ?>">&gt; <strong><?= $child->getDescription(); ?></strong></a>
                     <? }
                 }
                 ?>
