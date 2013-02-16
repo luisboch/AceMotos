@@ -64,7 +64,7 @@ class Categories extends LC_Controller
         $arr = array();
 
         $arr['cat'] = & $cat;
-        $aux = & $this->service->getRootCategories();
+        $aux = & $this->service->search();
 
         $categories = array();
 
