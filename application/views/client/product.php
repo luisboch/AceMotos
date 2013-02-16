@@ -52,8 +52,9 @@
                             <div id="produto_amostra">
                                 <div id="produto_ampli">
                                     <div id="gallery">
+                                        <?$imgs = $product->getImages();?>
                                         <ul>
-                                            <li><a href="<?=URL_IMAGES.$product->getImages()[0]->getImage(5)->getLink(); ?>" title=""><img src="<?=URL_IMAGES.$product->getImages()[0]->getImage(3)->getLink(); ?>" alt="" width="200" height="210" border="0" align="middle" /></a>
+                                            <li><a href="<?=URL_IMAGES.$imgs[0]->getImage(5)->getLink(); ?>" title=""><img src="<?=URL_IMAGES.$imgs[0]->getImage(3)->getLink(); ?>" alt="" width="200" height="210" border="0" align="middle" /></a>
                                             </li>
                                         </ul>
                                     </div>
