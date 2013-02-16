@@ -17,7 +17,7 @@ $categories = $service->getRootCategories();
                 <? if ($cat->getChildren() !== null) {
                     foreach ($cat->getChildren() as $child) {
                         ?>
-                        <a style="margin-left: 10px;" href="<?= site_url("ViewCategory/" . $child->getId()); ?>">&gt; <strong><?= $child->getDescription(); ?></strong></a>
+                        <a style="margin-left: 10px;display:block" href="<?= site_url("ViewCategory/" . $child->getId()); ?>">&gt; <strong><?= $child->getDescription(); ?></strong></a>
                     <? }
                 }
                 ?>

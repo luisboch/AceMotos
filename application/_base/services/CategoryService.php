@@ -39,16 +39,7 @@ class CategoryService extends BasicService
 
     public function getRootCategories()
     {
-        $categories = $this->search();
-        $list = array();
-        foreach($categories as $cat){
-            if($cat->getCategory()!== null){
-                if(!in_array($cat->getCategory(), $list)){
-                    $list[] = $cat->getCategory();
-                }
-            }
-        }
-        return $list;
+        return $this->dao->getRootCategories();
     }
 
 }

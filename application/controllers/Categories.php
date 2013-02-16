@@ -56,7 +56,7 @@ class Categories extends LC_Controller
     {
         $this->addWay(__CLASS__ . '/edit', 'edição');
         if ($this->uri->segment(3) != '') {
-            $cat = & $this->service->get    ById($this->uri->segment(3));
+            $cat = & $this->service->getById($this->uri->segment(3));
         } else {
             $cat = new Category();
         }

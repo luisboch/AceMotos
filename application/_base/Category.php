@@ -7,19 +7,21 @@
  * @since Jul 25, 2012
  */
 class Category implements Entity {
+
     private $id;
     private $description;
-    
+
     /**
      * @var Category parent;
      */
     private $category;
+
     /**
      *
      * @var array
      */
     private $children = array();
-    
+
     public function getId() {
         return $this->id;
     }
@@ -48,30 +50,35 @@ class Category implements Entity {
         $this->category = $category;
         $category->children[] = $this;
     }
-    
-    
+
     public function getChildren() {
         return $this->children;
     }
 
-    public function setChildrens($childrens) {
+    public function setChildren($children) {
         $this->children = $children;
     }
 
-    public function equals($category){
-        if($category == null){
+    public function equals($category) {
+        if ($category == null) {
             return false;
         }
-        if(!$category instanceof Category){
+        if (!$category instanceof Category) {
             return false;
         }
-        if($category->getId() == $this->getId()){
+        if ($category->getId() == $this->getId()) {
             return true;
         }
         return false;
-        
     }
-    
+
+    /**
+     * @return boolean
+     */
+    public function isRoot() {
+        return $this->category == null;
+    }
+
 }
 
 ?>

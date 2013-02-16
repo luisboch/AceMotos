@@ -9,19 +9,16 @@ import('model/BasicDAO.php');
  * @author luis
  * @since Jul 25, 2012
  */
-class CategoryDAO extends BasicDAO
-{
+class CategoryDAO extends BasicDAO {
 
-    function __construct()
-    {
+    function __construct() {
         $this->setTableName("categorias");
     }
 
     /**
      * @param Category $entity
      */
-    protected function executeDelete(Entity &$entity)
-    {
+    protected function executeDelete(Entity &$entity) {
         $sql = "delete from " . $this->getTableName() . " where id = ?";
         $p = $this->getConnection()->prepare($sql);
         $p->setParameter(1, $entity->getId(), PreparedStatement::INTEGER);
@@ -32,8 +29,7 @@ class CategoryDAO extends BasicDAO
      *
      * @param Category $entity
      */
-    protected function executeInsert(Entity &$entity)
-    {
+    protected function executeInsert(Entity &$entity) {
         $sql = "
             insert into " . $this->getTableName() . " (`descricao`, `categoria_id`)
             values (?, ?)";
@@ -48,13 +44,12 @@ class CategoryDAO extends BasicDAO
      *
      * @param Category $entity
      */
-    protected function executeUpdate(Entity &$entity)
-    {
+    protected function executeUpdate(Entity &$entity) {
 
         $sql = "
             update " . $this->getTableName() . ' 
                set descricao = ?, categoria_id = ? ' .
-            'where id = ?';
+                'where id = ?';
 
         $p = $this->getConnection()->prepare($sql);
         $p->setParameter(1, $entity->getDescription(), PreparedStatement::STRING);
@@ -68,8 +63,7 @@ class CategoryDAO extends BasicDAO
      *
      * @return string
      */
-    public function getFields()
-    {
+    public function getFields() {
         return '`id`, `descricao`, `categoria_id`';
     }
 
@@ -77,12 +71,11 @@ class CategoryDAO extends BasicDAO
      *
      * @param ResultSet $rs
      * @return
-    /**
+      /**
      *
      * @param Category $entity
      */
-    public function getObject(ResultSet &$rs)
-    {
+    public function getObject(ResultSet &$rs) {
         return $this->getObjectByOption($rs);
     }
 
@@ -92,8 +85,7 @@ class CategoryDAO extends BasicDAO
      * @param boolean $forceLoadParent
      * @return Category
      */
-    public function getObjectByOption(ResultSet &$rs, $forceLoadParent = true)
-    {
+    public function getObjectByOption(ResultSet &$rs, $forceLoadParent = true) {
         $arr = $rs->fetchArray();
         $c = new Category();
         $c->setId($arr['id']);
@@ -109,8 +101,7 @@ class CategoryDAO extends BasicDAO
      * @param string $string
      * @return List<Category>
      */
-    public function search($string)
-    {
+    public function search($string) {
         $sql = "
             select c.descricao, c.id, c.categoria_id, cb.id as parent_id, cb.descricao as parent_description
               from " . $this->getTableName() . ' c
@@ -148,8 +139,7 @@ class CategoryDAO extends BasicDAO
      * @param Category $parent
      * @return List<Category>
      */
-    public function searchByParent(Category $parent = null)
-    {
+    public function searchByParent(Category $parent = null) {
         $sql = "
             select " . $this->getFields() . "
               from " . $this->getTableName() . '
@@ -177,9 +167,45 @@ class CategoryDAO extends BasicDAO
      * @param Category $parent
      * @return List<Category>
      */
-    public function getRootCategories()
-    {
-        return $this->searchByParent();
+    public function getRootCategories() {
+        
+        $list = $this->search("%");
+
+        $roots = array();
+        $rootIds = array();
+        foreach ($list as $ob) {
+            if (!$ob->isRoot()) {
+                $i = array_search($ob->getCategory()->getId(), $rootIds);
+                $root = null;
+                
+                if($i !== false){
+                    $root = $roots[$i];
+                } else {
+                    $root = $ob->getCategory();
+                    $roots[] = $root;
+                    $rootIds[] = $ob->getCategory()->getId();
+                }
+                
+                $childs = $root->getChildren();
+                
+                $found = false;
+                foreach($childs as $k => $v){
+                    if($v->getId() == $ob->getId()){
+                        $found = true;
+                        break;
+                    }
+                }
+                
+                if(!$found){
+                    $childs[] = $ob;
+                }
+                $root->setChildren($childs);
+                $roots[$i] = $root;
+                
+            }
+        }
+
+        return $roots;
     }
 
 }
