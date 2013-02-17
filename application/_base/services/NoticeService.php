@@ -12,8 +12,7 @@ import('exceptions/ValidationException.php');
  */
 class NoticeService extends BasicService
 {
-    //put your code here
-
+    
     function __construct()
     {
 

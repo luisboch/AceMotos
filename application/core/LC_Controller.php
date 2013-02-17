@@ -23,7 +23,7 @@ class LC_Controller extends CI_Controller
      *
      * @var Logger
      */
-    private $logger;
+    private $log;
     private $ways = array('' => 'home');
 
     /**
@@ -34,8 +34,10 @@ class LC_Controller extends CI_Controller
     private $url_home;
 
     function __construct()
-    {
+    {   
         parent::__construct();
+        date_default_timezone_set('America/Sao_Paulo');
+        
         $this->setUrl_home(BASE_URL_HOME);
 
         // Loading basic classes
@@ -47,16 +49,16 @@ class LC_Controller extends CI_Controller
         Logger::configure(APPPATH . '_base/' . 'log4php.xml');
 
         //log support/
-        $this->logger = Logger::getLogger(__CLASS__);
+        $this->log = Logger::getLogger(__CLASS__);
 
         $session = Session::getSession();
 
         $this->user = $session->getUser();
 
         if ($this->checkLogin()) {
-            $this->logger->info('Checking login...');
+            $this->log->info('Checking login...');
             if ($session->getUser() == NULL) {
-                $this->logger->info('User not logged yet! redirecting to login page');
+                $this->log->info('User not logged yet! redirecting to login page');
                 $this->loginPage(FALSE, $_SERVER['REQUEST_URI']);
                 exit;
             }
@@ -259,7 +261,7 @@ class LC_Controller extends CI_Controller
         foreach ($ids as $id) {
             $ob = $this->service->getById($id);
             $class = get_class($ob);
-            $this->logger->info('User [' . $this->user->getName() . ':' .
+            $this->log->info('User [' . $this->user->getName() . ':' .
                 $this->user->getId() . '] deleting instance of [' . $class .
                 '] with id: ' . $id);
             $this->service->delete($ob);
