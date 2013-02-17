@@ -303,7 +303,7 @@ class ProductDAO extends BasicDAO {
         while ($result->next()) {
             $ob = $this->getObject($result);   
             $this->getImages($ob, 1, 0);
-            $arr[] = &$ob;
+            $arr[] = $ob;
         }
         return $arr;
     }
