@@ -14,17 +14,7 @@ class CategoryDAO extends BasicDAO {
     function __construct() {
         $this->setTableName("categorias");
     }
-
-    /**
-     * @param Category $entity
-     */
-    protected function executeDelete(Entity &$entity) {
-        $sql = "delete from " . $this->getTableName() . " where id = ?";
-        $p = $this->getConnection()->prepare($sql);
-        $p->setParameter(1, $entity->getId(), PreparedStatement::INTEGER);
-        $p->execute();
-    }
-
+    
     /**
      *
      * @param Category $entity

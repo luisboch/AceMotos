@@ -17,15 +17,6 @@ class NoticeDAO extends BasicDAO
         $this->setTableName(" `notices` ");
     }
 
-    protected function executeDelete(Entity &$entity)
-    {
-
-        $sql = "delete from " . $this->getTableName() . " where id = ?";
-        $p = $this->getConn()->prepare($sql);
-        $p->setParameter(1, $entity->getId(), PreparedStatement::INTEGER);
-        $p->execute();
-    }
-
     protected function executeInsert(Entity &$entity)
     {
 

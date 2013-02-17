@@ -13,6 +13,7 @@ class ClientController extends LC_Controller{
         import('util/TimeZoneUtil.php');
         
         $this->timezones = TimeZoneUtil::getAvaliableCities();
+        $this->service = new ClientService();
     }
     
     protected function checkLogin() {
@@ -22,6 +23,7 @@ class ClientController extends LC_Controller{
     public function index() {
         echo '<pre>';
         print_r($this->timezones);
+        $this->service->delete(new Client());
         exit;
     }
 }

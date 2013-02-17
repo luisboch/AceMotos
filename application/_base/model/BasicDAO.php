@@ -1,12 +1,13 @@
 <?php
+
 require_once 'database-api/database/database.php';
 import("interfaces/EntityDAO.php");
 import('exceptions/NotImplementedException.php');
+
 /**
  * @author luis.boch [luis.boch@gmail.com]
  */
-abstract class BasicDAO implements EntityDAO
-{
+abstract class BasicDAO implements EntityDAO {
 
     /**
      *
@@ -16,17 +17,15 @@ abstract class BasicDAO implements EntityDAO
 
     /**
      *
-     * @return Connection
+     * @var string
      */
-
     private $tableName;
 
     /**
      *
      * @return Connection
      */
-    protected function getConnection()
-    {
+    protected function getConnection() {
         return $this->conn === NULL ? ($this->conn = & DatabaseManager::getConnection()) : $this->conn;
     }
 
@@ -34,10 +33,15 @@ abstract class BasicDAO implements EntityDAO
 
     protected abstract function executeUpdate(Entity &$entity);
 
-    protected abstract function executeDelete(Entity &$entity);
+    protected function executeDelete(Entity &$entity) {
 
-    public function delete(Entity &$entity, $autocommit = true)
-    {
+        $sql = "delete from " . $this->getTableName() . " where id = ?";
+        $p = $this->getConn()->prepare($sql);
+        $p->setParameter(1, $entity->getId(), PreparedStatement::INTEGER);
+        $p->execute();
+    }
+
+    public function delete(Entity &$entity, $autocommit = true) {
         if (!$autocommit) {
             $this->conn->autoCommit(false);
         }
@@ -48,8 +52,7 @@ abstract class BasicDAO implements EntityDAO
         }
     }
 
-    public function save(Entity &$entity, $autocommit = true)
-    {
+    public function save(Entity &$entity, $autocommit = true) {
         if (!$autocommit) {
             $this->conn->autoCommit(false);
         }
@@ -60,8 +63,7 @@ abstract class BasicDAO implements EntityDAO
         }
     }
 
-    public function update(Entity &$entity, $autocommit = true)
-    {
+    public function update(Entity &$entity, $autocommit = true) {
         if (!$autocommit) {
             $this->conn->autoCommit(false);
         }
@@ -78,10 +80,9 @@ abstract class BasicDAO implements EntityDAO
      * @return Entity
      * @throws NoResultException
      */
-    public function getById($id)
-    {
+    public function getById($id) {
         $sql = "select " . $this->getFields() . ' from ' . $this->getTableName() .
-            " where id = ?";
+                " where id = ?";
         $p = $this->getConnection()->prepare($sql);
         $p->setParameter(1, $id, PreparedStatement::INTEGER);
         $rs = $p->execute();
@@ -92,8 +93,7 @@ abstract class BasicDAO implements EntityDAO
         return $this->getObject($rs);
     }
 
-    protected function getTableName()
-    {
+    protected function getTableName() {
 
         if ($this->tableName == "") {
             throw new InvalidArgumentException('Table name must be set, you can use
@@ -103,32 +103,27 @@ abstract class BasicDAO implements EntityDAO
         return $this->tableName;
     }
 
-    protected function setTableName($className)
-    {
-        $this->tableName = $className;
+    protected function setTableName($tableName) {
+        $this->tableName = $tableName;
     }
 
     /**
      *
      * @return Connection
      */
-    public function getConn()
-    {
+    public function getConn() {
         return $this->conn === NULL ? ($this->conn = & DatabaseManager::getConnection()) : $this->conn;
     }
 
-    public function begin()
-    {
+    public function begin() {
         return $this->getConn()->begin();
     }
 
-    public function commit()
-    {
+    public function commit() {
         return $this->getConn()->commit();
     }
 
-    public function rollback()
-    {
+    public function rollback() {
         return $this->getConn()->rollback();
     }
 
@@ -137,8 +132,7 @@ abstract class BasicDAO implements EntityDAO
      * @param string $string
      * @throws NotImplementedException
      */
-    public function count($string)
-    {
+    public function count($string) {
         throw new NotImplementedException("Method " . __METHOD__ . ' is not implemented!');
     }
 
@@ -148,8 +142,7 @@ abstract class BasicDAO implements EntityDAO
      * @param int $limit
      * @throws NotImplementedException
      */
-    public function paginationSearch($string, $start = NULL, $limit = NULL)
-    {
+    public function paginationSearch($string, $start = NULL, $limit = NULL) {
         throw new NotImplementedException("Method " . __METHOD__ . ' is not implemented!');
     }
 

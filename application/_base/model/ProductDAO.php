@@ -16,15 +16,7 @@ class ProductDAO extends BasicDAO {
     function __construct() {
         $this->setTableName(" `produtos` ");
     }
-
-    protected function executeDelete(Entity &$entity) {
-
-        $sql = "delete from " . $this->getTableName() . " where id = ?";
-        $p = $this->getConn()->prepare($sql);
-        $p->setParameter(1, $entity->getId(), PreparedStatement::INTEGER);
-        $p->execute();
-    }
-
+    
     protected function executeInsert(Entity &$entity) {
 
         $sql = "insert into " . $this->getTableName() . " (" . $this->getFields() . ", categoria_id ) values (?,?,?,?,true,?,?)";

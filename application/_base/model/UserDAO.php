@@ -63,11 +63,6 @@ class UserDAO extends BasicDAO
 
     }
 
-    protected function executeDelete(Entity &$entity)
-    {
-        throw new NotImplementedException();
-    }
-
     protected function executeInsert(Entity &$entity)
     {
         $sql = "insert into " . $this->getTableName() . ' (name, email, cpf, `group`, `password`)

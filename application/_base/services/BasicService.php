@@ -29,7 +29,7 @@ abstract class BasicService implements IBasicService
         $this->dao->begin();
         if ($entity instanceof ILogicalDeletion) {
             $entity->setStatus(false);
-            $this->dao->update($entity);
+            $this->dao->update($entity, false);
         } else {
             $this->dao->delete($entity, false);
         }
