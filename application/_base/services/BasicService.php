@@ -1,6 +1,7 @@
 <?php
 import('interfaces/IBasicService.php');
 import('interfaces/ILogicalDeletion.php');
+import('exceptions/ValidationException.php');
 /**
  *
  * @author luis.boch

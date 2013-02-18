@@ -30,10 +30,10 @@ $categories = $service->getRootCategories();
     <div id="letter">
         <div id="conteudo_formulario_contato">
             <div class="contactform">
-                <form id="formulario" action="javascript:func(fale);" method="post">
-                    <div><label for="nome"><strong>Nome</strong></label><strong>*</strong></div>
+                <form id="formulario" action="<?=site_url("Clients/register")?>" method="post">
+                    <div><label for="name"><strong>Nome</strong></label><strong>*</strong></div>
                     <div>
-                        <input id="nome" name="nome" size="25" maxlength="50" type="text" />
+                        <input id="name" name="name" size="25" maxlength="50" type="text" />
                     </div><br /><br /><strong><br/></strong>
                     <div><strong><label for="email">E-mail</label>*</strong></div>
                     <div><input id="email" name="email" size="25" maxlength="50" value=""type="text"  /></div><br /><br />

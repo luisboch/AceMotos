@@ -1,18 +1,18 @@
 <?php
+
 import("model/UserDAO.php");
 import("services/BasicService.php");
 import("exceptions/ValidationException.php");
 import("util/StringValidator.php");
+
 /**
  * Description of UserService
  *
  * @author luis
  */
-class UserService extends BasicService
-{
+class UserService extends BasicService {
 
-    function __construct()
-    {
+    function __construct() {
         parent::__construct(new UserDAO());
     }
 
@@ -22,8 +22,7 @@ class UserService extends BasicService
      * @param string $password
      * @return User
      */
-    public function checkLogin($email, $password)
-    {
+    public function checkLogin($email, $password) {
         return $this->dao->checkLogin($email, $password);
     }
 
@@ -32,8 +31,7 @@ class UserService extends BasicService
      * @param Entity $entity
      * @throws ValidationException
      */
-    protected function validate(Entity &$entity)
-    {
+    protected function validate(Entity &$entity) {
         //validate fields
         $validationEx = new ValidationException();
 
@@ -51,8 +49,7 @@ class UserService extends BasicService
         }
 
         if ($entity->getEmail() == '' ||
-            !StringValidator::checkEmail($entity->getEmail())
-        ) {
+                !StringValidator::checkEmail($entity->getEmail())) {
             $validationEx->addError("Entre com um e-mail válido", 'email');
         }
 
@@ -64,8 +61,8 @@ class UserService extends BasicService
         if (!$validationEx->isEmtpy()) {
             throw $validationEx;
         }
-
     }
+
 }
 
 ?>

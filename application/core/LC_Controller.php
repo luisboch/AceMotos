@@ -36,7 +36,6 @@ class LC_Controller extends CI_Controller
     function __construct()
     {   
         parent::__construct();
-        date_default_timezone_set('America/Sao_Paulo');
         
         $this->setUrl_home(BASE_URL_HOME);
 
