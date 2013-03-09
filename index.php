@@ -33,11 +33,13 @@ if (defined('ENVIRONMENT')) {
     switch (ENVIRONMENT) {
         case 'development':
             error_reporting(E_ALL & ~E_NOTICE);
+            set_include_path(get_include_path().':/var/www/includes_hh/');
             break;
 
         case 'testing':
         case 'production':
             error_reporting(0);
+            set_include_path(get_include_path().':/var/php_includes/');
             break;
 
         default:

@@ -156,17 +156,12 @@
 
 #descricao_tecnica {
 	width:630px;
-	height:180px;
+	height:auto;
 	margin-top:70px;
 	margin-right:6px;
 	margin-left:20px;
 	float:left;
-	font-family: Calibri, Verdana, Geneva, sans-serif;
-	letter-spacing:1px;
-	text-align:left;
-	font-size: 18px;
-	font-weight: bold;
-	
+        text-align: left;
 }
 
 #produto_maior1 {
@@ -229,5 +224,4 @@ contactform2 {
 	margin:0px;
 	padding:0 0 0 5px;
 }
-
 

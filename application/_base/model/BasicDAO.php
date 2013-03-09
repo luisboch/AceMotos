@@ -1,6 +1,6 @@
 <?php
 
-require_once 'database-api/database/database.php';
+require_once 'database-api/database.php';
 import("interfaces/EntityDAO.php");
 import('exceptions/NotImplementedException.php');
 

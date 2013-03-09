@@ -39,6 +39,31 @@
                 text-decoration: none;
             }
         </style>
+        <style>
+            body {
+                background-image: url(<?=URL_IMAGES?>layout/bg1.png);
+                background-repeat: repeat;
+            }
+            .cat {
+                font-family: Verdana, Geneva, sans-serif;
+                font-size: 13px;
+            }
+            a:link {
+                color: #0D6BA3;
+                text-decoration: none;
+            }
+            a:visited {
+                text-decoration: none;
+                color: #0D6BA3;
+            }
+            a:hover {
+                text-decoration: none;
+            }
+            a:active {
+                text-decoration: none;
+            }
+            -->
+        </style>
     </head>
     <body>
         <center>
@@ -47,36 +72,34 @@
                 <div id="conteudo">
                     <? include 'left_bar.php'; ?>
                     <div id="conteudo_dir">
-                        <div id="produto_maior">
-<!--                            <div id="titulo_produto"><?=$product->getName();?></div>-->
+                        <div id="produto_maior1">
+<!--                            <div id="titulo_produto"><?= $product->getName(); ?></div>-->
                             <div id="produto_amostra">
                                 <div id="produto_ampli">
                                     <div id="gallery">
-                                        <?$imgs = $product->getImages();?>
+                                        <? $imgs = $product->getImages(); ?>
                                         <ul>
-                                            <li><a href="<?=URL_IMAGES.$imgs[0]->getImage(4)->getLink(); ?>" title=""><img src="<?=URL_IMAGES.$imgs[0]->getImage(3)->getLink(); ?>" alt="" width="200" height="210" border="0" align="middle" /></a>
+                                            <li><a href="<?= URL_IMAGES . $imgs[0]->getImage(4)->getLink(); ?>" title=""><img src="<?= URL_IMAGES . $imgs[0]->getImage(3)->getLink(); ?>" alt="" width="200" height="210" border="0" align="middle" /></a>
                                             </li>
                                         </ul>
                                     </div>
                                     <div id="descricao_produto">
-                                        <p><?=$product->getName();?></p>
+                                        <p><?= $product->getName(); ?></p>
                                         <p>&nbsp;</p>
-                                        <p><?=StringUtil::currency($product->getSellValue());?></p>
+                                        <p><?= StringUtil::currency($product->getSellValue()); ?></p>
                                     </div>
                                     <div id="descricao_tecnica">
                                         <p>Descrição:</p>
-                                        <p><?=$product->getDescription();?></p>
+                                        <div id="outputholder">
+                                            <?= $product->getDescription(); ?>
+                                        </div>
                                     </div>                       
                                 </div>
                             </div>
-
-                            
                         </div>
-
                     </div>     
                 </div>
                 <? include 'footer.php'; ?>
-
             </div>
         </center>
     </body>
