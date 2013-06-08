@@ -1,227 +1,226 @@
 #topo{
-	width:1081px;
-	height:134px;
+    width:1081px;
+    height:134px;
 }
 
 #quemsomos {
-	background-image:url(../images/layout/somos.png);
-	width: 793px;
-	height: 570px;
-	float:right;
+    background-image:url(../images/layout/somos.png);
+    width: 793px;
+    height: 570px;
+    float:right;
 }
 
 #produto_maior {
-	background-image:url(../images/layout/produto_maior.png);
-	width: 793px;
-	height: 570px;
-	float:right;
+    background-image:url(../images/layout/produto_maior.png);
+    width: 793px;
+    height: 570px;
+    float:right;
 }
 
 #destaque {
-	background-image:url(../images/layout/destaque.png);
-	width: 793px;
-	height: 618px;
-	float:right;
+    background-image:url(../images/layout/destaque.png);
+    width: 793px;
+    height: 618px;
+    float:right;
 }
 
 #descricao_ficha {
-	background-image:url(../images/layout/produto_descricao.png);
-	width: 680px;
-	height: 237px;
-	float:right;
+    background-image:url(../images/layout/produto_descricao.png);
+    width: 680px;
+    height: 237px;
+    float:right;
 }
 
 #conteudo_quem_texto {
-	width: 650px;
-	height:400px;
-	margin-top:90px;
-	font-family: Calibri, Verdana, Geneva, sans-serif;
-	font-size: 16px;
-	text-align:left;  
-	color:#666;
-	margin-left:25px;
-	float:left;
-	letter-spacing:1px;
-	line-height: 20px;
-	
+    width: 650px;
+    height:400px;
+    margin-top:90px;
+    font-family: Calibri, Verdana, Geneva, sans-serif;
+    font-size: 16px;
+    text-align:left;  
+    color:#666;
+    margin-left:25px;
+    float:left;
+    letter-spacing:1px;
+    line-height: 20px;
+
 }
 
 #produto_visual1{
-	width:140px;
-	height:170px;
-	margin-left:50px;
-	margin-top:50px;
-	float:left;	
+    width:140px;
+    height:170px;
+    margin-left:50px;
+    margin-top:50px;
+    float:left;	
 }
 
 #imagem_produto1 {
-	width:110px;
-	height:110px;
-	margin-top:10px;
-	margin-right:6px;
-	margin-left:15px;
-	float:left;
-	
+    width:110px;
+    height:110px;
+    margin-top:10px;
+    margin-right:6px;
+    margin-left:15px;
+    float:left;
+
 }
 
 #conteudo_produto {
-	width:125px;
-	height:30px;
-	margin-top:3px;
-	font-family: Calibri, Verdana, Geneva, sans-serif;
-	font-size:11px;
-	text-align:center;
-	color:#666;
-	margin-right:7px;
-	margin-left:4px;
-	float:right;
-	letter-spacing:1px;
+    width:125px;
+    height:30px;
+    margin-top:3px;
+    font-family: Calibri, Verdana, Geneva, sans-serif;
+    font-size:11px;
+    text-align:center;
+    color:#666;
+    margin-right:7px;
+    margin-left:4px;
+    float:right;
+    letter-spacing:1px;
 }
 
 #titulo_produto {
-	width:400px;
-	height:20px;
-	margin-top:19px;
-	margin-right:6px;
-	margin-left:20px;
-	float:left;
-	font-family: Calibri, Verdana, Geneva, sans-serif;
-	letter-spacing:1px;
-	text-align:left;
-	font-size: 25px;
-	font-weight: bold;
-	color:#3B3B3B;
+    width:400px;
+    height:20px;
+    margin-top:19px;
+    margin-right:6px;
+    margin-left:20px;
+    float:left;
+    font-family: Calibri, Verdana, Geneva, sans-serif;
+    letter-spacing:1px;
+    text-align:left;
+    font-size: 25px;
+    font-weight: bold;
+    color:#3B3B3B;
 }
 
 #produto_amostra {
-	
-	width: 700px;
-	height: 500px;
-	float:left;
-	margin-top:30px;
-	margin-left:20px;
+
+    width: 700px;
+    height: 500px;
+    float:left;
+    margin-top:30px;
+    margin-left:20px;
 }
 
 #produto_ampli {
-	
-	width: 250px;
-	height: 200px;
-	float:left;
-	margin-top:25px;
-	margin-left:20px;
+
+    width: 250px;
+    height: 200px;
+    float:left;
+    margin-top:25px;
+    margin-left:20px;
 }
 
 #produto_visual2{
-	width:140px;
-	height:200px;
-	margin-left:20px;
-	margin-top:30px;
-	float:left;
+    width:140px;
+    height:200px;
+    margin-left:20px;
+    margin-top:30px;
+    float:left;
 }
 
 #produto_visual3{
-	width:140px;
-	height:200px;
-	margin-left:35px;
-	margin-top:30px;
-	float:left;
+    width:140px;
+    height:200px;
+    margin-left:35px;
+    margin-top:30px;
+    float:left;
 }
 
 
 #amostra_total {
-	
-	width: 700px;
-	height: 680px;
-	float:left;
-	margin-top:10px;
-	margin-left:20px;
+
+    width: 700px;
+    float:left;
+    margin-top:10px;
+    margin-left:20px;
 }
 
 
 
 #descricao_produto {
-	width:300px;
-	height:100px;
-	margin-top:-160px;
-	margin-right:-400px;
-	margin-left:150px;
-	float:right;
-	font-family: Calibri, Verdana, Geneva, sans-serif;
-	letter-spacing:1px;
-	text-align:left;
-	font-size: 18px;
-	font-weight: bold;
-	
+    width:300px;
+    height:100px;
+    margin-top:-160px;
+    margin-right:-400px;
+    margin-left:150px;
+    float:right;
+    font-family: Calibri, Verdana, Geneva, sans-serif;
+    letter-spacing:1px;
+    text-align:left;
+    font-size: 18px;
+    font-weight: bold;
+
 }
 
 #descricao_tecnica {
-	width:630px;
-	height:auto;
-	margin-top:70px;
-	margin-right:6px;
-	margin-left:20px;
-	float:left;
-        text-align: left;
+    width:630px;
+    height:auto;
+    margin-top:70px;
+    margin-right:6px;
+    margin-left:20px;
+    float:left;
+    text-align: left;
 }
 
 #produto_maior1 {
-	background-image:url(../images/layout/total.png);
-	width: 793px;
-	height: 1175px;
-	float:right;
+    background-image:url(../images/layout/total.png);
+    background-repeat: no-repeat;
+    width: 793px;
+    float:right;
 }
 
 #produto_contato {
-	background-image:url(../images/layout/total_contato.png);
-	width: 793px;
-	height: 1175px;
-	float:right;
+    background-image:url(../images/layout/total_contato.png);
+    width: 793px;
+    height: 1175px;
+    float:right;
 }
 
 
 #conteudo_formulario_contato {
-	width: 180px;
-	height:70px;
-	float:left;
-	margin-top:60px;
-	margin-left:30px;
-	text-align:left;
-	font:12px/140% "Trebuchet MS", Arial, Helvetica, 		sans-serif;
-	color: #666;
+    float:left;
+    font:12px/140% "Trebuchet MS", Arial, Helvetica, 		sans-serif;
+    color: #666;
+    margin-left: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+    width: 210px;
+    
 }
-
 #conteudo_formulario_contac{
-	width: 500px;
-	height:550px;
-	float:left;
-	margin-top:60px;
-	margin-left:30px;
-	text-align:left;
-	font:12px/140% "Trebuchet MS", Arial, Helvetica, 		sans-serif;
-	color: #666;
+    width: 500px;
+    height:550px;
+    float:left;
+    margin-top:60px;
+    margin-left:30px;
+    text-align:left;
+    font:12px/140% "Trebuchet MS", Arial, Helvetica, 		sans-serif;
+    color: #666;
 }
 
 #conteudo_endereco{
-	width: 550px;
-	height:70px;
-	float:left;
-	margin-top:60px;
-	margin-left:75px;
-	text-align:center;
-	color: #1680BD;
-	letter-spacing:1px;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 18px;
-	line-height: 120%;
-	font-style: normal;
-	font-weight: bold;
-	font-variant: small-caps;
+    width: 550px;
+    height:70px;
+    float:left;
+    margin-top:60px;
+    margin-left:75px;
+    text-align:center;
+    color: #1680BD;
+    letter-spacing:1px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    line-height: 120%;
+    font-style: normal;
+    font-weight: bold;
+    font-variant: small-caps;
 }
 
 contactform2 {
-	color:#425662;
-	font:11px/140% Arial,Helvetica,sans-serif;
-	margin:0px;
-	padding:0 0 0 5px;
+    color:#425662;
+    font:11px/140% Arial,Helvetica,sans-serif;
+    margin:0px;
+    padding:0 0 0 5px;
 }
 

@@ -172,7 +172,11 @@ class CategoryDAO extends BasicDAO {
                     $root = $roots[$i];
                 } else {
                     $root = $ob->getCategory();
+                    
+                    $i = count($roots);
+                    
                     $roots[] = $root;
+                    
                     $rootIds[] = $ob->getCategory()->getId();
                 }
                 

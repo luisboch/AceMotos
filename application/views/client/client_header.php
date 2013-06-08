@@ -13,7 +13,7 @@
 <!--
 body {
 	background-image: url(<?=$url_home?>resources/images/layout/bg1.png);
-	background-repeat: repeat;
+	background-repeat: repeat-x;
 }
 .cat {
 	font-family: Verdana, Geneva, sans-serif;
