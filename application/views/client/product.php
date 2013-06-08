@@ -42,7 +42,7 @@
         <style>
             body {
                 background-image: url(<?=URL_IMAGES?>layout/bg1.png);
-                background-repeat: repeat;
+                background-repeat: repeat-x;
             }
             .cat {
                 font-family: Verdana, Geneva, sans-serif;
