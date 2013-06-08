@@ -39,7 +39,7 @@
         <tr class="ui-widget-content ui-datatable-even">
             <td style="width: 30%">Valor Venda:</td>
             <td style="width: 70%">
-                <?= inputtext(StringUtil::currency($product->getSellValue()), 'sellValue', array('class' => 'inputM')); ?>
+                <?= inputtext(StringUtil::floatToString($product->getSellValue()), 'sellValue', array('class' => 'inputM')); ?>
                 <?= $error['sellValue'] != '' ? '<span class="error-helper">' . $error['sellValue'] . '</span>' : ''; ?>
             </td>
         </tr>

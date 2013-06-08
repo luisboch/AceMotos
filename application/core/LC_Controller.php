@@ -24,7 +24,7 @@ class LC_Controller extends CI_Controller
      * @var Logger
      */
     private $log;
-    private $ways = array('' => 'home');
+    private $ways = array('Admin' => 'home');
 
     /**
      *

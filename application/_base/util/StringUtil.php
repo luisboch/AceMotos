@@ -50,7 +50,16 @@ class StringUtil
      */
     public static function currency($value)
     {
-        return 'R$ '.number_format($value, 2, ',', '.');
+        return 'R$ '.self::floatToString($value);
+    }
+
+    /**
+     * @param $value
+     * @return string
+     */
+    public static function floatToString($value)
+    {
+        return number_format($value, 2, ',', '.');
     }
 
 }

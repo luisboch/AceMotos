@@ -148,6 +148,10 @@
     clear: both;
     padding-top: 20px;
 }
+#descricao_tecnica p{
+    padding: 5px;
+    margin: 5px 0px;
+}
 
 #produto_maior1 {
     background-image:url(../images/layout/total.png);
