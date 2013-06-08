@@ -79,22 +79,24 @@
 }
 
 #titulo_produto {
-    width:400px;
-    height:20px;
-    margin-top:19px;
-    margin-right:6px;
-    margin-left:20px;
-    float:left;
+    width:100%; 
+    height: 27px;
+    margin-left: 10px;
+    margin-right: 0;
+    margin-top: 10px;
+    float:none;
     font-family: Calibri, Verdana, Geneva, sans-serif;
     letter-spacing:1px;
     text-align:left;
-    font-size: 25px;
+    font-size: 15px;
     font-weight: bold;
-    color:#3B3B3B;
+    color:#fff;
+    background-image:url(../images/layout/bgTitulo.png);
+    background-repeat: no-repeat;
+    padding: 16px 0 0 20px;
 }
 
 #produto_amostra {
-
     width: 700px;
     height: 500px;
     float:left;
@@ -126,17 +128,6 @@
     margin-top:30px;
     float:left;
 }
-
-
-#amostra_total {
-
-    width: 700px;
-    float:left;
-    margin-top:10px;
-    margin-left:20px;
-}
-
-
 
 #descricao_produto {
     width:300px;

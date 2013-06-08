@@ -16,7 +16,7 @@
 </div>
 <div id="menu">
     <div id="menu-items" style="width: 1081px; height: 32px; background-image: <?=$url_home?><?=$layoutImgPath?>menu_index_bg.png">
-        <a href="<?=site_url('Pages/who');?>">Quem somos</a>|<a href="<?=site_url('Pages/contactUs');?>">Contato</a>
+        <a href="<?=site_url('/');?>">Home</a>|<a href="<?=site_url('Pages/who');?>">Quem somos</a>|<a href="<?=site_url('Pages/contactUs');?>">Contato</a>
     </div>
     <!--<img src="<?=$url_home?><?=$layoutImgPath?>menu_index_bg.png" width="1081" height="32" border="0" usemap="#Map2" />-->
 <!--    <map name="Map2" id="Map2">

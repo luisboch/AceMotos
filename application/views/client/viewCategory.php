@@ -10,11 +10,9 @@
                 <div id="conteudo">
                     <? include 'left_bar.php'; ?>
                     <div id="conteudo_dir">
-                        <div id="produto_maior1">
-                            <div id="titulo_produto"><?=$category->getDescription();?></div>
-                            <div id="amostra_total">
-                                <? include 'products_each.php';?>
-                            </div>
+                        <div class="disposicao-produtos">
+                            <div id="titulo_produto"><?= $category->getDescription(); ?></div>
+                            <? include 'products_each.php'; ?>
                         </div>
                     </div>
                 </div>

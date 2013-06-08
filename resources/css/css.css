@@ -6,6 +6,8 @@
 #container{
     width:1081px;
     height:100%;
+    box-shadow: #222 0px 10px 10px;
+     background: url("../images/layout/bg.png") repeat scroll 0 0 transparent;
 }
 
 #topo{
@@ -88,10 +90,6 @@
 }
 
 #produto{
-    background-image:url(../images/layout/fundo_produto.png);
-    background-repeat: no-repeat;
-    width:793px;
-    float:right;
 }
 
 #rodape{
@@ -103,7 +101,7 @@
 #produto_visual{
     width:135px;
     height:200px;
-    margin-left:30px;
+    margin-left:10px;
     float:left;
 }
 
@@ -161,7 +159,7 @@
 }
 
 .contactform {
-    background: #f7f7f7;
+    background: #d7d7d7;
     padding: 10px;
 }
 
@@ -321,13 +319,12 @@ input[type="text"] {
 }
 
 .bloco_produtos{
-    background: #f7f7f7;
-    margin-top: 43px;
+    background: #D7D7D7;
     margin-right: 10px;
     padding: 20px;
 }
 .bloco_categorias{
-    background: #f7f7f7;
+    background: #D7D7D7;
     padding-left: 10px;
     padding-bottom: 10px;
     padding-top: 10px;
@@ -354,4 +351,9 @@ input[type="text"] {
     border: 1px #ddd solid;
     cursor: pointer;
     font-size: 16px;
+}
+
+.disposicao-produtos{
+    width:793px;
+    float:right;
 }

@@ -1,7 +1,7 @@
 <? /* @var $products Product[] */ ?>
 <div class="bloco_produtos">
     <?
-    if (!is_array($product) || count($product) == 0) {
+    if (!is_array($products) || count($products) === 0) {
         ?><span>Nenhum produto disponível.</span><?
     } else {
         foreach ($products as $p) {

@@ -18,7 +18,7 @@
                         </div>
                     </div>
                 </div>
-                <? include 'footer.php'; ?>;
+                <? include 'footer.php'; ?>
             </div>
         </center>
     </body>

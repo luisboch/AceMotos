@@ -10,10 +10,11 @@
                 <div id="conteudo">
                     <? include 'left_bar.php'; ?>
                     <div id="conteudo_dir">
-                        <div id="banner">
+<!--                        <div id="banner">
                             <div id="banner_imagem"></div>
-                        </div>
-                        <div id="produto">
+                        </div>-->
+                        <div class="disposicao-produtos">
+                            <div id="titulo_produto">Produtos</div>
                             <? include 'products_each.php'; ?>
                         </div>
                     </div>

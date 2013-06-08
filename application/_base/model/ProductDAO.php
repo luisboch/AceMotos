@@ -131,7 +131,7 @@ class ProductDAO extends BasicDAO {
 
     public function indexSearch() {
         $sql = 'select ' . $this->getFields() . ' from ' . $this->getTableName()
-                . ' where  status = true and exibir_index = true LIMIT 0, 16';
+                . ' where  status = true and exibir_index = true LIMIT 0, 25';
         $p = $this->getConn()->prepare($sql);
         $rs = $p->execute();
         $arr = array();
