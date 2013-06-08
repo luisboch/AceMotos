@@ -50,7 +50,7 @@ class StringUtil
      */
     public static function currency($value)
     {
-        return number_format($value, 2, ',', '.');
+        return 'R$ '.number_format($value, 2, ',', '.');
     }
 
 }

@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<? /* @var $product Product */ ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <? include 'client_header.php'; ?>
@@ -16,8 +16,14 @@
                 padding: 10px;
                 width: 250px;
                 height: 200px;
+                float: left;
+                margin: 10px;
             }
-            #gallery ul { list-style: none; }
+            #gallery img{
+                box-shadow: 0px 0px 5px #aaa;
+                border:2px solid #fff;
+            }
+            #gallery ul { padding: 0px; margin: 0px; list-style: none; }
             #gallery ul li { display: inline; }
             #gallery ul img {
 
@@ -41,7 +47,7 @@
         </style>
         <style>
             body {
-                background-image: url(<?=URL_IMAGES?>layout/bg1.png);
+                background-image: url(<?= URL_IMAGES ?>layout/bg1.png);
                 background-repeat: repeat-x;
             }
             .cat {
@@ -72,37 +78,31 @@
                 <div id="conteudo">
                     <? include 'left_bar.php'; ?>
                     <div id="conteudo_dir">
-                        <div id="produto_maior1">
-<!--                            <div id="titulo_produto"><?= $product->getName(); ?></div>-->
-                            <div id="produto_amostra">
-                                <div id="produto_ampli">
-                                    <div id="gallery">
-                                        <? $imgs = $product->getImages(); ?>
-                                        <ul>
-                                            <li><a href="<?= URL_IMAGES . $imgs[0]->getImage(4)->getLink(); ?>" title=""><img src="<?= URL_IMAGES . $imgs[0]->getImage(3)->getLink(); ?>" alt="" width="200" height="210" border="0" align="middle" /></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div id="descricao_produto">
-                                        <p><?= $product->getName(); ?></p>
-                                        <p>&nbsp;</p>
-                                        <p><?= StringUtil::currency($product->getSellValue()); ?></p>
-                                    </div>
-                                    <div id="descricao_tecnica">
-                                        <p>Descrição:</p>
-                                        <div id="outputholder">
-                                            <?= $product->getDescription(); ?>
-                                        </div>
-                                    </div>                       
+                        <div class="disposicao-produtos">
+                            <div id="titulo_produto"><?= $product->getName(); ?></div>
+                            <div id="gallery">
+                                <? $imgs = $product->getImages(); ?>
+                                <ul>
+                                    <li><a href="<?= URL_IMAGES . $imgs[0]->getImage(4)->getLink(); ?>" title=""><img src="<?= URL_IMAGES . $imgs[0]->getImage(3)->getLink(); ?>" alt="" width="200" height="210" border="0" align="middle" /></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div id="descricao_produto">
+                                <p><?= $product->getName(); ?></p>
+                                <p><?= StringUtil::currency($product->getSellValue()); ?></p>
+                                <p style="font-weight:normal; ">Categoria: <span style="font-style: italic; color: #333;"><?= $product->getCategory()->getDescription() ?></span></p>
+                            </div>
+                            <div id="descricao_tecnica">
+                                <p style="font-weight:bold; ">Descrição:</p>
+                                <div id="outputholder">
+                                    <?= $product->getDescription(); ?>
                                 </div>
+                                <div style="clear: both;"></div>
                             </div>
                         </div>
-                    </div>     
+                    </div>
+                    <? include 'footer.php'; ?>
                 </div>
-                <? include 'footer.php'; ?>
-            </div>
         </center>
     </body>
 </html>
-
-

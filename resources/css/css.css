@@ -3,6 +3,11 @@
     padding:0;
 }
 
+ul{
+    padding: 40px;
+    margin: 16px 0px;
+}
+
 #container{
     width:1081px;
     height:100%;
