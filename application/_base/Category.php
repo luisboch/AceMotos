@@ -51,6 +51,9 @@ class Category implements Entity {
         $category->children[] = $this;
     }
 
+    /**
+     * @return Category[]
+     */
     public function getChildren() {
         return $this->children;
     }

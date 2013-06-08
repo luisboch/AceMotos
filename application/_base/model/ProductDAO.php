@@ -51,6 +51,7 @@ class ProductDAO extends BasicDAO {
         $p->setParameter(7, $entity->getId(), PreparedStatement::INTEGER);
         $p->execute();
 
+        $this->deleteAllImages($entity, false);
         $this->saveImages($entity, false);
     }
 
