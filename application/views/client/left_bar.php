@@ -46,7 +46,7 @@ $categories = $service->getRootCategories();
                     </div>
                     
                     <div style="text-align: right;margin: 10px;">
-                        <input name="contactsubmit" type="submit" class="button-news-submit" value="Enviar" />
+                        <input name="contactsubmit" type="submit" class="button" value="Enviar" />
                     </div>
                     <div id="status_02"></div>                
                 </form>

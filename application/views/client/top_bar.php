@@ -3,7 +3,7 @@
         <div class="busca">
             <form method="get" action="<?=site_url('Products/Search');?>">
                 <input class="pesquisa"  type="text" value="" name="q"  size="10" placeholdervalue="faça sua busca..." />
-                <input type="image" src="<?=$url_home?><?=$layoutImgPath?>buscar.png" class="button"/>
+                <input type="image" value="Ok" class="button"/>
             </form>
         </div>
     </div>
