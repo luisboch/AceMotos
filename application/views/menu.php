@@ -15,6 +15,9 @@
                 <li>
                     <a href="<?= site_url('Categories'); ?>">Categorias</a>
                 </li>
+                <li>
+                    <a href="<?= site_url('BrandsController'); ?>">Marcas</a>
+                </li>
             </ul>
         </li>
     </ul>

@@ -15,4 +15,10 @@ create table clients(
     `type` char not null default 'F',
     `active` boolean not null default true
     
-)
+);
+
+CREATE TABLE marcas(
+id INTEGER PRIMARY KEY AUTO_INCREMENT ,
+nome VARCHAR( 100 ) NOT NULL ,
+data_criacao TIMESTAMP NOT NULL DEFAULTNOW( )
+);

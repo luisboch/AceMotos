@@ -86,9 +86,11 @@ abstract class BasicDAO implements EntityDAO {
         $p = $this->getConnection()->prepare($sql);
         $p->setParameter(1, $id, PreparedStatement::INTEGER);
         $rs = $p->execute();
+        
         if ($rs->getNumRows() != 1) {
             throw new NoResultException("Entity table:" . $this->tableName . ' not found with id:' . $id);
         }
+        
         $rs->next();
         return $this->getObject($rs);
     }
@@ -96,7 +98,7 @@ abstract class BasicDAO implements EntityDAO {
     protected function getTableName() {
 
         if ($this->tableName == "") {
-            throw new InvalidArgumentException('Table name must be set, you can use
+            throw new InvalidArgumentException('Table name must be not empty, you can use
                 $this->setTableName(tableName) to set.');
         }
 
