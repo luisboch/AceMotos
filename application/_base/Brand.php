@@ -1,10 +1,13 @@
 <?php
 
+import('interfaces/Entity.php');
+import('interfaces/ILogicalDeletion.php');
+
 /**
  * @author luis
  */
 
-class Brand {
+class Brand implements Entity, ILogicalDeletion{
     
     private $id;
     private $name;

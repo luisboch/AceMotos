@@ -18,7 +18,8 @@ create table clients(
 );
 
 CREATE TABLE marcas(
-id INTEGER PRIMARY KEY AUTO_INCREMENT ,
-nome VARCHAR( 100 ) NOT NULL ,
-data_criacao TIMESTAMP NOT NULL DEFAULTNOW( )
+    id INTEGER PRIMARY KEY AUTO_INCREMENT ,
+    nome VARCHAR( 100 ) NOT NULL ,
+    data_criacao TIMESTAMP NOT NULL DEFAULT NOW( ),
+    status boolean default true
 );

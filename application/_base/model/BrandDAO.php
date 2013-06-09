@@ -31,12 +31,16 @@ class BrandDAO extends BasicDAO {
 
     protected function executeUpdate(Entity &$entity) {
 
+        /* @var $entity Brand */
+        
         $sql = "UPDATE " . $this->getTableName() . " 
-                    SET `nome`=?
+                    SET `nome`=?,
+                        `status`=?
                     WHERE id=?";
         $p = $this->getConn()->prepare($sql);
         $p->setParameter(1, $entity->getName(), PreparedStatement::STRING);
-        $p->setParameter(2, $entity->getId(), PreparedStatement::INTEGER);
+        $p->setParameter(2, $entity->getStatus() === true?1:0, PreparedStatement::INTEGER);
+        $p->setParameter(3, $entity->getId(), PreparedStatement::INTEGER);
         $p->execute();
         
     }
@@ -62,7 +66,7 @@ class BrandDAO extends BasicDAO {
 
     public function search($string) {
         $sql = 'select ' . $this->getFields() . ' from ' . $this->getTableName()
-                . ' where id = ? or nome like ? and status = true';
+                . ' where id = ? or nome like ? and status = 1';
         $p = $this->getConn()->prepare($sql);
         $p->setParameter(1, $string, PreparedStatement::INTEGER);
         $p->setParameter(2, '%' . $string . '%', PreparedStatement::STRING);
@@ -79,7 +83,7 @@ class BrandDAO extends BasicDAO {
 
     public function count($string) {
         $sql = 'select count(*) as qtd from ' . $this->getTableName()
-                . ' where ( id = ? or nome like ? ) and status = true';
+                . ' where ( id = ? or nome like ? ) and status = 1';
         $p = $this->getConn()->prepare($sql);
         $p->setParameter(1, $string, PreparedStatement::INTEGER);
         $p->setParameter(2, $string . '%', PreparedStatement::STRING);
@@ -97,7 +101,7 @@ class BrandDAO extends BasicDAO {
         }
 
         $sql = 'select ' . $this->getFields() . ' from ' . $this->getTableName()
-                . ' where  ( id = ? or lower(nome) like lower(?) ) and status = true LIMIT ' . $start . ', ' . $limit;
+                . ' where  ( id = ? or lower(nome) like lower(?) ) and status = 1 LIMIT ' . $start . ', ' . $limit;
         
         $p = $this->getConn()->prepare($sql);
         
