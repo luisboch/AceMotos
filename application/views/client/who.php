@@ -10,13 +10,11 @@
                 <div id="conteudo">
                     <? include 'left_bar.php'; ?>
                     <div id="conteudo_dir">
-                        <div id="conteudo_dir">
-                            <div id="quemsomos">
-                                <div id="conteudo_quem_texto">A Hardware House é uma empresa especializada em..........
-                                </div>
-                            </div>
-                            <div id="destaque">
-                                <? include 'products_each.php'; ?>
+                        <div id="produto_maior1">
+                            <div id="titulo_produto">Hardware House</div>
+                            <div style="color:#666;padding:30px 20px 50px 20px">A Hardware House é uma empresa especializada em..........</div>
+                            <div id="amostra_total">
+                                <? include 'products_each.php';?>
                             </div>
                         </div>
                     </div>
@@ -26,5 +24,3 @@
         </center>
     </body>
 </html>
-
-
