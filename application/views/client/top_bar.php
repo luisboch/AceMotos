@@ -18,12 +18,4 @@
     <div id="menu-items" style="width: 1081px; height: 32px; background-image: <?=$url_home?><?=$layoutImgPath?>menu_index_bg.png">
         <a href="<?=site_url('/');?>">Home</a>|<a href="<?=site_url('Pages/who');?>">Quem somos</a>|<a href="<?=site_url('Pages/contactUs');?>">Contato</a>
     </div>
-    <!--<img src="<?=$url_home?><?=$layoutImgPath?>menu_index_bg.png" width="1081" height="32" border="0" usemap="#Map2" />-->
-<!--    <map name="Map2" id="Map2">
-        <area shape="rect" coords="948,5,1037,47" href="<?=site_url('Pages/contactUs');?>" />
-        <area shape="rect" coords="813,6,926,46" href="destaque.html" />
-        <area shape="rect" coords="681,6,789,43" href="promocoes.html" />
-        <area shape="rect" coords="523,4,652,30" href="lancamentos.html" />
-        <area shape="rect" coords="373,5,499,34" href="<?=site_url('Pages/who');?>" />
-    </map>-->
 </div>
