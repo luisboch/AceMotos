@@ -10,7 +10,7 @@
     <div id="topo_esq">
         <img src="<?=$url_home?><?=$layoutImgPath?>topo_dir.png" width="355" height="133" border="0" usemap="#Map1" />
         <map name="Map1" id="Map1">
-            <area shape="rect" coords="41,16,333,120" href="index.html" />
+            <area shape="rect" coords="41,16,333,120" href="<?=site_url('/');?>" />
         </map>
     </div>
 </div>
