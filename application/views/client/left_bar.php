@@ -42,7 +42,7 @@ $categories = $service->getRootCategories();
                     </div>
                     <div><strong><label for="email">E-mail</label>*</strong></div>
                     <div>
-                        <input id="email" name="email" size="25" style="width: 160px;" maxlength="50" value=""type="text"  />
+                        <input id="email" name="email" size="25" style="width: 160px;" maxlength="50" value="" type="text"  />
                     </div>
                     
                     <div style="text-align: right;margin: 10px;">
