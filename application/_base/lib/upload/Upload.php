@@ -92,10 +92,10 @@ class Upload
         $time = time();
         $i = 0;
         $ext = $this->getExtension($file['name']);
-        $destination = $this->path . $file['name'] . $time . 't_' . $i . $ext;
+        $destination = $this->path . $time . 't_' . $i . $ext;
         while (file_exists($destination)) {
             $i++;
-            $destination = $this->path . $file['name'] . $time . 't_' . $i . $ext;
+            $destination = $this->path . $time . 't_' . $i . $ext;
         }
         if (!move_uploaded_file($file['tmp_name'], $destination)) {
             throw new FileUploadException(

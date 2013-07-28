@@ -189,9 +189,8 @@
 
 #conteudo_endereco{
     width: 550px;
-    height:70px;
     float:left;
-    margin-top:60px;
+    margin-top:15px;
     margin-left:75px;
     text-align:center;
     color: #1680BD;
@@ -201,7 +200,6 @@
     line-height: 120%;
     font-style: normal;
     font-weight: bold;
-    font-variant: small-caps;
 }
 
 contactform2 {

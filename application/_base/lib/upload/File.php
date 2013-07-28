@@ -20,8 +20,15 @@ class File
     {
         $this->fullPath = $fullPath;
         $this->size = filesize($fullPath);
+        if($this->size === false){
+            throw new IllegalStateException("Failed to get size of File: \n".$this->fullPath);
+        }
         $this->simpleName = $this->getFileName();
         $this->mimeType = mime_content_type($fullPath);
+        
+        if($this->mimeType === false){
+            throw new IllegalStateException("Failed to get mimetype of File: ".$this->fullPath);
+        }
     }
 
     function exists()

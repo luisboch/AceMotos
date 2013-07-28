@@ -16,6 +16,6 @@
 </div>
 <div id="menu">
     <div id="menu-items" style="width: 1081px; height: 32px; background-image: <?=$url_home?><?=$layoutImgPath?>menu_index_bg.png">
-        <a href="<?=site_url('/');?>">Home</a>|<a href="<?=site_url('Pages/who');?>">Quem somos</a>|<a href="<?=site_url('Pages/contactUs');?>">Contato</a>
+        <a href="<?=site_url('/');?>">Home</a>|<a href="<?=site_url('Pages/who');?>">Quem somos</a>|<a href="<?=site_url('Pages/view/contact');?>">Contato</a>
     </div>
 </div>
