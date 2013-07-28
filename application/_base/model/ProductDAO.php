@@ -282,7 +282,8 @@ class ProductDAO extends BasicDAO {
               join categorias c1 on (c1.id = p.`categoria_id` )
               join categorias c2 on (c2.id = c1.`categoria_id` )
              where (c1.id = ? or c2.id = ?)
-             and p.status = true";
+               and p.status = true
+               and 5 < (select count(id) from produtos_fotos where produto_id = p.id)";
         
         $p = $this->getConn()->prepare($sql);
         
