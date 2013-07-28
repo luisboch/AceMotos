@@ -9,6 +9,7 @@
 <link href="<?=$url_home?>resources/css/interno.css" type="text/css" rel="stylesheet"/>
 <script type="text/javascript" src="<?=$url_home?>resources/js/jquery-1.8.3.min.js" ></script>
 <script type="text/javascript" src="<?=$url_home?>resources/js/init.js" ></script>
+<link rel="icon" href="<?=$url_home?>resources/images/favicon.ico" type="image/x-icon">
 <style type="text/css">
 <!--
 body {
