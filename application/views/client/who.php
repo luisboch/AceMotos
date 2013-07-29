@@ -37,9 +37,9 @@
                                 <br />
                                 Acima de tudo a equipe da HardwareHouse deseja servir seus clientes com amor. Esse é o ideal que buscamos todos os dias e que procuramos implantar em todos os setores de nossa organização. Desejamos que desde o acesso a nosso site, até o recebimento do produto seu atendimento seja pautado por ações de carinho, amor e respeito.
                             </div>
-                            <div id="amostra_total">
+<!--                            <div id="amostra_total">
                                 <? include 'products_each.php'; ?>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>
