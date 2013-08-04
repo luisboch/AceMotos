@@ -285,7 +285,7 @@ class DataTable
                     if ($this->option('editable')) {
 
                         $id = $arrObj[$fieldId];
-                        if ($this->option('friendyUrlEdit')) {
+                        if ($this->option('friendlyUrlEdit')) {
 
                             $aux .= '<td><a class="ui-button" href="'
                                 . $this->option('urlEdit') . '/'
