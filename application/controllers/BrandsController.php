@@ -50,7 +50,7 @@ class BrandsController extends LC_Controller
             'urlCreate' => site_url(__CLASS__ . '/edit'),
             'urlEdit' => site_url(__CLASS__ . '/edit/'),
             'editable' => true,
-            'friendlyUrlEdit' => true,
+            'friendlyUrlEdit' => false,
             'list' => $brands,
             'title' => 'Produtos',
             'canDelete' => true,
