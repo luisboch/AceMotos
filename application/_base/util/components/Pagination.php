@@ -100,7 +100,7 @@ class Pagination
             }
             if ($this->amountRegisters > $this->amountPerPage) {
                 $html = '
-                        <div class="pagination ui-state-default">
+                        <div class="pagination">
                             <div>Paginas:<span class="desc">Exibindo <span>' . $this->showing . '</span> de <span>' . $this->amountRegisters . '</span> Resultados</span><div>';
                 $extraClass = '';
                 if ($this->currentPage == 1) {

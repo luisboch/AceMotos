@@ -71,7 +71,17 @@ form .titulo div, form .desc {
 
     width: 90%;
 }
+.pagination span.desc {
+    padding: 5px;
+    font-size: 14px;
+    font-weight: normal;
+    text-align: right;
+    background: none;
+    border: none;
+    margin: auto ;
 
+    width: 90%;
+}
 form .titulo td {
     padding-top: 15px;
     padding-bottom: 15px;
@@ -256,6 +266,8 @@ tr.ui-widget-content:last-child {
     padding: 5px;
     margin: 0px;
     text-align: left;
+    background: #CFEEF8;
+    border: 1px solid #9EBBC3;
 }
 
 .pagination span.desc {

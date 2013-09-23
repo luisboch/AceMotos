@@ -33,7 +33,11 @@ if (defined('ENVIRONMENT')) {
     switch (ENVIRONMENT) {
         case 'development':
             error_reporting(E_ALL & ~E_NOTICE);
-            set_include_path(get_include_path().':/var/www/includes_hh/');
+			if(PHP_OS == 'Linux'){
+				set_include_path(get_include_path().':/var/www/includes_hh/');
+			} else {
+				set_include_path(get_include_path().';C:\wamp\www\hh_includes\\');
+			}
             break;
 
         case 'testing':

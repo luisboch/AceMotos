@@ -7,7 +7,7 @@
         <!-- Ativando o jQuery lightBox plugin -->
         <script type="text/javascript">
             $(function() {
-                $('#gallery a').lightBox();
+                $('#gallery a').lightBox({imageBtnClose: URL_HOME + 'resources/images/lightbox-btn-close.gif'});
             });
         </script>
         <style type="text/css">
@@ -83,13 +83,19 @@
                             <div id="gallery">
                                 <? $imgs = $product->getImages(); ?>
                                 <ul>
-                                    <li><a href="<?= URL_IMAGES . $imgs[0]->getImage(4)->getLink(); ?>" title=""><img src="<?= URL_IMAGES . $imgs[0]->getImage(3)->getLink(); ?>" alt="" width="200" height="210" border="0" align="middle" /></a>
+                                    <li><a href="<?= URL_IMAGES . $imgs[0]->getImage(3)->getLink(); ?>" title=""><img src="<?= URL_IMAGES . $imgs[0]->getImage(2)->getLink(); ?>" alt="" width="200" height="210" border="0" align="middle" /></a>
                                     </li>
                                 </ul>
                             </div>
                             <div id="descricao_produto">
                                 <p><?= $product->getName(); ?></p>
-                                <p><?= StringUtil::currency($product->getSellValue()); ?></p>
+                                <? if ($product->getSellValue() < 1) { ?>
+                                    <br />
+                                    <p><strong>Valor:</strong> <span style="font-weight: normal">Consultar</span></p>
+                                    <br />
+                                <? } else { ?>
+                                    <p><strong>Valor:</strong> <span style="font-weight: normal"><?= StringUtil::currency($product->getSellValue()); ?></span></p>
+                                <? } ?>
                                 <p style="font-weight:normal; ">Categoria: <span style="font-style: italic; color: #333;"><?= $product->getCategory()->getDescription() ?></span></p>
                             </div>
                             <div id="descricao_tecnica">

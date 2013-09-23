@@ -36,3 +36,6 @@ a:active {
 }
 -->
 </style>
+<script type="text/javascript">
+    var URL_HOME = '<?=site_url();?>';
+</script>
