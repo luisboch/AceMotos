@@ -18,6 +18,12 @@ class LC_Controller extends CI_Controller
      * @var BasicService
      */
     protected $service;
+    
+    /**
+     *
+     * @var StatisticService
+     */
+    protected $statistcService;
 
     /**
      *
@@ -37,12 +43,15 @@ class LC_Controller extends CI_Controller
     {   
         parent::__construct();
         
+        
+        
         $this->setUrl_home(BASE_URL_HOME);
 
         // Loading basic classes
         import('interfaces/Entity.php');
         import('User.php');
         import('services/Session.php');
+        import('services/StatisticService.php');
 
         //configure log
         Logger::configure(APPPATH . '_base/' . 'log4php.xml');
@@ -54,6 +63,8 @@ class LC_Controller extends CI_Controller
 
         $this->user = $session->getUser();
 
+        $this->statistcService = new StatisticService();
+        
         if ($this->checkLogin()) {
             $this->log->info('Checking login...');
             if ($session->getUser() == NULL) {
@@ -271,6 +282,13 @@ class LC_Controller extends CI_Controller
     public function search()
     {
         show_404();
+    }
+    
+    /**
+     * @return User
+     */
+    public function getUser() {
+        return $this->user;
     }
 
 }

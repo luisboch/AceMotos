@@ -29,6 +29,11 @@ class Products extends LC_Controller {
             $product = $this->service->getById($this->uri->segment(3));
             $arr['product'] = &$product;
             $this->clientView('product.php', $arr);
+            
+            if($this->getUser() == null){
+                $this->statistcService->saveStatistc('Products/view', $product->getId(), '');
+            }
+            
         } catch (NoResultException $e) {
             show_404();
         }
@@ -52,6 +57,10 @@ class Products extends LC_Controller {
 
         // Load View
         $this->clientView('viewCategory.php', $arr);
+        
+        if($this->getUser() == null){
+            $this->statistcService->saveStatistc('Products/viewCategory', $category->getId(), '');
+        }
     }
 
     public function search() {
@@ -69,6 +78,11 @@ class Products extends LC_Controller {
         $arr['searchString'] = $search;
         // Load View
         $this->clientView('viewSearch.php', $arr);
+        
+        if($this->getUser() == null){
+            $this->statistcService->saveStatistc('Products/viewCategory', null, $search);
+        }
+        
     }
 
 }
