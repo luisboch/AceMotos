@@ -80,7 +80,7 @@ class Products extends LC_Controller {
         $this->clientView('viewSearch.php', $arr);
         
         if($this->getUser() == null){
-            $this->statistcService->saveStatistc('Products/viewCategory', null, $search);
+            $this->statistcService->saveStatistc('Products/search', null, $search);
         }
         
     }
