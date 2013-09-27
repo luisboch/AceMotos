@@ -1,5 +1,6 @@
 <div style="width: 16%;float: left">
     <ul id="menu">
+        <li><a href="<?= site_url('Admin'); ?>">Home</a></li>
         <li>Administração
             <ul>
                 <li>

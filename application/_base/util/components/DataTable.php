@@ -148,7 +148,7 @@ class DataTable
         }
     }
 
-    public function addDisplayField($label, $field, $type, $option = NULL, $columSize = NULL)
+    public function addDisplayField($label, $field, $type, $style = NULL, $columSize = NULL)
     {
         $key = count($this->options['fields']);
         $this->options['fieldsType'][$key] = $type;
@@ -156,6 +156,7 @@ class DataTable
         $this->options['titleLabels'][$key] = $label;
         $this->options['fieldOptions'][$key] = $label;
         $this->options['columSize'][$key] = $columSize;
+        $this->options['style'][$key] = $style;
     }
 
     /**
@@ -195,9 +196,12 @@ class DataTable
             foreach ($ttLabels as $v) {
                 $titleLabels[] = $v;
             }
+            
+            // We use the first column to selection then 
+            // we need to move options to next column
             $columnsSizes = $this->options['columSize'];
             $this->options['columSize'] = array();
-
+            
             $this->options['columSize'][] = '10%';
             foreach ($columnsSizes as $v) {
                 $this->options['columSize'][] = $v;
@@ -227,7 +231,6 @@ class DataTable
         $title = $this->option('title');
         $list = $this->option('list');
         $sizeList = count($list);
-        $itemsPage = $this->option('itemsPage');
 
         if ($this->option('editable')) {
             $titleLabels[] = '-';
@@ -279,7 +282,7 @@ class DataTable
                     }
                     foreach ($fields as $key => $v) {
                         $valueOf = $this->getValue($v, $types[$key], $obj);
-                        $aux .= '<td>' . $valueOf . '</td>';
+                        $aux .= '<td style="'.$this->options['style'][$key].'">' . $valueOf . '</td>';
                     }
 
                     if ($this->option('editable')) {

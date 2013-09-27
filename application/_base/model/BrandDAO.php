@@ -91,7 +91,7 @@ class BrandDAO extends BasicDAO {
         $rs = $p->execute();
         $rs->next();
         $arr = $rs->fetchAssoc();
-        return $arr[0];
+        return $arr['qtd'];
     }
 
     public function paginationSearch($string, $start = NULL, $limit = NULL) {

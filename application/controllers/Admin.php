@@ -14,7 +14,10 @@ class Admin extends LC_Controller {
     }
     
     public function index() {
-        $this->adminView('index_page.php');
+        
+        $statistic = $this->statistcService->getStatisticts();
+        
+        $this->adminView('index_page.php', array('statistic' => $statistic));
     }
 
 }

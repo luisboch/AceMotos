@@ -66,7 +66,16 @@ class ProductDAO extends BasicDAO {
      */
     public function getObject(ResultSet &$rs) {
         $arr = $rs->fetchArray();
-
+        return $this->buildObject($arr);
+    }
+    
+    /**
+     * Build object by given array.
+     * @param type $arr
+     * @return Product
+     */
+    public function buildObject(&$arr) {
+        
         $product = new Product();
         $product->setId($arr['id']);
         $product->setName($arr['nome']);
@@ -105,7 +114,7 @@ class ProductDAO extends BasicDAO {
         $rs = $p->execute();
         $rs->next();
         $arr = $rs->fetchAssoc();
-        return $arr[0];
+        return $arr['qtd'];
     }
 
     public function paginationSearch($string, $start = NULL, $limit = NULL) {
@@ -265,7 +274,7 @@ class ProductDAO extends BasicDAO {
         $cat2->setId($arr['cat2id']);
         $cat1->setCategory($cat2);
 
-        $prd = $this->getObject($rs);
+        $prd = $this->buildObject($arr);
         $prd->setCategory($cat1);
 
         $this->getImages($prd);

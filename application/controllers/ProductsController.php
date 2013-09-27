@@ -65,8 +65,8 @@ class ProductsController extends LC_Controller
         ));
         $a['data'] = & $dat;
         $dat->addDisplayField('Código', 'id', DataTable::STRING, NULL, '10%');
-        $dat->addDisplayField('Nome', 'name', DataTable::STRING, NULL, '60%');
-        $dat->addDisplayField('Valor Venda', 'sellValue', DataTable::CURRENCY, NULL, '10%');
+        $dat->addDisplayField('Nome', 'name', DataTable::STRING, 'text-align:left;padding-left:5px', '55%');
+        $dat->addDisplayField('Valor Venda', 'sellValue', DataTable::CURRENCY, 'text-align:right;padding-right:5px', '15%');
         $dat->addDisplayField('Imagem', 'linkedFirstImage(images,\\' . site_url(__CLASS__ . '/images/') . '\, id, true)', DataTable::FN);
         $this->adminView('products_results.php', $a);
     }

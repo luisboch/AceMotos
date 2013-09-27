@@ -43,8 +43,6 @@ class LC_Controller extends CI_Controller
     {   
         parent::__construct();
         
-        
-        
         $this->setUrl_home(BASE_URL_HOME);
 
         // Loading basic classes

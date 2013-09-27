@@ -27,6 +27,13 @@ class StatisticService extends BasicService{
         parent::save($entity);
     }
     
+    /**
+     * 
+     * @return StatisticResult
+     */
+    public function getStatisticts() {
+        return $this->statistcDAO->getStatistics();
+    }
 }
 
 ?>
