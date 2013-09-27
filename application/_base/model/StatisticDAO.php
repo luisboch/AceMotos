@@ -95,7 +95,12 @@ class StatisticDAO extends BasicDAO{
     
     public function getLastWeekQtd() {
         
-        $sql = "select count(id) as qtd from estatisticas where week(`data`)  = (week (now())-1)";
+        $sql = "
+            select count(id) as qtd 
+              from estatisticas 
+             where week(`data`)  = (week (now())-1)
+               and month(`data`) = month(now())
+               and year(`data`) = year(now())";
         
         $p = $this->getConn()->prepare($sql);
         $rs = $p->execute();
@@ -113,7 +118,9 @@ class StatisticDAO extends BasicDAO{
             select count(id) as qtd 
               from estatisticas 
              where pagina = 'Products/view'
-               and week(`data`)  = week(now())";
+               and week(`data`)  = week(now())
+               and month(`data`) = month(now())
+               and year(`data`) = year(now())";
         
         $p = $this->getConn()->prepare($sql);
         $rs = $p->execute();
@@ -131,7 +138,9 @@ class StatisticDAO extends BasicDAO{
             select count(id) as qtd
               from estatisticas 
              where pagina = 'Products/view'
-               and day(`data`)  = (day(now())-1)";
+               and day(`data`)  = (day(now())-1)
+               and month(`data`) = month(now())
+               and year(`data`) = year(now())";
         
         $p = $this->getConn()->prepare($sql);
         $rs = $p->execute();
@@ -149,7 +158,9 @@ class StatisticDAO extends BasicDAO{
             select count(id) as qtd
               from estatisticas 
              where pagina = 'Products/view'
-               and day(`data`)  = day(now())";
+               and day(`data`)  = day(now())
+               and month(`data`) = month(now())
+               and year(`data`) = year(now())";
         
         $p = $this->getConn()->prepare($sql);
         $rs = $p->execute();
@@ -167,7 +178,8 @@ class StatisticDAO extends BasicDAO{
             select p.id, p.nome, count(e.id) as qtd
               from estatisticas e
               join produtos p on (e.item_id = p.id and e.pagina = 'Products/view')
-             where MONTH(e.data) >= (MONTH(now())-2)
+             where month(e.data) >= (month(now())-2)
+               and year(e.data) = year(now())
           group by p.id
           order by qtd desc
              limit 10";
@@ -197,7 +209,8 @@ class StatisticDAO extends BasicDAO{
             select c.id, c.descricao, count(e.id) as qtd
               from estatisticas e
               join categorias c on (e.item_id = c.id and e.pagina = 'Products/viewCategory')
-             where MONTH(e.data) >= (MONTH(now())-2)
+             where month(e.data) >= (month(now())-2)
+               and year(e.data) = year(now())
           group by c.id
           order by qtd desc
              limit 10";
